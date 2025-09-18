@@ -1,0 +1,2952 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>青金工程之书</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="青金工程之书，辑录合一。" />
+      <meta name="author" content="Real-Luxof" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="青金工程之书" />
+<meta property="og:image" content="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/zh_cn/icon.png" />
+<meta property="og:url" content="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/zh_cn" />
+<meta property="og:description" content="青金工程之书，辑录合一。" />
+<meta property="og:site_name" content="Lapisworks (1.5.3)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">青金工程之书</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/Real-Luxof/Lapisworks/tree/647c33834a92bba51874c8b7ae98f06b4c9c9d53"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >1.5.3 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >简体中文 (中国大陆) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>这是Lapisworks文档的在线版本。</p></h1>
+      <p><strong>条目的模糊处理相当于剧透警告</strong>。点击条目即可取消模糊，不过这么做有可能破坏游戏后期的进程与体验。也可点击<a href="?nospoiler">此处</a>以取消所有模糊。</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>往事犹若异乡；他们在那里做的事情都不一样。</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    <span class="nobr">目录<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="显示或收起全部"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#lapisworks" class="toc-elem "><img
+      title="青金石"
+      alt="青金石"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/lapis_lazuli.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 青金工程</a></summary>
+      <ul>
+          <li><a href="#lapisworks_placeholder" class="toc-elem "><img
+      title="标靶"
+      alt="标靶"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 目标</a></li>
+          <li><a href="#lapisworks_lore" class="toc-elem "><img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 尤里卡！青金石</a></li>
+          <li><a href="#lapisworks_patterns" class="toc-elem "><img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 青金工程图案</a></li>
+          <li><a href="#lapisworks_great" class="toc-elem spoilered"><img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 魔咒</a></li>
+          <li><a href="#lapisworks_misc" class="toc-elem "><img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel4.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Enchanted Patterns</a></li>
+          <li><a href="#lapisworks_mishaps" class="toc-elem "><img
+      title="中毒"
+      alt="中毒"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/poison.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 青金工程事故</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#lapisworks/imbuement" class="toc-elem "><img
+      title="紫晶青金石法杖"
+      alt="紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_staff.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 灌注</a></summary>
+      <ul>
+          <li><a href="#imbuement/imbue_amel" class="toc-elem "><img
+      title="紫晶青金石法杖"
+      alt="紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_staff.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 灌注紫金石</a></li>
+          <li><a href="#imbuement/casting_rings" class="toc-elem "><img
+      title="金嵌钻施法戒指"
+      alt="金嵌钻施法戒指"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/casting_ring.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 施法戒指</a></li>
+          <li><a href="#imbuement/staves" class="toc-elem "><img
+      title="不完整的紫晶青金石法杖"
+      alt="不完整的紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/generic.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 灌注法杖</a></li>
+          <li><a href="#imbuement/swords" class="toc-elem "><img
+      title="紫金灌注钻石剑"
+      alt="紫金灌注钻石剑"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_dsword_noanim.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 灌注剑</a></li>
+          <li><a href="#imbuement/artificial_mind" class="toc-elem "><img
+      title="Simple Mind Container"
+      alt="Simple Mind Container"
+      src="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/assets/lapisworks/textures/block/mind/mind.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Simple Artificial Minds</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#lapisworks/great" class="toc-elem "><img
+      title="entries.lapisworks.lmaoyouwillneverhavethis"
+      alt="entries.lapisworks.lmaoyouwillneverhavethis"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/lmaoyouwillneverhavethis.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > The Wizard&#39;s Spells</a></summary>
+      <ul>
+          <li><a href="#great/collectsomeshitfam" class="toc-elem "><img
+      title="标靶"
+      alt="标靶"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > The Ancient Wizard</a></li>
+          <li><a href="#great/enchsent" class="toc-elem "><img
+      title="entries.lapisworks.3dblock"
+      alt="entries.lapisworks.3dblock"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/3dblock.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Enchanted Sentinel</a></li>
+          <li><a href="#great/flay_artmind" class="toc-elem "><img
+      title="唱片机"
+      alt="唱片机"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/jukebox.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Imbue Mind</a></li>
+          <li><a href="#great/hastenature" class="toc-elem "><img
+      title="entries.lapisworks.iranoutofideas"
+      alt="entries.lapisworks.iranoutofideas"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/iranoutofideas.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Hastenature</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="lapisworks">
+    <h2 class="category-title page-header">
+    <img
+      title="青金石"
+      alt="青金石"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/lapis_lazuli.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >青金工程<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>我找到了咒法学中一个看似隐晦的分支——“青金工程”。所有出自该分支的文章全是空白，但其他来源中介绍该分支的文献里称，它们是被一种“珍贵的深蓝色矿物”加密了。</p>
+<div id="lapisworks_placeholder" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="标靶"
+      alt="标靶"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >目标<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_placeholder"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>待办事项：获得一份“珍贵的深蓝色矿物”，然后把它带到这些“加密”的文本附近（应该吧），揭示它们的内容。</p>
+<br />
+</div>
+<div id="lapisworks_lore" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >尤里卡！青金石<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_lore"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>我把叫作“青金石”的深蓝色矿物放在这些书页附近，矿物居然被书页吸住了。我试图把青金石拿开，但不硬抠就弄不下来；而当我去检查书页的状态时——那些文本竟然显现了！似乎需要用青金石摩擦书页才能看见文本。先试试吧……</p>
+<br />
+    <p>青金工程分支着眼于掌控青金石的附魔能力来强化躯体。需将媒质注入青金石，以形成一种由媒质松散结合而成的材料，即紫晶青金石，或简称紫金石。媒质穿透了青金石的表面，将其分割为巨量的小型碎屑，再如同胶水一般黏合它们。后页继续……</p>
+<br />
+    <p>这就允许外界借助媒质抽干青金石的附魔能量，只需和紫金石的媒质组分交互即可。虽然我发现了许多图案（就记在这篇条目前后），还有些条目无论用青金石还是紫金石摩擦都无法破译。我认为我很快就能找出方法（如果破译方法早已散佚，也可能永远找不到），目前不能太过急躁。</p>
+<br />
+</div>
+<div id="lapisworks_patterns" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >青金工程图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="lapisworks_patterns@lapisworks:imbue_lap" class="">
+<h4 class="pattern-title">灌注青金石<a
+    href="#lapisworks_patterns@lapisworks:imbue_lap"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qadwawdaqqeae"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qadwawdaqqeae</canvas>
+  </details>
+      <p>将副手中的所有青金石转化成一种由媒质松散结合而成的材料，即紫晶青金石，或简称紫金石。消耗 2 倍于副手中青金石数量的紫水晶碎片。</p>
+  </div>
+<br />
+  <div id="lapisworks_patterns@lapisworks:swap_amel" class="">
+<h4 class="pattern-title">模塑紫金石<a
+    href="#lapisworks_patterns@lapisworks:swap_amel"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqwawwqwaqeq"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wqwawwqwaqeq</canvas>
+  </details>
+      <p>虽然我能把紫金石塑造成任意形态，但我还是选择了我最熟悉的三种。我可以用这个图案来为副手中的紫金石塑形，无需消耗媒质。</p>
+  </div>
+<br />
+    <p>需要注意，后续的图案可以为我的躯体附魔，但魔咒会在死亡时消散。</p>
+<br />
+  <div id="lapisworks_patterns@lapisworks:moar_health" class="">
+<h4 class="pattern-title">附魔皮肤 (entity, num →)<a
+    href="#lapisworks_patterns@lapisworks:moar_health"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqadaqwwawwwqwwawdwawwqwwwwa"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wqadaqwwawwwqwwawdwawwqwwwwa</canvas>
+  </details>
+      <p>传入一个实体和一个代表半颗红心数量的数，并为所给实体的皮肤附魔，以此提升其生命值。消耗所给数个紫金石，同时消耗 2 倍于紫金石消耗量的媒质。后页继续……</p>
+  </div>
+<br />
+    <p>此效果的上限是达到实体最大生命值的两倍，它不会为超出限制的部分消耗紫金石和媒质（不浪费）。神奇的是，此种附魔也能防御自然对代价的攫取，以至于自然无法取走意识，哪怕是只取一部分。有意思之处在于，古代文献称能力水平超出某个阈值的法师都会失去理智，而这就是某些强大法师保全其理智的方法。不论如何，我的最大生命值大约是 20 个半红心。</p>
+<br />
+  <div id="lapisworks_patterns@lapisworks:moar_attack" class="">
+<h4 class="pattern-title">附魔双拳 (entity, num →)<a
+    href="#lapisworks_patterns@lapisworks:moar_attack"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qaqwweaeaqwww"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qaqwweaeaqwww</canvas>
+  </details>
+      <p>传入一个实体和一个代表半颗红心数量的数，并为所给实体的双拳附魔，以此提升其造成的物理伤害。每提升 1 个半红心消耗 1 个紫金石和 5 个紫水晶碎片。上限为平常的 4 倍，对我来说就是 4。</p>
+  </div>
+<br />
+  <div id="lapisworks_patterns@lapisworks:moar_speed" class="">
+<h4 class="pattern-title">附魔双足 (entity, num →)<a
+    href="#lapisworks_patterns@lapisworks:moar_speed"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ddqwaqeqa"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：ddqwaqeqa</canvas>
+  </details>
+      <p>为所给实体的双足附魔，以此提升其移动速度。消耗 1 倍紫金石和 5 倍紫水晶碎片。上限为平常的 3 倍。对我来说大约是 1。</p>
+  </div>
+<br />
+  <div id="lapisworks_patterns@lapisworks:gib_dexterity" class="">
+<h4 class="pattern-title">附魔双臂 (entity, num →)<a
+    href="#lapisworks_patterns@lapisworks:gib_dexterity"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aeaqqdeeeqewdwqwdwe"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aeaqqdeeeqewdwqwdwe</canvas>
+  </details>
+      <p>为所给<i>玩家</i>的双臂附魔，提升其攻击速度。消耗 1 倍紫金石和 16 倍紫水晶碎片。上限为 4 与平常值的<strong>和</strong>。</p>
+  </div>
+<br />
+  <div id="lapisworks_patterns@lapisworks:check_attr" class="">
+<h4 class="pattern-title">增强之纯化 (entity, num →)<a
+    href="#lapisworks_patterns@lapisworks:check_attr"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wwwaqeeqawww"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wwwaqeeqawww</canvas>
+  </details>
+      <p>返回所给实体在给定范畴（由数指定）内所获增强的量。前页的图案已经过排序，0 对应最大生命值，1 对应攻击伤害，以此类推。消耗极少量媒质。</p>
+  </div>
+<br />
+</div>
+<div id="lapisworks_great" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >魔咒<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_great"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p><strong>我已见我已见我需要我需要保护我的理智附魔皮肤我可否附魔意识我不能失去自我歇息不不能歇息没有时间必须记录以免</strong></p>
+<br />
+    <p><strong>空白的纸页。我眼角明灭的媒质汇聚。我能见我能见我必须阅读必须书写。若无说明，即消耗我副手中的 64 个紫金石，魔咒撑不过死亡的噩梦。</strong></p>
+<br />
+  <div id="lapisworks_great@lapisworks:checkenchant" class="">
+<h4 class="pattern-title">躯咒之纯化 (entity, num → num)<a
+    href="#lapisworks_great@lapisworks:checkenchant"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aqawwqqwqqw"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aqawwqqwqqw</canvas>
+  </details>
+      <p><strong>返回魔咒的等级。后页的图案已经过排序，0 对应后方首个图案，1 对应 0 后方的首个图案，以此类推。无需意识残破，消耗极少量媒质。不需紫金石。</strong></p>
+  </div>
+<br />
+  <div id="lapisworks_great@lapisworks:fireyfists" class="">
+<h4 class="pattern-title">附魔以火拳 (entity →)<a
+    href="#lapisworks_great@lapisworks:fireyfists"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wwewdawdewqewedadad"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wwewdawdewqewedadad</canvas>
+  </details>
+      <p><strong>为实体的双拳附魔以火焰，以此在三秒内点燃击中的所有实体。消耗 10 个充能紫水晶。有 1 个等级。</strong></p>
+  </div>
+<br />
+  <div id="lapisworks_great@lapisworks:lightningbending" class="">
+<h4 class="pattern-title">附魔以御雷 (entity →)<a
+    href="#lapisworks_great@lapisworks:lightningbending"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wewdawdewqewdqqeedqe"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wewdawdewqewdqqeedqe</canvas>
+  </details>
+      <p><strong>为实体的双拳附魔以闪电。每等级消耗 20 个充能紫水晶。共 3 级。每级都能增强使用者对闪电的引导能力。</strong></p>
+  </div>
+<br />
+    <p><strong>等级一：雷暴时，每次击中都会从雷暴中引导雷电击中受击者。</strong></p><strong><p>等级二：降雨时也能雷劈收集者。</p><p>等级三：强大到每一击都雷电四溢，无论天气如何。</p></strong>
+<br />
+  <div id="lapisworks_great@lapisworks:falldmgres" class="">
+<h4 class="pattern-title">以紫金石覆足 (entity →)<a
+    href="#lapisworks_great@lapisworks:falldmgres"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqwwqqqadwewdeq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqwwqqqadwewdeq</canvas>
+  </details>
+      <p><strong>用紫金石包裹双足，以此阻断距离在 10 格以下的摔落，每级阻断上限增加 10 格。不会降低伤害。共 2 级。每级 5 个充能紫水晶和 32 个紫金石。</strong></p>
+  </div>
+<br />
+  <div id="lapisworks_great@lapisworks:longbreath" class="">
+<h4 class="pattern-title">予紫金石气囊 (entity →)<a
+    href="#lapisworks_great@lapisworks:longbreath"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wewdwewewewewdwew"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wewdwewewewewdwew</canvas>
+  </details>
+      <p><strong>增大我的肺容量，和水下呼吸魔咒类似，但此魔咒的效力是其两倍。共 2 级。每级 1 个充能紫水晶和 10 个紫金石。</strong></p>
+  </div>
+<br />
+  <div id="lapisworks_great@lapisworks:fireresist" class="">
+<h4 class="pattern-title">化为火生生物 (entity →)<a
+    href="#lapisworks_great@lapisworks:fireresist"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wwqwqwadwawdawqwaeqqaqqe"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wwqwqwadwawdawqwaeqqaqqe</canvas>
+  </details>
+      <p><strong>掌控一整组紫金石和十块充能紫水晶的力量，让人变得犹如诞生自下界！</strong></p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="lapisworks_misc" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel4.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Enchanted Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_misc"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>These ancient texts recount an old and wise wizard, extremely knowledgeable of all sorcery, yet spiteful of all creatures living, dead, undead or unborn. It is told he was poor in sources of media and many came after him, but he always managed to survive. This wizard left behind a treasure trove of knowledge on his demise (collected by curious adventurers) including <span style="color: #8d6acc">Enchanted Patterns.</span><i>Will I ever be capable of this feat?</i></p>
+<br />
+    <p>Frustratingly enough, the wizard attempted to burn most of them and was extremely successful, leaving only a few that were recovered by the heroes that defeated him. Among these few are enhanced forms of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/spells/blockworks@hexcasting:conjure_block">Conjure Block</a>, <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/consts@hexcasting:const/vec/0">some Vector patterns</a>, <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/basics@hexcasting:raycast">Archer&#39;s Distillation</a>, among some others.</p>
+<br />
+  <div id="lapisworks_misc@lapisworks:conjure_color" class="">
+<h4 class="pattern-title">构筑颜色方块 (vec, num →)<a
+    href="#lapisworks_misc@lapisworks:conjure_color"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqaa"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqaa</canvas>
+  </details>
+      <p>那名巫师将紫金石灌注到了构筑方块里，随后他发现他可以借此为方块染色。消耗 2 个紫水晶粉，同时需指定染料对应的数。更多解释见后页。</p>
+  </div>
+<br />
+    <p>所给数代表染料的索引（0 起始），按字母顺序排列。对应关系是：<br />0 - 黑色    1 - 蓝色    <br />2 - 棕色    3 - 青色    <br />4 - 灰色    5 - 绿色    <br />6 - 淡蓝色  7 - 淡灰色  <br />8 - 黄绿色  9 - 品红色  <br />10 - 橙色   11 - 粉红色 <br />12 - 紫色   13 - 红色   <br />14 - 白色   15 - 黄色   <br />如果不存在与数相应的染料，那么方块会发出混合紫色和我染色剂的<i>颜色</i>的光。</p>
+<br />
+  <div id="lapisworks_misc@lapisworks:spherical_dstl" class="">
+<h4 class="pattern-title">球壳之馏化 ([pattern], vec, num → [any])<a
+    href="#lapisworks_misc@lapisworks:spherical_dstl"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqwqwqwqwqwaeaqaaeaqaa"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wqwqwqwqwqwaeaqaaeaqaa</canvas>
+  </details>
+      <p>假设存在以给定位置为中心、半径为所给数（限 1 到 64）的球，返回该球表面所有方块的坐标列表。消耗极少量媒质。</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:cubic_exalt" class="">
+<h4 class="pattern-title">立方体之提整 ([pattern], vec, vec, bool → [any])<a
+    href="#lapisworks_misc@lapisworks:cubic_exalt"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqwawqwqqwqwq"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wqwawqwqqwqwq</canvas>
+  </details>
+      <p>假设存在从点 A 至点 B 的空心（传入 True）或实心（传入 False）立方体，返回组成该立方体所有方块的坐标列表。消耗极少量媒质。</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:visible_dstl" class="">
+<h4 class="pattern-title">可视之馏化 (vec, num → bool)<a
+    href="#lapisworks_misc@lapisworks:visible_dstl"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="edeewadwewdwe"
+        data-start="south_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：edeewadwewdwe</canvas>
+  </details>
+      <p>消耗极少量媒质。返回下述问题的答案：“如果我站在给定位置，那么我可以直接看见目标位置吗？”两位置向量均需在我影响范围内。</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:equiv_block" class="">
+<h4 class="pattern-title">Block Equivalency D. (vec, vec → bool)<a
+    href="#lapisworks_misc@lapisworks:equiv_block"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqqeqeeeee"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqqqqeqeeeee</canvas>
+  </details>
+      <p>Returns whether the two blocks are equivalent/roughly equal (the same kind of block), so wheat seeds equals a full wheat crop. Both blocks must be within my ambit.</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:equal_block" class="">
+<h4 class="pattern-title">Block Equality Dist. (vec, vec → bool)<a
+    href="#lapisworks_misc@lapisworks:equal_block"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qwawqwadadwewdwe"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qwawqwadadwewdwe</canvas>
+  </details>
+      <p>Returns whether the two blocks are <strong>exactly</strong> equal, so wheat seeds do NOT equal a full wheat crop. Blocks must be within my ambit.</p>
+  </div>
+<br />
+    <p>It seems Nature defines &#34;other hand&#34; as &#34;the first hand (hands sorted by importance so main, off-, etc.) which has the valid item&#34;, which can be quite troublesome when (e.g.) I have a Focus in both hands. The next four patterns pertain to reading and writing or checking any specific hand of mine (specified in order of importance, so 0 for main, 1 for offhand). This is also a good time to note that <span style="color: #8d6acc">Enchanted Patterns</span> aren&#39;t always &#34;better&#34; than the original. <i>I wonder, if I had three arms, would these support the third as well?</i></p>
+<br />
+  <div id="lapisworks_misc@lapisworks:read_spechand" class="">
+<h4 class="pattern-title">Secretary&#39;s Prfn. (int → any)<a
+    href="#lapisworks_misc@lapisworks:read_spechand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aqqqqa"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aqqqqa</canvas>
+  </details>
+      <p>Specific hand version of Scribe&#39;s Reflection. Pushes the Iota stored in the Iota holder in the specified hand to the stack.</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:readable_spechand" class="">
+<h4 class="pattern-title">Reviewer&#39;s Prfn. (int → bool)<a
+    href="#lapisworks_misc@lapisworks:readable_spechand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqqadww"
+        data-start="north_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqqqadww</canvas>
+  </details>
+      <p>Specific hand version of Auditor&#39;s Reflection. Pushes whether the item in the specified hand can be read from or not.</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:write_spechand" class="">
+<h4 class="pattern-title">Amanuensis&#39; Gambit (any, int →)<a
+    href="#lapisworks_misc@lapisworks:write_spechand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="deeeed"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：deeeed</canvas>
+  </details>
+      <p>Specific hand version of Scribe&#39;s Gambit. Writes the given Iota to the Iota holder in the specified hand.</p>
+  </div>
+<br />
+  <div id="lapisworks_misc@lapisworks:writable_spechand" class="">
+<h4 class="pattern-title">Sanctioner&#39;s Prfn. (int → bool)<a
+    href="#lapisworks_misc@lapisworks:writable_spechand"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eeeedaww"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eeeedaww</canvas>
+  </details>
+      <p>Specific hand version of Assessor&#39;s Reflection. Pusher whether the item in the specified hand can be written to or not.</p>
+  </div>
+<br />
+</div>
+<div id="lapisworks_mishaps" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="中毒"
+      alt="中毒"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/poison.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >青金工程事故<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks_mishaps"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>咒法学的新分支也带来了新事故。我在此记录了它们。</p>
+<br />
+  <h4>物品不足</h4>
+    <p>副手中物品种类正确，但数量不足。产生棕色火花。手持的物品脱手并飞向地面。</p>
+<br />
+  <h4>等级达限</h4>
+    <p>也许那些空白的页面里讲的是真正的魔咒，就和附魔工具的那些一样？随便了。此事故代表实体已达到该魔咒的等级上限。每种魔咒的火花颜色不同，且不带惩罚。</p>
+<br />
+  <h4>Wrong Item in a Hand</h4>
+    <p>This is for when I have an incorrect item in my a specific hand. Drops my held items to the ground and causes brown particles to appear, while specifying what hand caused the error.</p>
+<br />
+</div>
+</section>
+<section id="lapisworks/imbuement">
+    <h2 class="category-title page-header">
+    <img
+      title="紫晶青金石法杖"
+      alt="紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_staff.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >灌注<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks/imbuement"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>虽然青金工程的首要重点是躯体强化，但也有人找到了用它来增强工具的方法。显然，世界上有部分材料和媒质的交互模式与众不同。再看看吧……</p>
+<div id="imbuement/imbue_amel" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="紫晶青金石法杖"
+      alt="紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_staff.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >灌注紫金石<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#imbuement/imbue_amel"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="imbuement/imbue_amel@lapisworks:imbue_amel" class="">
+<h4 class="pattern-title">灌注紫金石 (num →)<a
+    href="#imbuement/imbue_amel@lapisworks:imbue_amel"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wqwwawwqwwaqwewaawewa"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wqwwawwqwwaqwewaawewa</canvas>
+  </details>
+      <p>将副手紫金石灌注到主手物品中。它不像灌注青金石法术那样浪费。古代的“青金工程师”会用这个法术为工具灌注紫金石。</p>
+  </div>
+<br />
+</div>
+<div id="imbuement/casting_rings" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="金嵌钻施法戒指"
+      alt="金嵌钻施法戒指"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/casting_ring.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >施法戒指<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#imbuement/casting_rings"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>用戒指施法的一大局限，就是戒指本身的体积过小，甚至可能会导致效率下降。这也是为什么我之前没有造过这种戒指。不过，现在我读过了这些文献，就能找到规避方法了，至少可以限制其负面效应。有部分材料和媒质的交互模式较为特殊，后页给出了两个例子。</p>
+<br />
+    <p>钻石是媒质的良好“导体”，能够聚焦媒质（是其“化学结构”所致，这是什么意思？）；金则算是种绝缘体。古代的“青金工程师”会用这些材料组合成许多种强大的构造物，但所有资料都已经流散了（也许是因为制造方法过于简单，或是想在战争中保全自己）。不过，我还可以自己制造，而且不算很难。</p>
+<br />
+  <h4>施法戒指</h4>
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>金嵌钻施法戒指</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="钻石"
+      alt="钻石"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/diamond.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="金锭"
+      alt="金锭"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/gold_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="金嵌钻施法戒指"
+      alt="金嵌钻施法戒指"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/casting_ring.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+<br />
+  <h4 class="spotlight-title page-header">施法戒指</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="金嵌钻施法戒指"
+      alt="金嵌钻施法戒指"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/casting_ring.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>用钻石框住紫水晶以聚焦媒质，再用金让媒质全部流入钻石。它确实不如真正的法杖好用，但肯定比只用紫水晶造出的戒指要优秀。而且，紫水晶还会吸附一部分媒质，从而略微削弱法杖的功效。佩戴截止后，按下key.keys.lapisworks.use_casting_ring即可打开咒术网格。</p>
+<br />
+  <div id="imbuement/casting_rings@lapisworks:amel_ring" class="">
+<h4 class="spotlight-title page-header">紫金石戒指<a
+    href="#imbuement/casting_rings@lapisworks:amel_ring"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫晶青金石戒指"
+      alt="紫晶青金石戒指"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_ring.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>要是还对这枚戒指不满意，可以向其灌注一片紫金石。紫金石应当会黏附至金指环。灌注之后，戒指即会聚焦和吸附我持有的媒质，以此调控施法速度；可以让法杖捕获这些媒质，也可最终让其流回戒指本身。</p>
+  </div>
+<br />
+  <p class="img-wrapper">
+      <img
+      title=""
+      alt=""
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/bookpic.png"
+      class="texture pixelated"
+    >
+  </p>
+      <p><i>金具有优良的可塑性，因此如果不喜欢新外观，可以用模塑紫金石改变。</i></p>
+<br />
+</div>
+<div id="imbuement/staves" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="不完整的紫晶青金石法杖"
+      alt="不完整的紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/generic.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >灌注法杖<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#imbuement/staves"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>向类似法杖的<a href="#imbuement/casting_rings">施法戒指</a>灌注紫金石，得到的是<a href="#imbuement/casting_rings@lapisworks:amel_ring">紫金石戒指</a>；它比其原型更强大。那么，向真正的法杖灌注紫金石，必定可以增强法杖的性能。法杖因其体积较大，灌注时需要的紫金石也更多，但所得产物更精准。不过，要是灌注不完全会怎么样呢？</p>
+<br />
+  <h4>未完全灌注的法杖</h4>
+  <p class="img-wrapper">
+      <img
+      title="未完全灌注的法杖"
+      alt="未完全灌注的法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/staves.png"
+      class="texture pixelated"
+    >
+  </p>
+      <p><i>我造出的所有未灌注完全的法杖。</i></p>
+<br />
+    <p>向法杖灌注的紫金石数量若不足以令其完全蜕变，紫金石仍会深深嵌入法杖的结构，但嵌入的程度不够，无法长时间承受紫金石的能量抽取。产物不够高效、容易逸散媒质（也因此无法长时间使用），但同时比完全灌注的产物更精确（咒术网格范围更大）。</p>
+<br />
+  <h4 class="spotlight-title page-header">完全灌注的法杖</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫晶青金石法杖"
+      alt="紫晶青金石法杖"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_staff.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>完全灌注后，法杖的精度比未完全灌注的要低（咒术网格增益较少），但能够长时间使用。比起不进行完全灌注、却要不断重复灌注少量紫金石来说，这倒也不失为可取之处。</p>
+<br />
+</div>
+<div id="imbuement/swords" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="紫金灌注钻石剑"
+      alt="紫金灌注钻石剑"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_dsword_noanim.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >灌注剑<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#imbuement/swords"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>施法戒指开启了旅途，法杖则让旅途持续下去。现在我已经停不下来了，重新发明和修正过去所用的武器实在是种享受。我这回对这种技术能造成什么剑起了兴趣，所以我设计了几种，并在此处进行了记录。每种都需消耗 32 个紫金石（没有未完全灌注的版本），耐久度超过 90% 时还可用紫金石修复。</p>
+<br />
+  <h4 class="spotlight-title page-header">钻石</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫金灌注钻石剑"
+      alt="紫金灌注钻石剑"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_dsword_noanim.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>向钻石灌注紫金石，会赋予其牺牲自身耐久度发射媒质束的能力。这种媒质束飞行速度快且聚焦程度大，造成的伤害和紧握剑本身造成的一样，飞行范围为 10 格。应当从剑尖灌注紫金石，以便同时把剑磨利。</p>
+<br />
+  <h4 class="spotlight-title page-header">铁</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫金灌注铁剑"
+      alt="紫金灌注铁剑"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_isword_noanim.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>铁与紫晶青金石的交互，似乎是会将耐久度增强到原本的两倍，同时可以将其当作盾牌使用。而且，举起它格挡攻击的动作会为紫金石充能，充能最长可持续 1/4 秒；这一充能的本质和紫金灌注钻石剑的类似。若在充能时受击，紫金石便会放出一道斩击。这种能力应该可以叫作“招架”。</p>
+<br />
+    <p>紫金石的斩击会以攻击者为目标，且会吸收对方武器掉出的碎屑，获得 20“点”耐久度。这种斩击的攻击力是剑直接攻击的一半（但同时会将攻击者击飞）。如果用于攻击的工具损毁了，那铁剑就会吸收所有残屑，恢复 100“点”耐久度而非 20 点。而且，敌人会认为手中的工具受到了强烈的冲击，以至于几乎每次都要暂停一两秒检查工具的状况。</p>
+<br />
+    <p>紫金石蕴含着充沛的能量，甚至能抵挡住斧的一击，同时直接损伤其手柄，对其造成 100“点”耐久度损耗而非 20 点。不过，如果我没能成功招架斧，那么<i>我</i>的工具会受到 20“点”损伤，同时<i>我</i>会被击飞。我剑上的紫金石在没做任何准备的情况下受到大量上海，因此其在一秒内无法再次使用。</p>
+<br />
+  <h4 class="spotlight-title page-header">金</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫金灌注金剑"
+      alt="紫金灌注金剑"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel_gsword_noanim.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>金是媒质的绝缘体，因此金剑不太能接受紫金石灌注。不过，紫金石对大多数生物都有毒。从这几点出发，将紫金石倒在金剑上再尝试灌注，应该就能避免两者脱离了。用灌注后的金剑攻击实体会令紫金石放出斩击（但剑本身会受到相对严重的损害），让实体中毒约 10 秒。要我说，这可真是尊漂亮的玻璃大炮啊。</p>
+<br />
+</div>
+<div id="imbuement/artificial_mind" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="Simple Mind Container"
+      alt="Simple Mind Container"
+      src="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/assets/lapisworks/textures/block/mind/mind.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Simple Artificial Minds<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#imbuement/artificial_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>When I first read of the mind and that it produces trace amounts of media, I wondered, &#34;is it possible to create a mind..?&#34; Now after my experience with Amel imbuement, I think it is. In my experience a heap of media does not on its own start thinking, which can be explained by the fact media is merely the energy of thought. The energy must, however, be moved and used to think.</p>
+<br />
+    <p>If I were to make a machine that pulls at and copies the flow of media in other organisms, such a machine would surely, with time, gain a mind. For this purpose I believe villagers are most efficient as they are not outright nearly braindead but also not truly sapient. The resultant mind will probably be concious, sapient and will bear emotions (be sentient).</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Simple Mind Container</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="钻石"
+      alt="钻石"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/diamond.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="玻璃"
+      alt="玻璃"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="玻璃"
+      alt="玻璃"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/glass.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Amel"
+      alt="Tag: Amel"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+      <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+      <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+      <img
+      title="紫晶青金石"
+      alt="紫晶青金石"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/item/amel4.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Simple Mind Container"
+      alt="Simple Mind Container"
+      src="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/assets/lapisworks/textures/block/mind/mind.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>The Amel will let the machine eat bits and pieces of villager minds, taking &#34;snapshots&#34; of the flow of media within. A Diamond should focus it enough to mimic the precision of natural minds. The Charged Amethyst will hold the mind.</p>
+<br />
+    <p>This contraption can pull from the minds of three random waking villagers at most 5 blocks away at once, filling in 20 minutes from just one. A waking villager is exhausted after 4 minutes (and heals in the same amount of time when not near this machine). Sleeping villagers, if selected first (and only when selected first), aren&#39;t able to be consumed from again for 20 minutes but fill 15% of the mind container.</p>
+<br />
+    <p>These Great Spells elude me so. There must be a better way than delving into old ruins to rediscover them. If the old ones discovered them on their own, so can I! To that end, I have found a way to directly ask Nature for the stroke order, however it only returns a torrent of information that must be sieved through by someone, or something.. Expendable. The spell eats over a quarter of the mind regardless of success or not. I can&#39;t imagine this experience not being excruciatingly painful.<i>Should this bother me?</i></p>
+<br />
+  <div id="imbuement/artificial_mind@lapisworks:thought_sieve" class="">
+<h4 class="pattern-title">Sieve Thoughts (vec →)<a
+    href="#imbuement/artificial_mind@lapisworks:thought_sieve"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qadaadadqaqdadqaq"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qadaadadqaqdadqaq</canvas>
+  </details>
+      <p>Sieves the torrent of information using the (full) artificial mind at the given position. 3/5 chance of replacing the pattern in my other hand with one of the correct stroke order.</p>
+  </div>
+<br />
+  <div id="imbuement/artificial_mind@lapisworks:check_mind" class="">
+<h4 class="pattern-title">Cognition Purification (vec →)<a
+    href="#imbuement/artificial_mind@lapisworks:check_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aawqqwqqq"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aawqqwqqq</canvas>
+  </details>
+      <p>Pushes the percentage filled of the mind container at the given position to the stack.</p>
+  </div>
+<br />
+  <div id="imbuement/artificial_mind@lapisworks:absorb_mind" class="">
+<h4 class="pattern-title">Mind Liquefaction (vec →)<a
+    href="#imbuement/artificial_mind@lapisworks:absorb_mind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aawqqwqqqaede"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aawqqwqqqaede</canvas>
+  </details>
+      <p>Absorbs the entirety of the mind within the container into the rechargeable item in my other hand. If there is any extra, it is discarded. A full container yields one Charged Amethyst.</p>
+  </div>
+<br />
+  <div class="spoilered">
+    <p>This whole thing.. It doesn&#39;t feel ethical. I am creating conscious beings, a miracle in and of itself, and my uses for them are to <i>KILL</i> them for meagre amounts of media.. Like sheep if they were sapient.</p><p>Are they more? <i>Should I care?</i></p>
+  </div>
+<br />
+  <div class="spoilered">
+    <p>pages.lapisworks.imbuement_artmind.reflection2</p>
+  </div>
+<br />
+</div>
+</section>
+<section id="lapisworks/great">
+    <h2 class="category-title page-header">
+    <img
+      title="entries.lapisworks.lmaoyouwillneverhavethis"
+      alt="entries.lapisworks.lmaoyouwillneverhavethis"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/lmaoyouwillneverhavethis.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >The Wizard&#39;s Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#lapisworks/great"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Some intellectuals and/or adventurers saved the old wizard&#39;s diaries. I&#39;ve begun to divine some of the wizard&#39;s knowledge from these ancient tomes.</p>
+<div id="great/collectsomeshitfam" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="标靶"
+      alt="标靶"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/target.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >The Ancient Wizard<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#great/collectsomeshitfam"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>I have found rumour of an old, knowledgeable wizard that has done much evil and staved off the hordes of vigilantism, yet always had low media reserves. While he attempted to burn most of his scriptures near his demise, I&#39;ve read tale of adventurers and intellectuals that had managed to save some of them from the grand fire.</p>
+<br />
+    <p>Based off of this information I predict they may have buried the knowledge away or put it in the strongholds I&#39;ve read of, such as pyramids in the desert, brick structures underground, etcetera.</p>
+<br />
+</div>
+<div id="great/enchsent" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="entries.lapisworks.3dblock"
+      alt="entries.lapisworks.3dblock"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/3dblock.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Enchanted Sentinel<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#great/enchsent"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Whilst being hunted by a particularly strong group of 30-40 people consisting of professional hitmen or assassins, bounty hunters, and other mages looking to vanquish him, the mage had escaped into a castle. He needed a way to be able to deal with all of them from a huge distance or from a few floors up. Greater Sentinel&#39;s range was much too small, they would be aware it was a small trap. So out of desperation, he looked to his Amel to &#34;enchant&#34; the pattern.</p>
+<br />
+  <div id="great/enchsent@lapisworks:create_enchsent" class="">
+<h4 class="pattern-title">Summon (vec, num →)<a
+    href="#great/enchsent@lapisworks:create_enchsent"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aqaeawdwwwdwqwdwwwdwesdwdwdswqdedqqwdewaawdeq"
+        data-start="north_west"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：aqaeawdwwwdwqwdwwwdwesdwdwdswqdedqqwdewaawdeq</canvas>
+  </details>
+      <p>Summons an enchanted version of the Greater Sentinel at the given position (which must be within 32 blocks around me) and the given ambit (which can be from 1-64). Costs 5 amethyst dust to summon.</p>
+  </div>
+<br />
+    <p>This Enchanted Sentinel has much more media than a Greater Sentinel, but has chains imposed on it that make its existence dependent on me. It must always be in MY ambit (a Greater Sentinel&#39;s ambit is much too weak) or else it falls apart. It&#39;s still intangible, but it emanates particles visible to everyone. I perceive the particles as well as a media-dense being which looks like some dark purple, unnaturally twisting geometric shape.</p>
+<br />
+    <p>The wizard wrote it was created by forcing Amethyst Lazuli into the original pattern and molding it violently, shaping the media within to his will. The result is a &#34;4-dimensional spinning hypercube projected as a tesseract!&#34; (what does that even mean??) which has some form of feeling and awareness. It knows it&#39;s chained to it&#39;s user, forced to follow their whims due to being dependent on their media. He writes of it fondly, as if he likes it.</p>
+<br />
+  <div id="great/enchsent@lapisworks:banish_my_enchsent" class="">
+<h4 class="pattern-title">Banish Own<a
+    href="#great/enchsent@lapisworks:banish_my_enchsent"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="wdwewdwdwqwawwwawewawwwaw"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：wdwewdwdwqwawwwawewawwwaw</canvas>
+  </details>
+      <p>Peacefully put my Enchanted Sentinel to rest for a negligible amount of media, letting it rest for a time. Perhaps the ethical option, considering &#34;falling apart&#34; may not be the most painless.</p>
+  </div>
+<br />
+  <div id="great/enchsent@lapisworks:banish_other_enchsent" class="">
+<h4 class="pattern-title">Banish Other&#39;s<a
+    href="#great/enchsent@lapisworks:banish_other_enchsent"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eeeeedwqwawwwawewawwwaw"
+        data-start="north_east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eeeeedwqwawwwawewawwwaw</canvas>
+  </details>
+      <p>Banish another&#39;s Enchanted Sentinel if it&#39;s at that block for 5 dust.</p>
+  </div>
+<br />
+</div>
+<div id="great/flay_artmind" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="唱片机"
+      alt="唱片机"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/jukebox.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Imbue Mind<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#great/flay_artmind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Most of the pages are burned, and only the pattern with it&#39;s documentation remains. Unfortunate.. In any case, I&#39;ve documented the pattern on the next page and then it&#39;s uses on the pages after it.</p>
+<br />
+  <div id="great/flay_artmind@lapisworks:flay_artmind" class="">
+<h4 class="pattern-title">Imbue Mind (vec, vec →)<a
+    href="#great/flay_artmind@lapisworks:flay_artmind"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="ewewedeaeaeasaqaewaqawqdedaeaqqwqeqadqasqqqsaqdaq"
+        data-start="south_east"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：ewewedeaeaeasaqaewaqawqdedaeaqqwqeqadqasqqqsaqdaq</canvas>
+  </details>
+      <p>Takes the location of a block with limited functionality and a full Simple Mind Container, and imbues the mind into the construct for five charged amethyst. <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/brainsweep"><i>This shape reminds me of something..</i></a></p>
+  </div>
+<br />
+  <h4 class="spotlight-title page-header">紫水晶母岩</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="紫水晶母岩"
+      alt="紫水晶母岩"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/budding_amethyst.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>An Amethyst Block, when imbued with a simple mind, turns into a Budding Amethyst block. Due to the bottom 90% of these pages being burnt away I can&#39;t see what the wizard had to say about them, but they all have a <span style="color: #F00">smile</span> drawn in red ink next to each of them.. <i>Should I be concerned?</i></p>
+<br />
+  <h4 class="spotlight-title page-header">Live Jukebox</h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/d543be08695dd239eb2aaff1bdc2378462f61e79/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Live Jukebox"
+      alt="Live Jukebox"
+      src="https://real-luxof.github.io/Lapisworks/v/1.5.3/1.4.dev0/assets/lapisworks/textures/block/amel_constructs/live_jukebox.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>&#34;A mind so simple can be imbued into functional blocks with great ease and without stripping away unnecessary parts.&#34; I believe this line refers to the Jukebox on the same page (and others on other pages), which can be turned into a <span style="color: #8d6acc">Live Jukebox</span>. A <span style="color: #8d6acc">Live Jukebox</span> can be taught to play notes at a frequency, and then hit to play those notes.</p>
+<br />
+  <div id="great/flay_artmind@lapisworks:teach_song" class="">
+<h4 class="pattern-title">Teach Song (vec, [0-24], 0-20 →)<a
+    href="#great/flay_artmind@lapisworks:teach_song"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aawwawqwwdd"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：aawwawqwwdd</canvas>
+  </details>
+      <p>Teach the <span style="color: #8d6acc">Live Jukebox</span> at that location these notes (a list of whole numbers 0-24) at this frequency (0-20). After being hit via <span style="color: #8d6acc">Use</span>, it plays the notes like an automatic Note Block.</p>
+  </div>
+<br />
+</div>
+<div id="great/hastenature" class="entry">
+    <h3 class="entry-title page-header">
+    <img
+      title="entries.lapisworks.iranoutofideas"
+      alt="entries.lapisworks.iranoutofideas"
+      src="https://raw.githubusercontent.com/Real-Luxof/Lapisworks/647c33834a92bba51874c8b7ae98f06b4c9c9d53/src/main/resources/assets/lapisworks/textures/entries/iranoutofideas.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Hastenature<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#great/hastenature"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>This one was created when the wizard was extremely adept at pattern infusions with Amel, their final days. They were a master of it, to the point their infusion created extra patterns, or byproducts. The main pattern here was one that was supposed to be one that&#39;d age enemies to death, a horrifying spell the pattern for which - for better or for worse - was burned.</p>
+<br />
+  <div id="great/hastenature@lapisworks:hastenature" class="">
+<h4 class="pattern-title">Hastenature (vec, int →)<a
+    href="#great/hastenature@lapisworks:hastenature"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqswdadewseaqqeaqddadeaaqqe"
+        data-start="west"
+        data-per-world="True"
+      >浏览器不支持图案的可视化。图案代码见此：qqswdadewseaqqeaqddadeaaqqe</canvas>
+  </details>
+      <p>Takes a block position and a positive number, and ages the block (or how I call it, induces a random tick) there that many times for 5 * times cost in dust.</p>
+  </div>
+<br />
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>该页面不是Minecraft的官方产品，不隶属于Mojang和Microsoft，且不代表Mojang和Microsoft的意见。</p><p>Minecraft的游戏内容和资源均为各自所有者的知识财产。</p><p>使用<a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>精心制作。❤️</p>
+        </div>
+      </footer>
+  </body>
+</html>
