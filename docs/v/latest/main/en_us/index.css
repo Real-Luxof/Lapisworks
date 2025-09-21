@@ -487,3 +487,10 @@ img.spell-viz {
     --triangle-color: #000000;
   }
 }
+body {
+  background-color: #0c1031;
+  .navbar-default {
+    background-color: #0b1f51;
+    border-color: #fff;
+  }
+}
