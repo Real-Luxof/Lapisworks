@@ -489,7 +489,9 @@ img.spell-viz {
 }
 @media (prefers-color-scheme: dark) {
   /* i saw your cry for help, whoever wrote that comment in hexdoc */
-  .navbar-default .navbar-brand {
+  .navbar-default .navbar-brand
+  .navbar-default .navbar-nav > li > a,
+  .navbar-default .navbar-nav > li > a:focus {
     color: #ddd;
   }
 }
