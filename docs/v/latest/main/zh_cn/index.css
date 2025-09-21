@@ -487,6 +487,12 @@ img.spell-viz {
     --triangle-color: #000000;
   }
 }
+@media (prefers-color-scheme: dark) {
+  /* i saw your cry for help, whoever wrote that comment in hexdoc */
+  .navbar-default .navbar-brand {
+    color: #aaa;
+  }
+}
 body {
   background-color: #0c1031;
   .navbar-default {
