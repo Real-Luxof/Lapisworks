@@ -490,7 +490,7 @@ img.spell-viz {
 @media (prefers-color-scheme: dark) {
   /* i saw your cry for help, whoever wrote that comment in hexdoc */
   .navbar-default .navbar-brand {
-    color: #aaa;
+    color: #ddd;
   }
 }
 body {
