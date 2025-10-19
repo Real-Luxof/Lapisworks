@@ -383,7 +383,7 @@ function stupidver_rcompare(v1, v2) {
 }
 // why in the fuck did og programmer use 2-space indentation
 // also i lowkey need to do all this to change 2 things lmao
-function sortSitemapVersions(unsortedVersions) {
+window.sortSitemapVersions = function (unsortedVersions) {
     let [versions, branches] = partition(unsortedVersions, (v) => stupidver_valid(v) != null);
     // branches ascending, versions descending
     // eg. ["dev", "main"], ["0.10.0", "0.9.0"]
