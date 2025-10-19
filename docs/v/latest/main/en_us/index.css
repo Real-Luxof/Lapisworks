@@ -494,6 +494,10 @@ img.spell-viz {
   .navbar-default .navbar-nav > li > a:focus {
     color: #ddd;
   }
+  .dropdown-menu {
+    background-color: #749bff;
+    min-width: 120px;
+  }
 }
 body {
   background-color: #0c1031;
