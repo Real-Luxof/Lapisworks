@@ -318,24 +318,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function stupidver_valid(v) {
     console.log("checking if " + v + " is valid.");
-    try {
-        split = v.split(".");
-        console.log("split has been made and is " + split + ".");
-        if (split.length != 4) {
+    split = v.split(".");
+    console.log("split has been made and is " + split + ".");
+    if (split.length == 4) {
+        try {
             a = num(split[0]);
             b = num(split[1]);
             c = num(split[2]);
             d = num(split[3]);
-            console.log("valid!");
-            return true;
-        } else {
-            console.log("falling back to semver");
-            return semver.valid(v) != null;
+        } catch (any) {
+            console.log("invalid!");
+            return false;
         }
-    } catch (anything) {
-        console.log("invalid!");
-        // yeh.
-        return false;
+        console.log("valid!");
+        return true;
+    } else {
+        console.log("falling back to semver");
+        return semver.valid(v) != null;
     }
 }
 /** and if it errors, fuck thyself. */
