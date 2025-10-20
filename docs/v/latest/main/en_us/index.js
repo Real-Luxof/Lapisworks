@@ -318,14 +318,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function stupidver_valid(v) {
     console.log("checking if " + v + " is valid.");
-    split = v.split(".");
-    console.log("split has been made and is " + split + ".");
-    if (split.length == 4) {
+    console.log("typeof v: " + typeof v);
+    let cv = v.split(".");
+    console.log("cv has been made and is " + cv + ".");
+    console.log(cv[0] + " " + cv[1]);
+    if (cv.length == 4) {
         try {
-            a = num(split[0]);
-            b = num(split[1]);
-            c = num(split[2]);
-            d = num(split[3]);
+            let a = Number(cv[0]);
+            let b = Number(cv[1]);
+            let c = Number(cv[2]);
+            let d = Number(cv[3]);
         } catch (any) {
             console.log("invalid!");
             return false;
@@ -340,45 +342,32 @@ function stupidver_valid(v) {
 /** and if it errors, fuck thyself. */
 function stupidver_rcompare(v1, v2) {
     console.log("comparing " + v1 + " and " + v2 + ".");
-    split1 = v1.split(".");
+    let s1 = v1.split(".").map(Number);
     console.log("v1 is split to " + split1 + ".");
-    split2 = v2.split(".");
-    console.log("v2 is split to " + split2 + ".");
-    if (split.length != 4) {
-        console.log("inting v1.");
-        a1 = num(split1[0]);
-        b1 = num(split1[1]);
-        c1 = num(split1[2]);
-        d1 = num(split1[3]);
-        console.log("inting v2.");
-        a2 = num(split2[0]);
-        b2 = num(split2[1]);
-        c2 = num(split2[2]);
-        d2 = num(split2[3]);
-        console.log("comparing.");
-        if (a1 > a2) {
-            return -1;
-        } else if (a1 < a2) {
-            return 1;
-        } else if (b1 > b2) {
-            return -1;
-        } else if (b1 < b2) {
-            return 1;
-        } else if (c1 > c2) {
-            return -1;
-        } else if (c1 < c2) {
-            return 1;
-        } else if (d1 > d2) {
-            return -1;
-        } else if (d1 < d2) {
-            return 1;
-        } else {
-            return 0;
-        }
-    } else {
-        console.log("faling back to semver.")
-        return semver.rcompare(v1, v2);
+    let s2 = v2.split(".").map(Number);
+    if (s1[0] > s2[0]) {
+        return -1;
+    } else if (s1[0] < s2[0]) {
+        return 1;
+    } else if (s1[1] > s2[1]) {
+        return -1;
+    } else if (s1[1] < s2[1]) {
+        return 1;
+    } else if (s1[2] > s2[2]) {
+        return -1;
+    } else if (s1[2] < s2[2]) {
+        return 1;
     }
+    if (s1.length > s2.length) {
+        return -1;
+    } else if (s1.length < s2.length) {
+        return 1;
+    } else if (s1[3] > s2[3]) {
+        reutrn -1;
+    } else if (s1[3] < s2[3]) {
+        return 1;
+    }
+    return 0;
 }
 sortSitemapVersions = function(unsortedVersions) {
     let [versions, branches] = partition(unsortedVersions, (v) => stupidver_valid(v));
