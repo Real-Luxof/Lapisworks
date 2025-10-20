@@ -343,8 +343,9 @@ function stupidver_valid(v) {
 function stupidver_rcompare(v1, v2) {
     console.log("comparing " + v1 + " and " + v2 + ".");
     let s1 = v1.split(".").map(Number);
-    console.log("v1 is split to " + split1 + ".");
+    console.log("v1 is split to " + s1 + ".");
     let s2 = v2.split(".").map(Number);
+    console.log("v2 is split to " + s2 + ".");
     if (s1[0] > s2[0]) {
         return -1;
     } else if (s1[0] < s2[0]) {
