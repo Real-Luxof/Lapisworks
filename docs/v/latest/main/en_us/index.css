@@ -498,6 +498,16 @@ img.spell-viz {
     background-color: #749bff;
     min-width: 120px;
   }
+  .navbar-default .navbar-nav > .open > a,
+  .navbar-default .navbar-nav > .open > a:focus,
+  .navbar-default .navbar-nav > .open > a:hover {
+    color: #bbb;
+    background-color: #1e3469;
+  }
+  .dropdown-menu {
+    background-color: #0c152b;
+    min-width: 120px;
+  }
 }
 body {
   background-color: #0c1031;
