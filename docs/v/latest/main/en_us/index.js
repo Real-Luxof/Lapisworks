@@ -4,7 +4,7 @@ import semver from 'https://cdn.jsdelivr.net/npm/semver@7.5.4/+esm';
 const RELATIVE_SITE_URL = "../../../..";
 const VERSION = "latest/main";
 const MINECRAFT_VERSION = "1.20.1";
-const FULL_VERSION = "1.5.6.9.1.6.dev0";
+const FULL_VERSION = "1.5.6.9.1.7.dev0";
 const LANG = "en_us";
 const SHOW_DROPDOWN_MINECRAFT_VERSION = `true` === "true";
 const DROPDOWN_MINECRAFT_TEMPLATE = "Minecraft {version}";
@@ -317,10 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("visibilitychange", hookVisibilityChange);
 });
 function stupidver_valid(v) {
-    console.log("checking if " + v + " is valid.");
-    console.log("typeof v: " + typeof v);
     let cv = v.split(".");
-    console.log("cv has been made and is " + cv + ".");
     console.log(cv[0] + " " + cv[1]);
     if (cv.length == 4) {
         try {
@@ -329,23 +326,17 @@ function stupidver_valid(v) {
             let c = Number(cv[2]);
             let d = Number(cv[3]);
         } catch (any) {
-            console.log("invalid!");
             return false;
         }
-        console.log("valid!");
         return true;
     } else {
-        console.log("falling back to semver");
         return semver.valid(v) != null;
     }
 }
 /** and if it errors, fuck thyself. */
 function stupidver_rcompare(v1, v2) {
-    console.log("comparing " + v1 + " and " + v2 + ".");
     let s1 = v1.split(".").map(Number);
-    console.log("v1 is split to " + s1 + ".");
     let s2 = v2.split(".").map(Number);
-    console.log("v2 is split to " + s2 + ".");
     if (s1[0] > s2[0]) {
         return -1;
     } else if (s1[0] < s2[0]) {
