@@ -28,30 +28,35 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(value = CircleExecutionState.class, remap = false)
 public abstract class CircleExecutionStateMixin {
     /** mixinextras is neat */
+    @SuppressWarnings("UnqualifiedMemberReference")
     @Inject(
         method = "createNew",
         at = @At(
             value = "INVOKE",
             //at.petrak.hexcasting.api.casting.circles.ICircleComponent.possibleExitDirections(net.minecraft.util.math.BlockPos pos, net.minecraft.block.BlockState bs, net.minecraft.world.World world)
             //target = "Ljava/util/ArrayList;add(Ljava/lang/Object;)Z",
-            target = "Lat/petrak/hexcasting/api/casting/circles/ICircleComponent;possibleExitDirections(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;)Ljava/util/EnumSet;",
+
+            //Mixin couldn't find target = "Lat/petrak/hexcasting/api/casting/circles/ICircleComponent;possibleExitDirections(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;)Ljava/util/EnumSet;",
+            target = "possibleExitDirections", //IDE complains about it, even tho it works.
             shift = At.Shift.AFTER
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     private static void beforePossibleExitDirections(
-        BlockEntityAbstractImpetus _1,
-        ServerPlayerEntity _2,
-        CallbackInfoReturnable<Result<CircleExecutionState, BlockPos>> cir,
+        //Required for mixin
+        BlockEntityAbstractImpetus _impetus,
+        ServerPlayerEntity _player,
+        CallbackInfoReturnable<Result<CircleExecutionState, BlockPos>> callback,
+        //What we actually care about
         @Local ServerWorld level,
         @Local Stack<Pair<Direction, BlockPos>> todo,
         @Local Direction enterDir,
         @Local BlockPos herePos,
         @Local ICircleComponent cmp
     ) {
-        if (!(cmp instanceof JumpSlate jmpSlate)) return;
+        if (!(cmp instanceof JumpSlate jmpSlate)) return; //Ignore insertion if not JumpSlate
         Pair<Direction, BlockPos> exit = jmpSlate.getProbableExitPlace(enterDir, herePos, level);
-        if (exit == null) return;
+        if (exit == null) return; //If no landing slate found, act as normal, else
         todo.add(exit);
     }
 }
