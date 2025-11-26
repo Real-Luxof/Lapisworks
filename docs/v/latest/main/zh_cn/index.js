@@ -4,7 +4,7 @@ import semver from 'https://cdn.jsdelivr.net/npm/semver@7.5.4/+esm';
 const RELATIVE_SITE_URL = "../../../..";
 const VERSION = "latest/main";
 const MINECRAFT_VERSION = "1.20.1";
-const FULL_VERSION = "1.5.6.9.1.7.dev0";
+const FULL_VERSION = "1.5.7.1.7.dev0";
 const LANG = "zh_cn";
 const SHOW_DROPDOWN_MINECRAFT_VERSION = `true` === "true";
 const DROPDOWN_MINECRAFT_TEMPLATE = "Minecraft {version}";
@@ -318,7 +318,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 function stupidver_valid(v) {
     let cv = v.split(".");
-    console.log(cv[0] + " " + cv[1]);
     if (cv.length == 4) {
         try {
             let a = Number(cv[0]);
