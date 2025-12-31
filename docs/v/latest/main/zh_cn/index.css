@@ -487,7 +487,7 @@ img.spell-viz {
     --triangle-color: #000000;
   }
 }
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   /* i saw your cry for help, whoever wrote that comment in hexdoc */
   .navbar-default .navbar-brand,
   .navbar-default .navbar-nav > li > a,
