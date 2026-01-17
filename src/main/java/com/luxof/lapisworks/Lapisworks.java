@@ -411,6 +411,15 @@ public class Lapisworks implements ModInitializer {
 	public static int dot(Direction a, Direction b) {
 		return dot(a.getVector(), b.getVector());
 	}
+    public static Vec3d getBiggestAxis(Vec3d vector){
+        var dX = Math.abs(vector.x);
+        var dY = Math.abs(vector.y);
+        var dZ = Math.abs(vector.z);
+        if (dX>dY && dX>dZ) return new Vec3d(vector.x, 0, 0);
+        else if (dY>dZ)     return new Vec3d(0, vector.y, 0);
+        else                return new Vec3d(0, 0, vector.z);
+    }
+
 
 	/** returns a list of all (mapped) positions between <code>start</code> and <code>end</code>,
 	 * and a boolean which states if the raycast was interrupted suddenly instead of completing.
@@ -429,21 +438,19 @@ public class Lapisworks implements ModInitializer {
 		Vec3d end = endPos.toCenterPos();
 		List<BlockPos> positions = new ArrayList<>();
 
-		BlockPos prev = null;
-		Vec3d curr = start;
-		double step = 0.1;
-		Vec3d dir = end.subtract(start).normalize().multiply(step);
+        Vec3d delta = end.subtract(start).normalize();
+        long steps = (long) Math.ceil(getBiggestAxis(delta).length());
+        Vec3d offset = delta.multiply(1d /steps);
 
-		while (curr.squaredDistanceTo(end) > step*step) {
-			BlockPos currPos = BlockPos.ofFloored(curr);
-			if (currPos != prev) {
-				Pair<BlockPos, Boolean> ret = atEachStep.apply(currPos);
-				if (!ret.getRight()) return new Pair<>(positions, true);
-				if (ret.getLeft() != null) positions.add(ret.getLeft());
-			}
-			prev = currPos;
-			curr.add(dir);
-		}
+        Vec3d curr = start;
+        for (long step = 0; step < steps; step++) { //ENSURE it does terminate, also don't spam distance checks
+            curr = curr.add(offset); //Minecraft's Vec3d operations return a copy
+
+            BlockPos currBlockPos = BlockPos.ofFloored(curr);
+            Pair<BlockPos, Boolean> ret = atEachStep.apply(currBlockPos); //Some shenanigans
+            if (!ret.getRight()) return new Pair<>(positions, true);
+            if (ret.getLeft() != null) positions.add(ret.getLeft());
+        }
 		return new Pair<>(positions, false);
 	}
 
