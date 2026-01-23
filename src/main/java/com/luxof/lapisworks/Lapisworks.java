@@ -9,8 +9,17 @@ import at.petrak.hexcasting.api.pigment.FrozenPigment;
 import at.petrak.hexcasting.api.utils.NBTHelper;
 import at.petrak.hexcasting.common.lib.HexItems;
 
+import com.luxof.lapisworks.init.ModItems;
+import com.luxof.lapisworks.init.ModPOIs;
+import com.luxof.lapisworks.init.ModRecipes;
+import com.luxof.lapisworks.init.ModScreens;
+import com.luxof.lapisworks.init.Patterns;
 import com.luxof.lapisworks.blocks.stuff.LinkableMediaBlock;
-import com.luxof.lapisworks.init.*;
+import com.luxof.lapisworks.init.LapisParticles;
+import com.luxof.lapisworks.init.LapisworksLoot;
+import com.luxof.lapisworks.init.ModBlocks;
+import com.luxof.lapisworks.init.ModEntities;
+import com.luxof.lapisworks.init.ThemConfigFlags;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
 import com.luxof.lapisworks.mixinsupport.GetStacks;
@@ -27,23 +36,21 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 import java.util.function.Function;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.Version;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
@@ -57,10 +64,13 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.Util;
 
 import org.jetbrains.annotations.Nullable;
+
 import org.joml.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.spongepowered.asm.mixin.Debug;
 import vazkii.patchouli.api.PatchouliAPI;
 
 // why is this project actually big?
@@ -387,7 +397,7 @@ public class Lapisworks implements ModInitializer {
 	public static int getInfusedAmel(ItemStack stack) {
 		return NBTHelper.getInt(stack, INFUSED_AMEL, 0);
 	}
-
+	
 	public static void setInfusedAmel(ItemStack stack, int count) {
 		NBTHelper.putInt(stack, INFUSED_AMEL, count);
 	}
@@ -434,23 +444,18 @@ public class Lapisworks implements ModInitializer {
 		BlockPos endPos,
 		Function<BlockPos, Pair<BlockPos, Boolean>> atEachStep
 	) {
-		Vec3d start = startPos.toCenterPos();
-		Vec3d end = endPos.toCenterPos();
 		List<BlockPos> positions = new ArrayList<>();
 
-        Vec3d delta = end.subtract(start).normalize();
-        long steps = (long) Math.ceil(getBiggestAxis(delta).length());
-        Vec3d offset = delta.multiply(1d /steps);
-
-        Vec3d curr = start;
-        for (long step = 0; step < steps; step++) { //ENSURE it does terminate, also don't spam distance checks
-            curr = curr.add(offset); //Minecraft's Vec3d operations return a copy
-
-            BlockPos currBlockPos = BlockPos.ofFloored(curr);
-            Pair<BlockPos, Boolean> ret = atEachStep.apply(currBlockPos); //Some shenanigans
+        Vec3d curr = startPos.toCenterPos();
+        Vec3d end = endPos.toCenterPos();
+        while (true){
+            curr = curr.add(getBiggestAxis(end.subtract(curr)).normalize()); //Step 1 block at a time
+            Pair<BlockPos, Boolean> ret = atEachStep.apply(BlockPos.ofFloored(curr)); //Some shenanigans
             if (!ret.getRight()) return new Pair<>(positions, true);
             if (ret.getLeft() != null) positions.add(ret.getLeft());
+            if (curr.equals(end)) break;
         }
+
 		return new Pair<>(positions, false);
 	}
 
@@ -540,29 +545,4 @@ public class Lapisworks implements ModInitializer {
 		}
 		return false;
 	}
-
-	public static NbtCompound serializeBlockPos(BlockPos pos) {
-		NbtCompound nbt = new NbtCompound();
-		nbt.putInt("x", pos.getX());
-		nbt.putInt("y", pos.getY());
-		nbt.putInt("z", pos.getZ());
-		return nbt;
-	}
-	/** deserializes a blockpos that was serialized by <code>serializeBlockPos</code>. */
-	public static BlockPos deserializeBlockPos(NbtCompound nbt) {
-		return new BlockPos(
-			nbt.getInt("x"),
-			nbt.getInt("y"),
-			nbt.getInt("z")
-		);
-	}
-	/** deserializes a blockpos that was serialized by <code>serializeBlockPos</code>. */
-	public static BlockPos deserializeBlockPos(NbtElement nbt) {
-		return deserializeBlockPos((NbtCompound)nbt);
-	}
-    public static NbtList nbtListOf(List<? extends NbtElement> list) {
-        NbtList nbtList = new NbtList();
-        nbtList.addAll(list);
-        return nbtList;
-    }
 }
