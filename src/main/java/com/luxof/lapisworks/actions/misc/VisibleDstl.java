@@ -29,10 +29,8 @@ public class VisibleDstl implements ConstMediaAction {
         Vec3d start = entity.getEyePos();
         Vec3d end = OperatorUtils.getVec3(args, 1, getArgc());
 
-        try {
-            ctx.assertVecInRange(start);
-            ctx.assertVecInRange(end);
-        } catch (MishapBadLocation e) { MishapThrowerJava.throwMishap(e); }
+        ctx.assertVecInRange(start);
+        ctx.assertVecInRange(end);
 
         //If the entity isn't even facing the block
         if (entity.getRotationVector().dotProduct(end.subtract(start).normalize()) < 0.1)
