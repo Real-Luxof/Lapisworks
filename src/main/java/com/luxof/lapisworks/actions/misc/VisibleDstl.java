@@ -8,37 +8,46 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.BooleanIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
+import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 
-import static com.luxof.lapisworks.Lapisworks.castRay;
+import com.luxof.lapisworks.MishapThrowerJava;
 
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Pair;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.RaycastContext;
 
 public class VisibleDstl implements ConstMediaAction {
     @Override
     public List<Iota> execute(List<? extends Iota> args, CastingEnvironment ctx) {
         Entity entity = OperatorUtils.getEntity(args, 0, getArgc());
-        BlockPos start = BlockPos.ofFloored(entity.getEyePos());
-        BlockPos end = OperatorUtils.getBlockPos(args, 1, getArgc());
+        Vec3d start = entity.getEyePos();
+        Vec3d end = OperatorUtils.getVec3(args, 1, getArgc());
 
-        ctx.assertPosInRange(start);
-        ctx.assertPosInRange(end);
+        try {
+            ctx.assertVecInRange(start);
+            ctx.assertVecInRange(end);
+        } catch (MishapBadLocation e) { MishapThrowerJava.throwMishap(e); }
 
-        Vec3d dir = end.toCenterPos().subtract(start.toCenterPos()).normalize();
+        //If the entity isn't even facing the block
+        if (entity.getRotationVector().dotProduct(end.subtract(start).normalize()) < 0.1)
+            return List.of(new BooleanIota(false));
 
+        BlockHitResult blockHitResult = ctx.getWorld().raycast(new RaycastContext(
+            start,
+            end,
+            RaycastContext.ShapeType.COLLIDER,
+            RaycastContext.FluidHandling.ANY,
+            null //Some mods let players with certain ability not to collide with blocks (like phantom origin), if not null may cause unexpected behaviour.
+        ));
         return List.of(new BooleanIota(
-            entity.getRotationVector().dotProduct(dir) >= 0.1
-            && !castRay(
-                start,
-                BlockPos.ofFloored(end.toCenterPos().subtract(dir)),
-                pos -> 
-                    new Pair<>(pos, !ctx.getWorld().getBlockState(pos).isOpaque())
-            ).getRight()
+            blockHitResult.getBlockPos().equals(BlockPos.ofFloored(end)) //If the block hit is the block we wanted
+            || blockHitResult.getType() ==  HitResult.Type.MISS //Or we went nowhere, which is still ok
         ));
     }
 
