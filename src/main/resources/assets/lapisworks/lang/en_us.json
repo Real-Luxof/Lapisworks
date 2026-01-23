@@ -49,21 +49,17 @@
     "item.lapisworks.staves.incomplete.obsidian_wand": "Infused Obsidian Wand",
     "item.lapisworks.staves.incomplete.warped": "Infused Warped Staff",
     "item.lapisworks.staves.incomplete.warped_wand": "Infused Warped Wand",
-
     "item.lapisworks.staves.amel_ring": "Ring of Amethyst Lazuli",
     "item.lapisworks.staves.amel_ring2": "Ring of Amethyst Lazuli",
     "item.lapisworks.amel_jar": "Amel Jar",
     "item.lapisworks.amel_constructs.focus_necklace.1": "Focus Necklace",
     "item.lapisworks.amel_constructs.focus_necklace.2": "Amulet of Holding",
-
     "item.lapisworks.energy_container": "Enchantment Energy Container",
     "item.lapisworks.amel_constructs.amel_orb": "Amel-tuned Orb",
     "item.lapisworks.amel_constructs.geode_dowser": "Geode Dowser",
-
     "item.lapisworks.amel_constructs.diamond_sword": "Amel-Infused Diamond Sword",
     "item.lapisworks.amel_constructs.iron_sword": "Amel-Infused Iron Sword",
     "item.lapisworks.amel_constructs.gold_sword": "Amel-Infused Golden Sword",
-
     "item.lapisworks.amethyst_stamp": "Amethyst Stamp",
 
 
@@ -99,6 +95,7 @@
     "block.lapisworks.chalk": "Amethyst Chalk",
     "block.lapisworks.chalk_with_pattern": "Amethyst Chalk",
     "block.lapisworks.tuneable_amethyst": "Tuneable Amethyst",
+    "block.lapisworks.ritus": "Ritus",
 
     "advancements.lapisworks.gotlapis.name": "Lapisworks Research",
     "advancements.lapisworks.gotlapis.description": "A deep blue, precious mineral. Just as they wrote..",
@@ -369,8 +366,8 @@
     "pages.lapisworks.lapisworks_lore.page3": "This allows any outside media to suck out all the enchantment energy of the Lapis Lazuli by interacting with the Amel's media layer. While I have found many patterns (documented just beside this entry), some pages of the texts remain blank and not even rubbing with Lapis Lazuli or $(item)Amel$() can decipher them. I suppose I will find out soon enough (or even never as the deciphering could be lost to time) and must be content with what I have now.",
 
     "pages.lapisworks.lapisworks_patterns.title": "Lapisworks Patterns",
-    "pages.lapisworks.lapisworks_patterns.imbue_lap.summary": "Transform all the Lapis Lazuli in my other hand into $(item)Amethyst Lazuli$(), or $(item)Amel$() for short. Costs one $(item)Amethyst Shards$() in media and in item form (in my hotbar) each, per Lapis.",
-    "pages.lapisworks.lapisworks_patterns.reclaim_ameth.summary": "Transform all the $(item)Amethyst Lazuli$() in my other hand into $(item)Amethyst Shards$(). The Lapis turns into a fine mist which spreads quickly in the air. Excess shards spill onto the ground. Costs one shard.",
+    "pages.lapisworks.lapisworks_patterns.imbue_lap.summary": "Transform all the Lapis Lazuli in my other hand into $(item)Amethyst Lazuli$(), or $(item)Amel$() for short. Costs one $(item)Amethyst Shards$() in media and in item form (taken from my inventory) each, per Lapis.",
+    "pages.lapisworks.lapisworks_patterns.reclaim_ameth.summary": "Transform all the $(item)Amethyst Lazuli$() in my other hand into twice as many $(item)Amethyst Shards$(). The Lapis turns into a fine mist which spreads quickly in the air. Excess shards spill onto the ground. Costs one shard.",
     "pages.lapisworks.lapisworks_patterns.swap_amel.summary": "Cycle through the appearances I've designed of the $(item)Amel$() or $(thing)Amel-infused Construct$() (such as an $(item)Amel Ring$()) in my other hand. (e.g. $(item)Amel$() has four forms.)",
     "pages.lapisworks.lapisworks_patterns.bodily_enchantments_wait": "The next patterns enchant various parts of my body, but cost some $(item)Amel$() (from anything I have equipped, then from my hands and then from my hotbar) and media. If I provide a number higher than the limit it does not cost media or $(item)Amel$() above that limit, but it also does not enchant above that limit. The enhancements provided disappear on death $(o)(or bad dreams)$(), but not when crossing dimensions like $(l:patterns/spells/flight)Flight$() does.",
     "pages.lapisworks.lapisworks_patterns.moar_health.summary": "Pass in an entity and a number of half-hearts, and it enchants that entity's skin thus increasing their health. The $(item)Amel$() cost is the number given and the cost in media is twice the expended $(item)Amel$().",
@@ -436,8 +433,8 @@
     "categories.lapisworks.lapisworks.imbuement.desc": "Apparently some of the materials of this world have differing interactions with media, including $(item)Amel$(). Let's see..",
 
     "pages.lapisworks.imbuement_spell.title": "Imbue Amel",
-    "pages.lapisworks.imbuement_spell.summary": "The spell the ancient \"$(#00c)Lapisworkers$()\" would use very often. Imbue the item in my other hand (or main if nothing imbueable is in the other hand) with the specified amount of Amel, with no waste like the Enchant X spells. Costs 2x the amount of $(item)Amel$() being infused, in dust.",
-    "pages.lapisworks.imbuement_spell.howitcostsamel": "It draws $(item)Amel$() firstly from anything I have equipped, then from my hands and then from my hotbar. The integer argument I provide limits it from being able to find or draw any more $(item)Amel$() than that.",
+    "pages.lapisworks.imbuement_spell.summary": "The ancient \"$(#00c)Lapisworkers$()\" would use this often. Imbue the item in my other hand (or main if nothing imbueable is there) with the specified amount of Amel, with no waste like the Enchant X spells. Costs 2x the amount of $(item)Amel$() being infused, in dust.",
+    "pages.lapisworks.imbuement_spell.howitcostsamel": "It draws $(item)Amel$() firstly from anything I have equipped, then from my hands and then from my hotbar. The number argument I provide limits it from being able to find or draw any more $(item)Amel$() than that.",
     "pages.lapisworks.imbuement_spell.specialhandlers": "Besides turning one item into another, this spell can also be used to enchant some things instead. For example: one use I've found is to enchant Enchanted Books that have only one enchantment. It increases the level of the lone enchantment on the book by $(thing)1$() for $(thing)20 * previous level$() $(item)Amel$() and about five charged crystals of Amethyst.",
 
     "pages.lapisworks.imbuement_rings.title": "Casting Rings",
@@ -481,7 +478,7 @@
     "pages.lapisworks.imbuement.jumpslate.enchantments_explanation": "I have learned never to open those texts that require a broken mind again. They disturb my psyche tremendously, likely due to some password being required that had since been lost to time. My psyche. They touched my sanity. They tried to hurt $(o)me$() at my pinnacle. How dare they? HOW DARE THEY?! Stop. Keep calm. Focus. Move on. History will have taught them their error in their demise.",
     "pages.lapisworks.imbuement.jumpslate.intro": "The constructs made of $(l:items/slate)slates$() that were previously lost to time until $(o)I$() recovered them, also known as $(l:greatwork/spellcircles)Spell Circles$(), are truly glorious. I adore them. I can do so much with them. However.. As much as I may love my new playthings they are not perfect so. They are grand indeed! But sometimes, I feel they are $(o)too$() grand. Their color clashes with the aesthetics I desire. The $(l:greatwork/directrix)directrices$(), $(l:greatwork/impetus)impeti$(), they look so $(o)hideous$() in certain builds! It $(o)pains$() me so! But.. With $(o)Amel Infusion$() I can fix this.",
     "pages.lapisworks.imbuement.jumpslate.howtomake": "Amel reigns supreme when it comes to attracting and integrating into media, using it and enchanting constructs. An enchanted $(l:items/slate)slate$() could be produced intricately and in such a manner it turns into a media accelerator not unlike my $(item)Amel Ring$(). It can also be amplified by media (dynamically!) to push it further, bypassing slates. This effect, I'll coin \"jumping slates\". My original creation. $(o)Mine.$() My marvellous invention, it requires only 20 pieces of $(item)Amel$() and has a range of $(o)100 blocks!$()",
-    "pages.lapisworks.imbuement.jumpslate.thing": "It attempts to pop an integer that's not 0 or 1 off the top of the stack and take 2.5 times that in dust from the circle to jump that many blocks. Behold it's marvel, however: if it fails, it lets the flow pass straight through like it were a junction. Nothing ever escapes to the sides. What if it finds a negative number? Even better, it jumps backwards and the leftover momentum makes the Spell Circle work in reverse.",
+    "pages.lapisworks.imbuement.jumpslate.thing": "It attempts to pop an number that's not 0 or 1 off the top of the stack and take 2.5 times that in dust from the circle to jump that many blocks. Behold it's marvel, however: if it fails, it lets the flow pass straight through like it were a junction. Nothing ever escapes to the sides. What if it finds a negative number? Even better, it jumps backwards and the leftover momentum makes the Spell Circle work in reverse.",
     "pages.lapisworks.imbuement.jumpslate.pic.desc": "$(o)Spell Circles were revealed to ME. To ME. And I have improved them. $(#05e)That's why they we$(#e07)re revealed to ME.$()",
     "pages.lapisworks.imbuement.jumpslate.rebound_start": "While the Shepherd Directrix may be the most easy-to-use for making loops, it looks unwieldy to say the least. I desire something more pretty. A Jump Slate that reverses it's direction after the jump. As an Impetus can push the flow of media, I deduce a Simple Mind would be able to do much the same. Imbuing a Simple Mind into a Jump Slate should do. I'll call my invention: the Rebound Slate, as it always directs the flow of media back to itself post-jump, except when it fails.",
     "pages.lapisworks.imbuement.jumpslate.rebound_pic.desc": "$(o)Through and through and right back around. The thought of that disturbs me yet keeps me sane.$()",
@@ -505,8 +502,8 @@
     "pages.lapisworks.imbuement.condenser.title": "Media Condensing Unit",
     "pages.lapisworks.imbuement.condenser.text": "I find my mediums of storing media rather.. Untidy and insufficient. Any media not in $(l:patterns/great_spells/make_battery)$(item)Phials$() must be stored in chests, in items that have varying media value. These items cannot be transported easily either, so I cannot have more than one base of operations lest I set up something complicated and convoluted. To combat these issues, $(l)I$(), one chosen, have invented the $(#00c)Media Condensing Unit$(). I can use $(l:patterns/great_spells/make_battery)$(thing)Craft Phial$() on it's base to construct it.",
     "pages.lapisworks.imbuement.condenser.recipe.desc": "$(o)A thin layer of slates covering the battery, with a media attracting substance and a dust-provided interface for interaction on top.$()",
-    "pages.lapisworks.imbuement.condenser.deposit.summary": "Deposits into the given unit the amount of media specified, in dust. Costs the media specified, plus a tax of 10%% of it. Overflow is discarded!",
-    "pages.lapisworks.imbuement.condenser.withdraw.summary": "Withdraws, from the given unit, into the $(l:patterns/great_spells/make_battery)$(item)Phial$() in my other hand, the amount specified in dust. Costs 10%% of the media specified. Overflow into the $(l:patterns/great_spells/make_battery)$(item)Phial$() is discarded!",
+    "pages.lapisworks.imbuement.condenser.deposit.summary": "Deposits into the given unit the amount of media specified, in dust. Costs the media specified, plus a tax of 10%% of it.",
+    "pages.lapisworks.imbuement.condenser.withdraw.summary": "Withdraws, from the given unit, into the $(l:patterns/great_spells/make_battery)$(item)Phial$() in my other hand, the amount specified in dust. Costs 10%% of the media specified.",
     "pages.lapisworks.imbuement.condenser.phianglement.title": "Phianglement",
     "pages.lapisworks.imbuement.condenser.phianglement.text": "$(#00c)Phianglement$() is a term for links between $(thing)phiangleable blocks$(). Two \"$(#00c)phiangled$()\" blocks bear a link so that when one is deposited into, the overflow collects in the other, and when one is withdrawn from, missing media is fulfilled by the other. A chain or even an interconnected network of units can be set up, however the amount of links for a single condenser can be no more than five. Links cost nothing to maintain once set up.",
     "pages.lapisworks.imbuement.condenser.phiangle.summary": "$(#00c)Phiangles$() two $(thing)phiangleables$(). Costs a flat three $(item)Charged Amethyst$(), and a scalable one $(item)Amel$() per 32 blocks of distance, with a minimum of one.",

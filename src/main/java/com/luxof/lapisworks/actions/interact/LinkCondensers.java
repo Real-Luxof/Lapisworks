@@ -12,8 +12,9 @@ import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.Lapisworks.getDistance;
-import static com.luxof.lapisworks.MishapThrowerJava.assertAmelAmount;
+import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.MishapThrowerJava.assertIsntLinked;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 import static com.luxof.lapisworks.MishapThrowerJava.assertLinkableThere;
 import static com.luxof.lapisworks.MishapThrowerJava.assertNotTooManyLinks;
 
@@ -39,7 +40,7 @@ public class LinkCondensers extends SpellActionNCT {
 
         // "costs 1 amel per 32 blocks of distance, with a minimum of 1."
         int amelCost = (int)Math.max(1, Math.floor(getDistance(pos1, pos2) / 32.0));
-        assertAmelAmount(ctx, amelCost);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, amelCost);
 
         return new Result(
             new Spell(pos1, pos2, amelCost),
@@ -67,7 +68,8 @@ public class LinkCondensers extends SpellActionNCT {
             ((GetVAULT)ctx).grabVAULT().drain(
                 Mutables::isAmel,
                 amel,
-                Flags.PRESET_Stacks_InvItem_UpToHotbar
+                false,
+                Flags.PRESET_UpToHotbar
             );
             ServerWorld world = ctx.getWorld();
             ((LinkableMediaBlock)world.getBlockEntity(pos1)).addLink(pos2);

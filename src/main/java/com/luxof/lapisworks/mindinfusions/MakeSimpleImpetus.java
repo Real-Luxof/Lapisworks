@@ -13,9 +13,9 @@ import com.luxof.lapisworks.blocks.entities.SimpleImpetusEntity;
 import com.luxof.lapisworks.init.ModBlocks;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.init.Mutables.SMindInfusion;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -47,10 +47,7 @@ public class MakeSimpleImpetus extends SMindInfusion {
 
     @Override
     public void mishapIfNeeded() {
-        int fetched = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
-        if (fetched < 5) {
-            throw new MishapNotEnoughItems(AMEL, fetched, 5);
-        }
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, 5);
         if (
             ctx.getCastingEntity() == null ||
             !(ctx.getCastingEntity() instanceof ServerPlayerEntity)
@@ -60,7 +57,7 @@ public class MakeSimpleImpetus extends SMindInfusion {
 
     @Override
     public void accept() {
-        vault.drain(Mutables::isAmel, 5, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+        vault.drain(Mutables::isAmel, 5, false, Flags.PRESET_UpToHotbar);
         world.setBlockState(
             blockPos,
             ModBlocks.SIMPLE_IMPETUS.getDefaultState()

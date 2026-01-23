@@ -17,30 +17,28 @@ import com.luxof.lapisworks.blocks.stuff.LinkableMediaBlock;
 import com.luxof.lapisworks.chalk.OneTimeRitualExecutionState;
 import com.luxof.lapisworks.chalk.RitualCastEnv;
 import com.luxof.lapisworks.chalk.RitualExecutionState;
-import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.mishaps.MishapOutsideOfRitual;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 import com.mojang.datafixers.util.Either;
 
-import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.LapisworksIDs.LINKABLE_MEDIA_BLOCK;
 
 import java.util.List;
 import java.util.Optional;
-
-import org.jetbrains.annotations.Nullable;
+import java.util.function.Predicate;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-// VSCode has heinous Kotlin support for Minecraft modding,
-// and I REFUSE to use IntelliJ.
-// So I made this just to stop it from being mad at me EVERYWHERE.
+import org.jetbrains.annotations.Nullable;
+
 public class MishapThrowerJava {
     public static <ANY extends Object> ANY throwIfEmpty(Optional<ANY> opt, Mishap mishap) {
         if (opt.isEmpty()) throw mishap;
@@ -51,13 +49,20 @@ public class MishapThrowerJava {
         return nullable;
     }
 
-    public static void assertAmelAmount(CastingEnvironment ctx, int cost) {
-        int present = ((GetVAULT)ctx).grabVAULT().fetch(
-            Mutables::isAmel,
-            Flags.PRESET_Stacks_InvItem_UpToHotbar
+    public static void assertItemAmount(CastingEnvironment ctx, Item item, int amount) {
+        assertItemAmount(ctx, stack -> stack.getItem() == item, item.getName(), amount);
+    }
+    public static void assertItemAmount(
+        CastingEnvironment ctx,
+        Predicate<ItemStack> pred,
+        Text itemName,
+        int amount
+    ) {
+        int got = ((GetVAULT)ctx).grabVAULT().drain(
+            pred, amount, true, Flags.PRESET_UpToHotbar
         );
-        if (present < cost)
-            throw new MishapNotEnoughItems(AMEL, present, cost);
+        if (got < amount)
+            throw new MishapNotEnoughItems(itemName, got, amount);
     }
     public static LinkableMediaBlock assertLinkableThere(BlockPos pos, CastingEnvironment ctx) {
         BlockEntity bE = ctx.getWorld().getBlockEntity(pos);

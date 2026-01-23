@@ -6,6 +6,8 @@ import com.luxof.lapisworks.blocks.stuff.AttachedBE;
 import com.luxof.lapisworks.init.ModBlocks;
 import com.luxof.lapisworks.init.ModItems;
 
+import static com.luxof.lapisworks.LapisworksIDs.CHALK_CONNECTABLE_TAG;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -30,7 +32,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import static net.minecraft.util.math.Direction.UP;
-import static com.luxof.lapisworks.LapisworksIDs.CHALK_CONNECTABLE_TAG;
 import static net.minecraft.util.math.Direction.DOWN;
 import static net.minecraft.util.math.Direction.NORTH;
 import static net.minecraft.util.math.Direction.WEST;
@@ -61,7 +62,15 @@ public class ChalkWithPattern extends BlockWithEntity implements ChalkBlockInter
         BlockHitResult hit
     ) {
         if (!player.getStackInHand(hand).isOf(ModItems.CHALK))
-            return ChalkBlockInterface.super.onUse(state, world, pos, player, hand, hit);
+            return ChalkBlockInterface.super.onUse(
+                state,
+                world,
+                pos,
+                player,
+                hand,
+                hit,
+                ((ChalkWithPatternEntity)world.getBlockEntity(pos)).attachedTo
+            );
 
         if (world.isClient) return ActionResult.SUCCESS;
         NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
@@ -147,6 +156,9 @@ public class ChalkWithPattern extends BlockWithEntity implements ChalkBlockInter
             return;
         }
 
+        if (!chalk.renderLeftBracket || !chalk.renderRightBracket)
+            return;
+
         Direction leftOrRight = findLeftVector(chalk.attachedTo);
 
         if (comingFrom == leftOrRight || comingFrom == leftOrRight.getOpposite())
@@ -158,10 +170,27 @@ public class ChalkWithPattern extends BlockWithEntity implements ChalkBlockInter
         chalk.save();
     }
 
-    private boolean validateDir(World world, BlockPos pos, Direction attachedTo) {
-        return world.getBlockState(pos).isIn(CHALK_CONNECTABLE_TAG)
-            || (world.getBlockEntity(pos) instanceof AttachedBE someChalk
-            && someChalk.getAttachedTo() == attachedTo);
+    private int assignPointsTo(World world, BlockPos pos, Direction attachedTo) {
+        int ret = 0;
+        
+        BlockState state = world.getBlockState(pos);
+
+        if (state.isIn(CHALK_CONNECTABLE_TAG))
+            ret += 1;
+        else
+            return 0;
+
+        if (
+            world.getBlockEntity(pos) instanceof AttachedBE attachedConnectable &&
+            attachedConnectable.getAttachedTo() == attachedTo
+        )
+            ret += 1;
+        else
+            return 0;
+
+        if (state.isOf(ModBlocks.CHALK_WITH_PATTERN)) ret += 2;
+
+        return ret;
     }
     @Override
     public void onPlaced(
@@ -177,13 +206,14 @@ public class ChalkWithPattern extends BlockWithEntity implements ChalkBlockInter
         Direction front = findFrontVector(chalk.attachedTo);
         Direction attachedTo = chalk.attachedTo;
 
-        int onLeftAndRight = (validateDir(world, pos.offset(left), attachedTo) ? 1 : 0) +
-            (validateDir(world, pos.offset(left.getOpposite()), attachedTo) ? 1 : 0);
+        int onLeftAndRight = assignPointsTo(world, pos.offset(left), attachedTo) +
+            assignPointsTo(world, pos.offset(left.getOpposite()), attachedTo);
 
-        int onFrontAndBack = (validateDir(world, pos.offset(front), attachedTo) ? 1 : 0) +
-            (validateDir(world, pos.offset(front.getOpposite()), attachedTo) ? 1 : 0);
+        int onFrontAndBack = assignPointsTo(world, pos.offset(front), attachedTo) +
+            assignPointsTo(world, pos.offset(front.getOpposite()), attachedTo);
 
         if (onFrontAndBack > onLeftAndRight) chalk.rotated = true;
+        else if (onFrontAndBack == onLeftAndRight) chalk.rotated = Math.random() < 0.5;
         else chalk.rotated = false;
 
         updateBracketRendering(world, pos, chalk);
@@ -192,7 +222,7 @@ public class ChalkWithPattern extends BlockWithEntity implements ChalkBlockInter
 
     private boolean isChalkWP(World world, BlockPos pos, Direction attachedTo) {
         return world.getBlockState(pos).getBlock() == ModBlocks.CHALK_WITH_PATTERN
-            && validateDir(world, pos, attachedTo);
+            && ((AttachedBE)world.getBlockEntity(pos)).getAttachedTo() == attachedTo;
     }
     public void updateBracketRendering(
         World world,

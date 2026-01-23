@@ -7,10 +7,10 @@ import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.init.Mutables.SMindInfusion;
 import com.luxof.lapisworks.interop.hexal.Lapisal;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.LapisworksIDs.CLUEDIN_ADVANCEMENT;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.LivingEntity;
@@ -28,20 +28,17 @@ import ram.talia.hexal.common.entities.WanderingWisp;
 import ram.talia.hexal.common.lib.HexalBlocks;
 
 public class OpenSlipway extends SMindInfusion {
-    private int amelCount = 0;
     private int neededAmel = 48;
 
     @Override
     public boolean testBlock() {
         if (!ctx.isEnlightened()) return false;
-        amelCount = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
         return ctx.getWorld().getBlockState(blockPos).isOf(HexalBlocks.SLIPWAY);
     }
 
     @Override
     public void mishapIfNeeded() {
-        if (amelCount >= neededAmel) return;
-        throw new MishapNotEnoughItems(AMEL, amelCount, neededAmel);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, neededAmel);
     }
 
     @Override
@@ -53,7 +50,7 @@ public class OpenSlipway extends SMindInfusion {
             if (!sp.getAdvancementTracker().getProgress(cluedIn).isDone())
                 sp.getAdvancementTracker().grantCriterion(cluedIn, "grant");
         }
-        vault.drain(Mutables::isAmel, neededAmel, Flags.PRESET_StacksUptoHotbar_InvItemUptoHands);
+        vault.drain(Mutables::isAmel, neededAmel, false, Flags.PRESET_UpToHotbar);
         ParticleSpray particles = ParticleSpray.burst(blockPos.toCenterPos(), 5, 50);
         particles.sprayParticles(world, Lapisworks.getPigmentFromDye(DyeColor.PURPLE));
         world.createExplosion(

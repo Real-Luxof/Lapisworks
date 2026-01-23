@@ -30,6 +30,7 @@ import static com.luxof.lapisworks.Lapisworks.hasInfusedAmel;
 import static com.luxof.lapisworks.Lapisworks.setInfusedAmel;
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.LapisworksIDs.IMBUEABLE;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,6 @@ public class ImbueAmel implements SpellAction {
 
         VAULT vault = ((GetVAULT)ctx).grabVAULT();
 
-        int availableAmel = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
         List<HeldItemInfo> heldInfos = ((GetStacks)ctx).getHeldStacksOtherFirst();
         List<ItemStack> heldStacks = ((GetStacks)ctx).getHeldItemStacksOtherFirst();
 
@@ -116,8 +116,7 @@ public class ImbueAmel implements SpellAction {
         int fullInfuseCost = recipe.getFullAmelsCost() - getInfusedAmel(items);
         int infuseAmount = Math.min(wantToInfuseAmount, fullInfuseCost);
 
-        if (availableAmel < infuseAmount)
-            throw new MishapNotEnoughItems(AMEL, availableAmel, infuseAmount);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, infuseAmount);
 
         ItemStack newStack = null;
         if (infuseAmount == fullInfuseCost)
@@ -155,7 +154,7 @@ public class ImbueAmel implements SpellAction {
 
 		@Override
 		public void cast(CastingEnvironment ctx) {
-            vault.drain(Mutables::isAmel, count, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+            vault.drain(Mutables::isAmel, count, false, Flags.PRESET_UpToHotbar);
             ctx.replaceItem(any -> true, changeToItem, hand);
 		}
 

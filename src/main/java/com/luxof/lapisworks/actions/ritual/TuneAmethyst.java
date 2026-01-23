@@ -6,15 +6,14 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
 
-import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.blocks.entities.TuneableAmethystEntity;
 import com.luxof.lapisworks.init.ModBlocks;
 import com.luxof.lapisworks.init.Mutables.Mutables;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -28,11 +27,9 @@ public class TuneAmethyst extends SpellActionNCT {
         BlockPos pos = stack.getBlockPosInRange(0);
         Iota iota = stack.get(1);
 
-        int amelCount = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, 1);
 
-        if (amelCount < 1)
-            throw new MishapNotEnoughItems(AMEL, amelCount, 1);
-        else if (!(ctx.getWorld().getBlockEntity(pos) instanceof TuneableAmethystEntity))
+        if (!(ctx.getWorld().getBlockEntity(pos) instanceof TuneableAmethystEntity))
             throw new MishapBadBlock(pos, ModBlocks.TUNEABLE_AMETHYST.getName());
 
         return new Result(

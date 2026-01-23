@@ -19,7 +19,8 @@
 		"PatternIotaMixin",
 		"OpMakeBattery$SpellMixin",
 		"BlockEntityAbstractImpetusMixin",
-		"ServerWorldMixin"
+		"ServerWorldMixin",
+		"MinecraftServerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

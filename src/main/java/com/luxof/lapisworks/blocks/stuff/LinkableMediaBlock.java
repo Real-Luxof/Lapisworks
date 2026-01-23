@@ -29,7 +29,7 @@ public interface LinkableMediaBlock {
     /** returns the amount that was withdrawn. */
     default public long withdrawMedia(long amount, boolean simulate) {
         long mediaHere = getMediaHere();
-        long toWithdraw = Math.min(mediaHere, amount);
+        long toWithdraw = Math.min(amount, mediaHere);
         if (!simulate) {
             setMedia(mediaHere - toWithdraw);
         }

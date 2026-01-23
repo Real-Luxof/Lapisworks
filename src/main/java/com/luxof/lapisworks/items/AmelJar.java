@@ -2,10 +2,10 @@ package com.luxof.lapisworks.items;
 
 import at.petrak.hexcasting.api.utils.NBTHelper;
 
-import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.init.ModItems;
 import com.luxof.lapisworks.items.shit.InventoryItem;
 
+import static com.luxof.lapisworks.Lapisworks.either;
 import static com.luxof.lapisworks.Lapisworks.getAllHands;
 import static com.luxof.lapisworks.init.Mutables.Mutables.isAmel;
 
@@ -112,31 +112,37 @@ public class AmelJar extends Item implements InventoryItem {
     }
 
     @Override
-    public boolean canAccess(Flags flags) {
-        return this.worksInHotbar ? true : !flags.canWorkIn(Flags.INVITEM, Flags.HOTBAR) &&
-                !flags.canWorkIn(Flags.INVITEM, Flags.INVENTORY);
+    public int drain(ItemStack stack, Predicate<ItemStack> predicate, int amount, boolean simulate) {
+        if (!this.predicateMatchesAmel(predicate)) return 0;
+
+        int stored = this.getStored(stack);
+        int taken = amount < 0 ? stored : Math.min(stored, amount);
+
+        int remainingInStore = this.getStored(stack) - taken;
+        if (!simulate) this.setStored(stack, remainingInStore);
+
+        return taken;
     }
     @Override
-    public int fetch(ItemStack stack, Predicate<Item> item) {
-        if (!item.test(ModItems.AMEL_ITEM)) return 0;
-        return this.getStored(stack);
+    public int give(ItemStack stack, Predicate<ItemStack> predicate, int amount, boolean simulate) {
+        if (!this.predicateMatchesAmel(predicate)) return 0;
+
+        int leftUntilMax = this.maxAmel - this.getStored(stack);
+        int given = amount < 0 ? leftUntilMax : Math.min(leftUntilMax, amount);
+
+        int hasNow = this.getStored(stack) + given;
+        if (!simulate) this.setStored(stack, hasNow);
+
+        return given;
     }
-    @Override
-    public int drain(ItemStack stack, Predicate<Item> item, int count) {
-        if (!item.test(ModItems.AMEL_ITEM)) return count;
-        int takeAway = Math.min(this.getStored(stack), count);
-        int remainingInStore = this.getStored(stack) - takeAway;
-        int remainingToTake = count - takeAway;
-        this.setStored(stack, remainingInStore);
-        return remainingToTake;
-    }
-    @Override
-    public int give(ItemStack stack, Predicate<Item> item, int count) {
-        if (!item.test(ModItems.AMEL_ITEM)) return count;
-        // by the power of the lord above my math will work
-        int give = Math.min(this.maxAmel - this.getStored(stack), count);
-        int remaining = Math.max(this.getStored(stack) + count - this.maxAmel, 0);
-        this.setStored(stack, this.getStored(stack) + give);
-        return remaining;
+
+    private boolean predicateMatchesAmel(Predicate<ItemStack> predicate) {
+        return either(
+            predicate,
+            new ItemStack(ModItems.AMEL_ITEM),
+            new ItemStack(ModItems.AMEL2_ITEM),
+            new ItemStack(ModItems.AMEL3_ITEM),
+            new ItemStack(ModItems.AMEL4_ITEM)
+        );
     }
 }

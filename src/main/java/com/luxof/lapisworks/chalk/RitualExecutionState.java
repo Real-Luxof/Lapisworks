@@ -1,6 +1,7 @@
 package com.luxof.lapisworks.chalk;
 
 import at.petrak.hexcasting.api.HexAPI;
+import at.petrak.hexcasting.api.casting.ParticleSpray;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.IotaType;
@@ -70,19 +71,28 @@ public abstract class RitualExecutionState {
         loadBase(nbt, world);
     }
 
+
+
     @Nullable
     public ServerPlayerEntity getCaster(ServerWorld world) {
         if (caster == null) return null;
         if (world.getEntity(caster) instanceof ServerPlayerEntity sp) return sp;
         return null;
     }
-    @Nullable public FrozenPigment getPigment() { return pigment; }
-    @Nullable public FrozenPigment setPigment(@Nullable FrozenPigment pigment) {
+    @Nullable
+    public FrozenPigment getPigment() {
+        return pigment;
+    }
+    @Nullable
+    public FrozenPigment setPigment(@Nullable FrozenPigment pigment) {
         FrozenPigment old = this.pigment;
         this.pigment = pigment;
         return old;
     }
-    @Nullable public Iota getTunedFrequency() { return tunedFrequency; }
+    @Nullable
+    public Iota getTunedFrequency() {
+        return tunedFrequency;
+    }
     /** to clear, you can also pass in a NullIota. */
     @Nullable
     public Iota setTunedFrequency(@Nullable Iota frequency) {
@@ -91,13 +101,19 @@ public abstract class RitualExecutionState {
         return old;
     }
 
+
+
+    private boolean vecInRange(Vec3d vec, Vec3d pos, double range) {
+        return vec.squaredDistanceTo(pos) <= range*range;
+    }
     public boolean isVecInAmbitOfPlayer(Vec3d vec, ServerWorld world, double ambitMult) {
         ServerPlayerEntity caster = getCaster(world);
         if (caster == null) return false;
 
 
-        double playerAmbit = caster.getAttributeValue(HexAttributes.AMBIT_RADIUS) * ambitMult;
-        if (caster.getPos().squaredDistanceTo(vec) <= playerAmbit*playerAmbit) return true;
+        double playerAmbit = caster.getAttributeValue(HexAttributes.AMBIT_RADIUS);
+        if (vecInRange(vec, caster.getPos(), playerAmbit*ambitMult))
+            return true;
 
 
         Sentinel sentinel = HexAPI.instance().getSentinel(caster);
@@ -105,24 +121,24 @@ public abstract class RitualExecutionState {
         if (
             sentinel != null &&
             sentinel.extendsRange() &&
-            sentinel.position().squaredDistanceTo(vec) <=
-                (sentinelAmbit*sentinelAmbit + 0.00000000001) * ambitMult
+            vecInRange(vec, sentinel.position(), sentinelAmbit*ambitMult)
         )
             return true;
-        
+
 
         EnchSentInterface enchantedSentinel = (EnchSentInterface)caster;
         Vec3d enchSentPos = enchantedSentinel.getEnchantedSentinel();
         double enchSentAmbit = enchantedSentinel.getEnchantedSentinelAmbit();
         if (
             enchSentPos != null &&
-            enchSentPos.squaredDistanceTo(vec) <= enchSentAmbit*enchSentAmbit * ambitMult
+            vecInRange(vec, enchSentPos, enchSentAmbit*ambitMult)
         )
             return true;
 
 
         return false;
     }
+
     public boolean isVecInAmbitOfTuneableAmethyst(Vec3d vec, ServerWorld world, double ambitMult) {
         RitualsUtil ritualsUtil = (RitualsUtil)world;
 
@@ -137,7 +153,9 @@ public abstract class RitualExecutionState {
 
         return false;
     }
+
     public abstract boolean isVecInAmbit(Vec3d vec, ServerWorld world);
+
 
 
     protected void saveBase(NbtCompound nbt) {
@@ -160,14 +178,12 @@ public abstract class RitualExecutionState {
         if (tunedFrequency != null)
             nbt.put("tuned", tunedFrequency.serialize());
     }
-    public abstract void save(NbtCompound nbt);
     public NbtCompound save() {
         NbtCompound nbt = new NbtCompound();
         save(nbt);
         return nbt;
     }
-
-
+    public abstract void save(NbtCompound nbt);
     protected static final record BaseConstructorArguments (
         BlockPos currentPos,
         Direction forward,
@@ -201,9 +217,42 @@ public abstract class RitualExecutionState {
     }
 
 
+
+    /** returns the amount extracted. */
     public abstract long extractMedia(long cost, boolean simulate, ServerWorld world);
     public abstract void printMessage(Text message, ServerWorld world);
     public abstract void printMishap(Text mishapMessage, ServerWorld world);
+
+
+
+    public abstract Vec3d getMishapSprayPos();
+    protected void sprayParticlesOutOf(
+        ServerWorld world,
+        BlockPos pos,
+        RitualComponent component,
+        FrozenPigment pigment
+    ) {
+        sprayParticlesOutOf(world, pos, component, pigment, 40);
+    }
+    protected void sprayParticlesOutOf(
+        ServerWorld world,
+        BlockPos pos,
+        RitualComponent component,
+        FrozenPigment pigment,
+        int amount
+    ) {
+        Vec3d particleSprayDir = Vec3d.of(component.getParticleSprayDir().getVector());
+
+        new ParticleSpray(
+            pos.toCenterPos().add(
+                particleSprayDir.multiply(-0.45)
+            ),
+            particleSprayDir.multiply(2.0),
+            0.2,
+            0.7853981633974483,
+            amount
+        ).sprayParticles(world, pigment);
+    }
     /** Returns whether to continue. */
     public abstract boolean tick(ServerWorld world);
 }

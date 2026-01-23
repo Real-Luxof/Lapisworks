@@ -14,6 +14,8 @@ import com.luxof.lapisworks.init.ModPOIs;
 import com.luxof.lapisworks.init.ModRecipes;
 import com.luxof.lapisworks.init.ModScreens;
 import com.luxof.lapisworks.init.Patterns;
+import com.google.gson.JsonPrimitive;
+
 import com.luxof.lapisworks.blocks.stuff.LinkableMediaBlock;
 import com.luxof.lapisworks.init.LapisParticles;
 import com.luxof.lapisworks.init.LapisworksLoot;
@@ -38,6 +40,7 @@ import dev.emi.trinkets.api.TrinketsApi;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
@@ -135,6 +138,7 @@ public class Lapisworks implements ModInitializer {
 			com.luxof.lapisworks.interop.hexal.Lapisal.beCool();
 		}
 
+		LapisConfig.renewCurrentConfig();
 		ThemConfigFlags.declareEm();
 		ModEntities.doSomethingFun();
 		Patterns.init();
@@ -168,6 +172,10 @@ public class Lapisworks implements ModInitializer {
 
 	public static Identifier id(String string) {
 		return new Identifier(MOD_ID, string);
+	}
+
+	public static JsonPrimitive primitive(Number number) {
+		return new JsonPrimitive(number);
 	}
 
 	public static boolean trinketEquipped(LivingEntity entity, Item item) {
@@ -544,5 +552,51 @@ public class Lapisworks implements ModInitializer {
 			if (stack.getItemStack().isOf(item)) return true;
 		}
 		return false;
+	}
+
+	public static NbtCompound serializeBlockPos(BlockPos pos) {
+		NbtCompound nbt = new NbtCompound();
+		nbt.putInt("x", pos.getX());
+		nbt.putInt("y", pos.getY());
+		nbt.putInt("z", pos.getZ());
+		return nbt;
+	}
+	/** deserializes a blockpos that was serialized by <code>serializeBlockPos</code>. */
+	public static BlockPos deserializeBlockPos(NbtCompound nbt) {
+		return new BlockPos(
+			nbt.getInt("x"),
+			nbt.getInt("y"),
+			nbt.getInt("z")
+		);
+	}
+	/** deserializes a blockpos that was serialized by <code>serializeBlockPos</code>. */
+	public static BlockPos deserializeBlockPos(NbtElement nbt) {
+		return deserializeBlockPos((NbtCompound)nbt);
+	}
+    public static NbtList nbtListOf(List<? extends NbtElement> list) {
+        NbtList nbtList = new NbtList();
+        nbtList.addAll(list);
+        return nbtList;
+    }
+
+	@SafeVarargs
+	public static <ANY extends Object> boolean either(
+		Predicate<ANY> predicate, ANY... options
+	) {
+		for (ANY option : options) {
+			if (predicate.test(option)) return true;
+		}
+		return false;
+	}
+
+	public static Direction getFacingWithRespectToDown(
+		Vec3d looking,
+		Direction whereDownGoes
+	) {
+		return Direction.getFacing(
+			whereDownGoes == Direction.EAST || whereDownGoes == Direction.WEST ? 0.0 : looking.x,
+			whereDownGoes == Direction.UP || whereDownGoes == Direction.DOWN ? 0.0 : looking.y,
+			whereDownGoes == Direction.NORTH || whereDownGoes == Direction.SOUTH ? 0.0 : looking.z
+		);
 	}
 }

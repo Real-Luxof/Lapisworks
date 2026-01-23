@@ -1,20 +1,15 @@
 package com.luxof.lapisworks.items.shit;
 
-import com.luxof.lapisworks.VAULT.Flags;
-
 import java.util.function.Predicate;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 /** Makes this item accessible to the VAULT. */
 public interface InventoryItem {
-    // implementing this? you should deal only with SEARCHING and WORK. Probably.
-    public boolean canAccess(Flags flags);
-    /** fetches the amount of <code>item</code> in there. */
-    public int fetch(ItemStack stack, Predicate<Item> item);
-    /** returns the amount that couldn't be drained. */
-    public int drain(ItemStack stack, Predicate<Item> item, int count);
-    /** returns the amount that couldn't be given. */
-    public int give(ItemStack stack, Predicate<Item> item, int count);
+    /** Returns how much was drained.
+     * <p>negative amount = take everything. */
+    public int drain(ItemStack stack, Predicate<ItemStack> predicate, int amount, boolean simulate);
+    /** Returns how much was given.
+     * <p>negative amount = give as much as possible. */
+    public int give(ItemStack stack, Predicate<ItemStack> predicate, int amount, boolean simulate);
 }

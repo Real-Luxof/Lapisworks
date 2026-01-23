@@ -41,40 +41,70 @@ public class RitusEntity extends BlockEntity implements AttachedBE, RitualCompon
         super(ModBlocks.RITUS_ENTITY_TYPE, pos, state);
     }
 
+    /** server no exist when call readNbt() first time :pensive: */
+    private ArrayList<NbtCompound> ritualsLazy = new ArrayList<>();
+    private ArrayList<MultiUseRitualExecutionState> rituals = new ArrayList<>();
+
     public long media = 0L;
     @Nullable private NbtCompound tunedFrequency = null;
-    private ArrayList<MultiUseRitualExecutionState> rituals = new ArrayList<>();
     @Nullable private ItemStack displayItem = null;
     @Nullable private Text displayMessage = null;
 
-    @Nullable public Iota getTunedFrequency(ServerWorld world) {
-        if (tunedFrequency == null) return null;
-        return IotaType.deserialize(tunedFrequency, world);
-    }
-    @Nullable public Text getTunedFrequencyDisplay() {
-        if (tunedFrequency == null) return null;
-        return IotaType.getDisplay(tunedFrequency);
-    }
-    public void setTunedFrequency(Iota iota) {
-        tunedFrequency = IotaType.serialize(iota);
-    }
+    /** do not call if world is client or null. */
+    public List<MultiUseRitualExecutionState> getRituals() {
+        if (world == null)
+            throw new IllegalStateException("Don't use this method if world is null.");
+        else if (world.isClient)
+            throw new IllegalStateException("Don't use this method if world is client.");
 
-    /** returns success. */
+        if (rituals.size() > 0) return rituals;
+
+        rituals = new ArrayList<>(
+            ritualsLazy.stream()
+                .map(
+                    (NbtElement ritualNbt) -> MultiUseRitualExecutionState.load(
+                        (NbtCompound)ritualNbt,
+                        (ServerWorld)world
+                    )
+                )
+                .toList()
+        );
+        ritualsLazy = new ArrayList<>();
+
+        return rituals;
+    }
+    /** returns success. the intended method. */
     public boolean addRitual(MultiUseRitualExecutionState ritual) {
         // in the future i may wanna add multiple ritual capacity
-        if (this.rituals.size() >= 1) return false;
-        this.rituals.add(ritual);
+        var rituals = getRituals();
+        if (rituals.size() >= 1) return false;
+        rituals.add(ritual);
         save();
         return true;
     }
 
     @Nullable
+    public Iota getTunedFrequency(ServerWorld world) {
+        if (tunedFrequency == null) return null;
+        return IotaType.deserialize(tunedFrequency, world);
+    }
+
+    @Nullable
+    public Text getTunedFrequencyDisplay() {
+        if (tunedFrequency == null) return null;
+        return IotaType.getDisplay(tunedFrequency);
+    }
+
+    public void setTunedFrequency(Iota iota) {
+        tunedFrequency = IotaType.serialize(iota);
+    }
+
+    @Nullable
     public Pair<ItemStack, Text> getDisplay() {
-        if (displayItem != null && displayMessage != null) {
+        if (displayItem != null && displayMessage != null)
             return new Pair<>(displayItem, displayMessage);
-        } else {
+        else
             return null;
-        }
     }
 
     public void postDisplay(ItemStack item, Text message) {
@@ -89,6 +119,10 @@ public class RitusEntity extends BlockEntity implements AttachedBE, RitualCompon
 
     public void postPrint(Text message) {
         this.postDisplay(new ItemStack(Items.BOOK), message);
+    }
+
+    public void clearDisplay() {
+        this.postDisplay(null, null);
     }
 
     public void save() {
@@ -106,7 +140,11 @@ public class RitusEntity extends BlockEntity implements AttachedBE, RitualCompon
             nbt.putString("displayMessage", Text.Serializer.toJson(displayMessage));
         if (tunedFrequency != null)
             nbt.put("tunedFrequency", tunedFrequency);
-        
+
+        if (rituals.size() == 0) {
+            nbt.put("rituals", nbtListOf(ritualsLazy));
+            return;
+        }
         nbt.put(
             "rituals",
             nbtListOf(rituals.stream().map(ritual -> ritual.save()).toList())
@@ -130,25 +168,50 @@ public class RitusEntity extends BlockEntity implements AttachedBE, RitualCompon
         else
             tunedFrequency = null;
 
-        if (world.isClient) return;
-        nbt.getList("rituals", NbtElement.COMPOUND_TYPE).stream()
-            .map(
-                (NbtElement ritualNbt) -> MultiUseRitualExecutionState.load(
-                    (NbtCompound)ritualNbt,
-                    (ServerWorld)world
-                )
-            )
-            .toList();
+        ritualsLazy = new ArrayList<>(
+            nbt.getList("rituals", NbtElement.COMPOUND_TYPE).stream()
+                .map(ele -> (NbtCompound)ele)
+                .toList()
+        );
     }
 
     @Override @Nullable public Packet<ClientPlayPacketListener> toUpdatePacket() {
         return BlockEntityUpdateS2CPacket.create(this); }
     @Override public NbtCompound toInitialChunkDataNbt() { return createNbt(); }
 
+    private boolean isEveryOtherTick = false;
+    public void tick(BlockState state) {
+        if (!isEveryOtherTick) {
+            isEveryOtherTick = true;
+            return;
+        } else {
+            isEveryOtherTick = false;
+        }
+        // why the fuck didn't this work?
+        /*LOGGER.info("Ticking ritus. " + String.valueOf(tickCountdown));
+        if (tickCountdown > 0) {
+            tickCountdown--;
+            return;
+        } else
+            tickCountdown = tickInterval;*/
+
+        if (!(world instanceof ServerWorld sw)) return;
+
+        var rituals = getRituals();
+
+        for (int i = rituals.size() - 1; i >= 0; i--) {
+            if (!rituals.get(i).tick(sw))
+                rituals.remove(i);
+            save();
+        }
+    }
+
     @Override
     public Direction getAttachedTo() {
         return world.getBlockState(pos).get(Ritus.ATTACHED);
     }
+    @Override
+    public Direction getParticleSprayDir() { return getAttachedTo().getOpposite(); }
 
     @Override
     public List<BlockPos> getPossibleNextBlocks(ServerWorld world, @Nullable Direction forward) {

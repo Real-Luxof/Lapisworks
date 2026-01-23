@@ -27,10 +27,6 @@ public class LapisworksIDs {
     public static final Identifier DOWSE_RESULT = id("dowse_result");
     public static final Identifier SET_PATTERNS_ON_CHALK = id("set_patterns_on_chalk");
 
-    // mpp
-    public static final Identifier BLOCKING_MPP = id("blocking");
-    public static final Identifier AMEL_ORB_IS_FILLED = id("amel_orb_is_filled");
-
     // items and shit
     public static final Identifier LAPIS_MAGIC_SHIT_GROUP = id("lapismagicshitgroup");
     public static final Identifier AMEL_TAG_ID = id("amel");

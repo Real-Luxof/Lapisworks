@@ -11,9 +11,9 @@ import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.interop.hextended.LapixtendedInterface;
 import com.luxof.lapisworks.items.AmelStaff;
 import com.luxof.lapisworks.items.shit.DurabilityPartAmel;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,6 +29,7 @@ public class MakeGenericPartAmel extends BeegInfusion {
     @Override
     public boolean test() {
         boolean ret = false;
+
         for (HeldItemInfo heldInfo : this.heldInfos) {
             stack = heldInfo.stack();
             item = stack.getItem();
@@ -38,6 +39,9 @@ public class MakeGenericPartAmel extends BeegInfusion {
                 break;
             }
         }
+        if (!ret) return false;
+
+
         fullInfusionCost = item instanceof DurabilityPartAmel durab ?
             stack.getMaxDamage() / durab.getAmelWorthInDurability()
             : Mutables.getCostForFullInfusionOfStaff((ItemStaff)item, ctx.getWorld());
@@ -50,14 +54,7 @@ public class MakeGenericPartAmel extends BeegInfusion {
 
     @Override
     public void mishapIfNeeded() {
-        int availableAmel = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
-        if (availableAmel < infusing) {
-            throw new MishapNotEnoughItems(
-                AMEL,
-                availableAmel,
-                infusing
-            );
-        }
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, infusing);
     }
 
     @Override
@@ -65,7 +62,7 @@ public class MakeGenericPartAmel extends BeegInfusion {
 
     @Override
     public void accept() {
-        vault.drain(Mutables::isAmel, infusing, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+        vault.drain(Mutables::isAmel, infusing, false, Flags.PRESET_UpToHotbar);
 
         DurabilityPartAmel partAmel = (DurabilityPartAmel)LapixtendedInterface.getAppropriatePartAmelGeneric(item);
         Item fullAmel = LapixtendedInterface.getAppropriateFullAmel(item);

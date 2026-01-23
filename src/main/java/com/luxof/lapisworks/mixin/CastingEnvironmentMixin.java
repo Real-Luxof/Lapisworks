@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.Unique;
 // who up mixing they ins rn
 @Mixin(value = CastingEnvironment.class, remap = false)
 public abstract class CastingEnvironmentMixin implements GetStacks, GetVAULT {
-    @Unique private final VAULT vault = VAULT.of((CastingEnvironment)(Object)this);
+    @Unique private final VAULT vault = new CastEnvVAULT((CastingEnvironment)(Object)this);
     @Unique @Override public VAULT grabVAULT() {
         ((CastEnvVAULT)vault).initInnerServPlayerVAULT(); // <-- silly shenanigans that are required
         return this.vault;

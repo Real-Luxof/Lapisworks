@@ -10,8 +10,9 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 
 import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.init.ModItems;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
+
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -34,9 +35,7 @@ public class ImbueLap extends SpellActionNCT {
 
         int count = heldStackInfo.stack().getCount();
 
-        int shardCount = vault.fetch(Items.AMETHYST_SHARD, Flags.PRESET_Stacks_InvItem_UpToHotbar);
-        if (shardCount < count)
-            throw new MishapNotEnoughItems(Items.AMETHYST_SHARD.getName(), shardCount, count);
+        assertItemAmount(ctx, Items.AMETHYST_SHARD, count);
 
         return new SpellAction.Result(
             new Spell(count, heldStackInfo.hand()),
@@ -54,7 +53,7 @@ public class ImbueLap extends SpellActionNCT {
 
 		@Override
 		public void cast(CastingEnvironment ctx) {
-            vault.drain(Items.AMETHYST_SHARD, this.count, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+            vault.drain(Items.AMETHYST_SHARD, this.count, false, Flags.PRESET_UpToHotbar);
             ctx.replaceItem(ImbueLap::isLapis, new ItemStack(ModItems.AMEL_ITEM, this.count), hand);
 		}
     }

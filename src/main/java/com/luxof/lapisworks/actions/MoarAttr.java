@@ -8,13 +8,13 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.init.Mutables.Mutables;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
 import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -57,7 +57,6 @@ public class MoarAttr extends SpellActionNCT {
         double count = args.getPositiveDouble(1);
 
         VAULT vault = ((GetVAULT)ctx).grabVAULT();
-        int availableAmel = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
 
         double currentCombinedVal = entity.getAttributes()
             .getCustomInstance(this.modifyAttribute)
@@ -76,8 +75,7 @@ public class MoarAttr extends SpellActionNCT {
         );
         int expendedAmel = (int)Math.ceil(addToVal * this.expendedAmelModifier);
 
-        if (availableAmel < expendedAmel)
-            throw new MishapNotEnoughItems(AMEL, availableAmel, expendedAmel);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, expendedAmel);
 
         return new SpellAction.Result(
             // caster is kinda being operated on but that's not the main effect so 2nd prio
@@ -113,7 +111,7 @@ public class MoarAttr extends SpellActionNCT {
 
 		@Override
 		public void cast(CastingEnvironment ctx) {
-            vault.drain(Mutables::isAmel, expendedAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+            vault.drain(Mutables::isAmel, expendedAmel, false, Flags.PRESET_UpToHotbar);
             double juicedUpAttr = ((LapisworksInterface)this.entity).getAmountOfAttrJuicedUpByAmel(this.attr);
             ((LapisworksInterface)this.entity).setAmountOfAttrJuicedUpByAmel(
                 this.attr,

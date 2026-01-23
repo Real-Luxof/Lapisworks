@@ -1,14 +1,17 @@
 package com.luxof.lapisworks.blocks;
 
-import com.luxof.lapisworks.blocks.entities.RitusEntity;
-import com.luxof.lapisworks.chalk.MultiUseRitualExecutionState;
-import com.luxof.lapisworks.init.Mutables.Mutables;
-
 import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+
+import com.luxof.lapisworks.blocks.entities.RitusEntity;
+import com.luxof.lapisworks.chalk.MultiUseRitualExecutionState;
+import com.luxof.lapisworks.init.ModBlocks;
+import com.luxof.lapisworks.init.Mutables.Mutables;
+
+import static com.luxof.lapisworks.Lapisworks.getFacingWithRespectToDown;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
@@ -83,6 +88,22 @@ public class Ritus extends BlockWithEntity {
     }
 
     @Override
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+        World world,
+        BlockState state,
+        BlockEntityType<T> type
+    ) {
+        // checkType() makes me required to do an "unsafe cast" for whatever reason
+        if (type == ModBlocks.RITUS_ENTITY_TYPE) {
+            return (worldInner, pos, stateInner, ent) -> {
+                ((RitusEntity)ent).tick(stateInner);
+            };
+        }
+        else { return null; }
+    }
+
+    @Override
     public ActionResult onUse(
         BlockState state,
         World world,
@@ -102,7 +123,7 @@ public class Ritus extends BlockWithEntity {
 
             if (ritus.addRitual(new MultiUseRitualExecutionState(
                     pos,
-                    Direction.getFacing(look.x, look.y, look.z),
+                    getFacingWithRespectToDown(look, ritus.getAttachedTo()),
                     new CastingImage(),
                     castAsStarter ? player.getUuid() : null,
                     HexAPI.instance().getColorizer(player),
@@ -110,7 +131,9 @@ public class Ritus extends BlockWithEntity {
                     pos,
                     List.of()
             ))) {
-                stack.decrement(1);
+                if (!player.isCreative()) stack.decrement(1);
+            } else {
+                return ActionResult.FAIL;
             }
 
         } else if (iotaHolder != null) {
@@ -121,8 +144,15 @@ public class Ritus extends BlockWithEntity {
             ritus.setTunedFrequency(iota);
             ritus.save();
 
+            return ActionResult.SUCCESS;
+
+        } else if (stack.isEmpty()) {
+
+            ritus.clearDisplay();
+            return ActionResult.SUCCESS;
+
         }
 
-        return ActionResult.SUCCESS;
+        return ActionResult.PASS;
     }
 }

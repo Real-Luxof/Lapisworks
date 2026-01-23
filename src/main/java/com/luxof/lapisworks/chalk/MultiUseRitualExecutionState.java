@@ -4,11 +4,14 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.pigment.FrozenPigment;
 
+import com.luxof.lapisworks.LapisConfig;
 import com.luxof.lapisworks.Lapisworks;
 import com.luxof.lapisworks.blocks.entities.RitusEntity;
 
+import static com.luxof.lapisworks.Lapisworks.getPigmentFromDye;
 import static com.luxof.lapisworks.Lapisworks.nbtListOf;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +19,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -39,12 +43,17 @@ public class MultiUseRitualExecutionState extends RitualExecutionState {
     ) {
         super(currentPos, forward, currentImage, caster, pigment);
         this.startingPos = startingPos;
-        this.visitedPositions = visitedPositions;
+        this.visitedPositions = new ArrayList<>(visitedPositions);
     }
 
+    private double retrieveTuneableAmbitMul() {
+        return LapisConfig.getCurrentConfig()
+            .getMultiUseRitualSettings()
+            .tuneable_amethyst_ambit_multiplier();
+    }
     @Override
     public boolean isVecInAmbit(Vec3d vec, ServerWorld world) {
-        return isVecInAmbitOfTuneableAmethyst(vec, world, 1.0);
+        return isVecInAmbitOfTuneableAmethyst(vec, world, retrieveTuneableAmbitMul());
     }
 
     @Override
@@ -94,6 +103,11 @@ public class MultiUseRitualExecutionState extends RitualExecutionState {
     }
 
     @Override
+    public Vec3d getMishapSprayPos() {
+        return Vec3d.ofCenter(currentPos);
+    }
+
+    @Override
     public boolean tick(ServerWorld world) {
         RitusEntity ritus = (RitusEntity)world.getBlockEntity(startingPos);
         tunedFrequency = ritus.getTunedFrequency(world);
@@ -108,6 +122,20 @@ public class MultiUseRitualExecutionState extends RitualExecutionState {
         Pair<BlockPos, CastingImage> result = ritualComponent.execute(env);
         unpowerTrailing(world, 5);
 
+        if (result == null || result.getLeft() == null) {
+
+            sprayParticlesOutOf(
+                world,
+                startingPos,
+                (RitualComponent)world.getBlockEntity(startingPos),
+                getPigmentFromDye(DyeColor.RED)
+            );
+
+            unpowerTrailing(world, 0);
+            return false;
+
+        }
+
         forward = Direction.fromVector(
             result.getLeft().getX() - currentPos.getX(),
             result.getLeft().getY() - currentPos.getY(),
@@ -120,9 +148,10 @@ public class MultiUseRitualExecutionState extends RitualExecutionState {
     }
 
     private void unpowerTrailing(ServerWorld world, int trailLength) {
+        if (visitedPositions.size() <= trailLength) return;
         for (
-            int i = visitedPositions.size() - 1;
-            i >= visitedPositions.size() - trailLength && i >= 0;
+            int i = visitedPositions.size() - 1 - trailLength;
+            i >= 0;
             i--
         ) {
             BlockPos pos = visitedPositions.remove(i);

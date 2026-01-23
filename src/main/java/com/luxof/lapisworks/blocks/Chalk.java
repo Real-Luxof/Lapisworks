@@ -1,6 +1,7 @@
 package com.luxof.lapisworks.blocks;
 
 import com.luxof.lapisworks.blocks.entities.ChalkEntity;
+import com.luxof.lapisworks.blocks.entities.ChalkWithPatternEntity;
 import com.luxof.lapisworks.blocks.stuff.ChalkBlockInterface;
 import com.luxof.lapisworks.blocks.stuff.AttachedBE;
 
@@ -80,7 +81,9 @@ public class Chalk extends BlockWithEntity implements ChalkBlockInterface {
             dir,
             adjState.isIn(CHALK_CONNECTABLE_TAG) ||
             (world.getBlockEntity(adjBlock) instanceof AttachedBE attachedBE &&
-            attachedBE.getAttachedTo() == chalk.attachedTo)
+            attachedBE.getAttachedTo() == chalk.attachedTo) &&
+            (!(world.getBlockEntity(adjBlock) instanceof ChalkWithPatternEntity cwp) ||
+            cwp.renderLeftBracket)
         );
         if (!succ) return;
         chalk.save();
@@ -129,7 +132,17 @@ public class Chalk extends BlockWithEntity implements ChalkBlockInterface {
         PlayerEntity player,
         Hand hand,
         BlockHitResult hit
-    ) { return ChalkBlockInterface.super.onUse(state, world, pos, player, hand, hit); }
+    ) {
+        return ChalkBlockInterface.super.onUse(
+            state,
+            world,
+            pos,
+            player,
+            hand,
+            hit,
+            ((ChalkEntity)world.getBlockEntity(pos)).attachedTo
+        );
+    }
 
     @Override
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {

@@ -50,12 +50,12 @@ public class RitualCastEnv extends CastingEnvironment {
 
     @Override
     public Vec3d mishapSprayPos() {
-        return Vec3d.ofCenter(ritual.currentPos);
+        return ritual.getMishapSprayPos();
     }
 
     @Override
     protected long extractMediaEnvironment(long cost, boolean simulate) {
-        return ritual.extractMedia(cost, simulate, getWorld());
+        return cost - ritual.extractMedia(cost, simulate, getWorld());
     }
 
     @Override
@@ -121,7 +121,7 @@ public class RitualCastEnv extends CastingEnvironment {
 
     protected void printMishapMessage(OperatorSideEffect.DoMishap mishap) {
         Text message = mishap.getMishap().errorMessageWithName(this, mishap.getErrorCtx());
-        if (message != null) printMessage(message);
+        if (message != null) printMishap(message);
     }
 
     @Override

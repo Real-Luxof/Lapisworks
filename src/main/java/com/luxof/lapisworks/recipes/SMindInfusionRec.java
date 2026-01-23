@@ -3,7 +3,8 @@ package com.luxof.lapisworks.recipes;
 import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.init.Mutables.SMindInfusion;
 import com.luxof.lapisworks.inv.SMindInfusionSetupInv;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
+
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -43,12 +44,7 @@ public class SMindInfusionRec implements Recipe<SMindInfusionSetupInv> {
         @Override
         public void mishapIfNeeded() {
             for (IngredientWithCount cost : outer.getAdditionalCosts()) {
-                int fulfilled = vault.fetch(
-                    cost::test,
-                    Flags.PRESET_Stacks_InvItem_UpToHotbar
-                );
-                if (fulfilled < cost.getCount())
-                    throw new MishapNotEnoughItems(cost.getName(), fulfilled, cost.getCount());
+                assertItemAmount(ctx, cost::test, cost.getName(), cost.getCount());
             }
         }
         @Override
@@ -57,7 +53,8 @@ public class SMindInfusionRec implements Recipe<SMindInfusionSetupInv> {
                 vault.drain(
                     cost::test,
                     cost.getCount(),
-                    Flags.PRESET_Stacks_InvItem_UpToHotbar
+                    false,
+                    Flags.PRESET_UpToHotbar
                 );
             }
             ctx.getWorld().setBlockState(blockPos, outer.getOutput().getDefaultState());

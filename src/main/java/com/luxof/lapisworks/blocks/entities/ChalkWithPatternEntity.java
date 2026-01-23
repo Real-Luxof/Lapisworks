@@ -125,6 +125,8 @@ public class ChalkWithPatternEntity extends BlockEntity implements ExtendedScree
 
     @Override
     public Direction getAttachedTo() { return attachedTo; }
+    @Override
+    public Direction getParticleSprayDir() { return getAttachedTo().getOpposite(); }
 
 
     @Override

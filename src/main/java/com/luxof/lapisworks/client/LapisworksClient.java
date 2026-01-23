@@ -15,11 +15,10 @@ import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
 
 import static com.luxof.lapisworks.Lapisworks.LOGGER;
 import static com.luxof.lapisworks.Lapisworks.clamp;
+import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.Lapisworks.nullConfigFlags;
 import static com.luxof.lapisworks.Lapisworks.prettifyFloat;
 import static com.luxof.lapisworks.Lapisworks.prettifyDouble;
-import static com.luxof.lapisworks.LapisworksIDs.AMEL_ORB_IS_FILLED;
-import static com.luxof.lapisworks.LapisworksIDs.BLOCKING_MPP;
 import static com.luxof.lapisworks.LapisworksIDs.DOWSE_RESULT;
 import static com.luxof.lapisworks.LapisworksIDs.DOWSE_TS;
 import static com.luxof.lapisworks.LapisworksIDs.SCRYING_MIND_END;
@@ -73,7 +72,7 @@ public class LapisworksClient implements ClientModInitializer {
     public static void registerMPPs() {
         ModelPredicateProviderRegistry.register(
             IRON_SWORD,
-            BLOCKING_MPP, // first person doesn't work but WHATEVER
+            id("blocking"), // first person doesn't work but WHATEVER
             (stack, world, entity, seed) -> {
                 return entity != null
                     && entity.isUsingItem()
@@ -84,7 +83,7 @@ public class LapisworksClient implements ClientModInitializer {
         if (Lapisworks.HEXTENDED_INTEROP) {
             ModelPredicateProviderRegistry.register(
                 com.luxof.lapisworks.interop.hextended.Lapixtended.AMEL_ORB,
-                AMEL_ORB_IS_FILLED,
+                id("amel_orb_is_filled"),
                 (stack, world, entity, seed) -> {
                     AmelOrb orb = (AmelOrb)stack.getItem();
                     return orb.getPlaceInAmbit(stack) == null ? 0.0F : 1.0F;

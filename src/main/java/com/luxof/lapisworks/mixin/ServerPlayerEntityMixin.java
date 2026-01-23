@@ -3,6 +3,7 @@ package com.luxof.lapisworks.mixin;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
+import com.luxof.lapisworks.VAULT.ServPlayerVAULT;
 import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.interop.hextended.items.AmelOrb;
 import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
@@ -36,7 +37,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Ge
         super(world, pos, yaw, gameProfile);
     }
 
-    @Unique private final VAULT vault = VAULT.of((ServerPlayerEntity)(Object)this);
+    @Unique private final VAULT vault = new ServPlayerVAULT((ServerPlayerEntity)(Object)this);
     // yall ever think of a word so long it starts lookin wrong despite being correctly spelled n shit?
     // this phenomena is called "semantic satiation" iirc
     @Unique @Override public VAULT grabVAULT() { return this.vault; }

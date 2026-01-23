@@ -9,13 +9,13 @@ import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.init.EnchantCountKeeper;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.mishaps.MishapAlreadyHasEnchantment;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
 import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -73,9 +73,7 @@ public class GenericEnchant extends SpellActionNCT {
         }
 
         VAULT vault = ((GetVAULT)ctx).grabVAULT();
-        int availableAmel = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
-        if (availableAmel < this.requiredAmel)
-            throw new MishapNotEnoughItems(AMEL, availableAmel, this.requiredAmel);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, argc);
 
         return new SpellAction.Result(
             new Spell(entity, vault),
@@ -95,7 +93,7 @@ public class GenericEnchant extends SpellActionNCT {
 
 		@Override
 		public void cast(CastingEnvironment ctx) {
-            vault.drain(Mutables::isAmel, requiredAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
+            vault.drain(Mutables::isAmel, requiredAmel, false, Flags.PRESET_UpToHotbar);
             ((LapisworksInterface)this.entity).incrementEnchant(enchantmentIdx);
 		}
     }

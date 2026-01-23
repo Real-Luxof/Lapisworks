@@ -51,7 +51,7 @@ public class ChalkWithPatternScreen extends HandledScreen<ChalkWithPatternScreen
     // how far does the mouse need to be for the line snap to the grid?
     private final long distanceBeforeSnapToGridSqr = 50;
     // how far can the mouse be from it's most recent dot before the line stops snapping to the grid?
-    private final long distanceFromRecentPointBeforeStopSnappingSqr = 3000;
+    private final long distanceFromRecentPointBeforeStopSnappingSqr = 2700;
     public final int patternLimit = 5;
     private int x;
     private int y;

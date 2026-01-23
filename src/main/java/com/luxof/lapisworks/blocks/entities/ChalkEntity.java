@@ -150,6 +150,8 @@ public class ChalkEntity extends BlockEntity implements AttachedBE, RitualCompon
 
     @Override
     public Direction getAttachedTo() { return attachedTo; }
+    @Override
+    public Direction getParticleSprayDir() { return getAttachedTo().getOpposite(); }
 
 
     @Override

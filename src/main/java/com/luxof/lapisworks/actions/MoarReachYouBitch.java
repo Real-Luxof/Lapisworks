@@ -18,12 +18,12 @@ import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.init.Mutables.Mutables;
-import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.LapisworksIDs.ATK_RANGE_ENHANCEMENT_UUID;
 import static com.luxof.lapisworks.LapisworksIDs.REACH_ENHANCEMENT_UUID;
+import static com.luxof.lapisworks.MishapThrowerJava.assertItemAmount;
 
 import java.util.List;
 
@@ -70,9 +70,7 @@ public class MoarReachYouBitch implements SpellAction {
         );
 
         VAULT vault = ((GetVAULT)ctx).grabVAULT();
-        int availableAmel = vault.fetch(Mutables::isAmel, Flags.PRESET_Stacks_InvItem_UpToHotbar);
-        if (availableAmel < (expendShit ? amelCost : 0))
-            throw new MishapNotEnoughItems(AMEL, availableAmel, amelCost);
+        assertItemAmount(ctx, Mutables::isAmel, AMEL, amelCost);
 
         return new SpellAction.Result(
             new Spell(entity, vault),
@@ -102,7 +100,8 @@ public class MoarReachYouBitch implements SpellAction {
             vault.drain(
                 Mutables::isAmel,
                 amelCost,
-                Flags.PRESET_Stacks_InvItem_UpToHotbar
+                false,
+                Flags.PRESET_UpToHotbar
             );
             entity.getAttributes().addTemporaryModifiers(modifiers);
 		}

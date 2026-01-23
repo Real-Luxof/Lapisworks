@@ -54,11 +54,7 @@ public interface RitualComponent {
         if (choices.size() == 0) return null;
         return choices.get(world.random.nextInt(choices.size()));
     }
-    default void particlesDuringExecutionHelper(
-        ServerWorld world, BlockPos pos
-    ) {
-
-    }
+    public Direction getParticleSprayDir();
     /** Returns a list of possible next blocks, which are all <code>RitualComponent</code>s.
      * <p>this method executes when the ritual is being set up and is used to check things like if
      * there really is an endpoint. May not always execute, like in one-time rituals. */

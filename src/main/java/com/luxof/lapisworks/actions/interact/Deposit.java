@@ -28,7 +28,7 @@ public class Deposit extends SpellActionNCT {
     @Override
     public Result execute(HexIotaStack stack, CastingEnvironment ctx) {
         BlockPos pos = stack.getBlockPosInRange(0);
-        long amount = stack.getPositiveInt(1) * MediaConstants.DUST_UNIT;
+        long amount = (long)(stack.getPositiveDouble(1) * MediaConstants.DUST_UNIT);
 
         assertLinkableThere(pos, ctx);
 
