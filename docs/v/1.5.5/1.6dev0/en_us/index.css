@@ -487,16 +487,32 @@ img.spell-viz {
     --triangle-color: #000000;
   }
 }
-@media (prefers-color-scheme: dark) {
-  /* i saw your cry for help, whoever wrote that comment in hexdoc */
-  .navbar-default .navbar-brand,
-  .navbar-default .navbar-nav > li > a,
-  .navbar-default .navbar-nav > li > a:focus {
-    color: #ddd;
-  }
+/* i saw your cry for help, whoever wrote that comment in hexdoc */
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ddd;
 }
+.dropdown-menu {
+  background-color: #749bff;
+  min-width: 120px;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > .open > a:hover {
+  color: #bbb;
+  background-color: #1e3469;
+}
+
+.dropdown-menu {
+  background-color: #0c152b;
+  min-width: 120px;
+}
+
 body {
   background-color: #0c1031;
+  color: #ddd;
   .navbar-default {
     background-color: #0b1f51;
     border-color: #fff;
