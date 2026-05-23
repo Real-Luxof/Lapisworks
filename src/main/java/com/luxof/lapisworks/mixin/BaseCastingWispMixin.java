@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import ram.talia.hexal.common.entities.BaseCastingWisp;
-import ram.talia.hexal.common.entities.BaseWisp;
 
 // can't extend BaseWisp because some BS with an interface default method and class method having
 // the same erasure but diff return types
@@ -39,19 +38,28 @@ public abstract class BaseCastingWispMixin extends Entity implements MediaTransf
 
 
     @Shadow private UUID casterUUID;
-    @Unique public boolean isMTIAtThisTime(
+
+    @Unique private BaseCastingWisp self = (BaseCastingWisp)(Object)this;
+
+    @Override public boolean isMTIAtThisTime(
         CastingEnvironment ctx
     ) {
         LivingEntity thatCaster = ctx.getCastingEntity();
         return thatCaster != null && casterUUID != null && thatCaster.getUuid().equals(casterUUID);
     }
 
-    @Override public Vec3d getPosIfPossible() { return getPos(); }
-    @Override public void setMediaHere(long media) {
-        ((BaseWisp)(Object)this).setMedia(media);
+    @Override public Vec3d getPosIfPossible() {
+        return getPos();
     }
-    @Override public long getMaxMedia() { return 9_000_000_000L; }
-    @Override public long getMediaHere() { return ((BaseWisp)(Object)this).getMedia(); }
+    @Override public void setMediaHere(long media) {
+        self.setMedia(media);
+    }
+    @Override public long getMaxMedia() {
+        return 9_000_000_000L;
+    }
+    @Override public long getMediaHere() {
+        return self.getMedia();
+    }
     @Override public long withdrawMedia(long amount, boolean simulate) {
         long ret = MediaTransferInterface.super.withdrawMedia(amount, simulate);
         if (getMediaHere() <= 0L) {
@@ -66,21 +74,24 @@ public abstract class BaseCastingWispMixin extends Entity implements MediaTransf
         BaseCastingWisp.class,
         TrackedDataHandlerRegistry.ITEM_STACK
     );
-    private void TRACKMYFUCKINGITEMSTACKYOUSLOBFUCKINGSHITGARGLINGSLABOFSHITIWILLFUCKINGMURDEREVERYFUCKINGLASTONEOFYOURFUCKINGFAMILYMEMBERSBECAUSEOFTHISFUCKINGASSFUCKINGSHITFUCKINGBITCHBUGBULLSHIT() {
+    @Unique
+    private void trackHeldItemStack() {
         getDataTracker().startTracking(
             heldStack,
             ItemStack.EMPTY
         );
     }
+
     @Override public ItemStack getStack() {
         // mfw no initDataTracker for me to inject into
         try {
             return getDataTracker().get(heldStack);
         } catch (NullPointerException e) {
-            TRACKMYFUCKINGITEMSTACKYOUSLOBFUCKINGSHITGARGLINGSLABOFSHITIWILLFUCKINGMURDEREVERYFUCKINGLASTONEOFYOURFUCKINGFAMILYMEMBERSBECAUSEOFTHISFUCKINGASSFUCKINGSHITFUCKINGBITCHBUGBULLSHIT();
+            trackHeldItemStack();
             return getDataTracker().get(heldStack);
         }
     }
+
     @Override public ItemStack setStack(ItemStack stack) {
         ItemStack old = getStack();
         getDataTracker().set(heldStack, stack);

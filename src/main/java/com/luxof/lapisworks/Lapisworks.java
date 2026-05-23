@@ -692,8 +692,8 @@ public class Lapisworks implements ModInitializer {
 			LinkableMediaBlock curr = (LinkableMediaBlock)world.getBlockEntity(currPos);
 
 			interactionLeft -= deposit
-				? curr.depositMediaSingular(interactionLeft, simulate)
-				: curr.withdrawMediaSingular(interactionLeft, simulate);
+				? curr.depositMedia(interactionLeft, simulate)
+				: curr.withdrawMedia(interactionLeft, simulate);
 
 			if (interactionLeft == 0) return new Pair<>(amountToInteract, seen);
 

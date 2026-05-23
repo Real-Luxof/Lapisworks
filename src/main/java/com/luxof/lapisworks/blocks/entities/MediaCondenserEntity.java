@@ -34,7 +34,7 @@ public class MediaCondenserEntity extends BlockEntity implements LinkableMediaBl
     @SuppressWarnings("deprecation")
     private void updateState() {
         BlockState state = world.getBlockState(pos);
-        int filledState = (int)Math.floor(media / (mediaCap / 14));
+        int filledState = (int)Math.floor(media / (mediaCap / 14.0));
 
         if (filledState == state.get(MediaCondenser.FILLED)) return;
 
@@ -101,14 +101,13 @@ public class MediaCondenserEntity extends BlockEntity implements LinkableMediaBl
 
 
 
-    @Override public void addLink(BlockPos pos) { removeDeadLinks(); linkedCondensers.add(pos); save(); }
+    @Override public void addLink(BlockPos pos) { linkedCondensers.add(pos); save(); }
     @Override public void removeLink(BlockPos pos) { linkedCondensers.remove(pos); save(); }
-    @Override public boolean isLinkedTo(BlockPos pos) { removeDeadLinks(); return linkedCondensers.contains(pos); }
-    @Override public Set<BlockPos> getLinks() { removeDeadLinks(); return linkedCondensers; }
-    @Override public Set<BlockPos> getLinksNoRefresh() { return linkedCondensers; }
-    @Override public int getNumberOfLinks() { removeDeadLinks(); return linkedCondensers.size(); }
+    @Override public boolean isLinkedTo(BlockPos pos) { return linkedCondensers.contains(pos); }
+    @Override public Set<BlockPos> getLinks() { return linkedCondensers; }
+    @Override public int getNumberOfLinks() { return linkedCondensers.size(); }
     @Override public BlockPos getThisPos() { return this.getPos(); }
-    @Override public long getMediaHereSingular() { return media; }
+    @Override public long getMediaHere() { return media; }
     @Override public void setMediaHere(long media) { this.media = media; save(); }
-    @Override public long getMaxMediaSingular() { return mediaCap; }
+    @Override public long getMaxMedia() { return mediaCap; }
 }

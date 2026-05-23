@@ -34,13 +34,8 @@ public abstract class ItemEntityMixin extends Entity implements MediaTransferInt
         return IXplatAbstractions.INSTANCE.findMediaHolder(getStack());
     }
 
-    @Unique
-    public boolean isMTIAtThisTime() {
-        return getMediaHolder() != null;
-    }
-
     @Override @Unique
-    public boolean isMTIAtThisTime(CastingEnvironment ctx) { return isMTIAtThisTime(); }
+    public boolean isMTIAtThisTime(CastingEnvironment ctx) { return getMediaHolder() != null; }
 
     @Override @Unique @Nullable
     public Vec3d getPosIfPossible() {

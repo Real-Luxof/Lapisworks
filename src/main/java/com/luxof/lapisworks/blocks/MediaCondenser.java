@@ -60,6 +60,7 @@ public class MediaCondenser extends BlockWithEntity {
     }
 
     // fffffFFFUCK your explosion drop chances!
+    @SuppressWarnings("deprecation")
     @Override
     public void onStateReplaced(
         BlockState state,
@@ -68,7 +69,10 @@ public class MediaCondenser extends BlockWithEntity {
         BlockState newState,
         boolean moved
     ) {
-        if (state.isOf(newState.getBlock())) return;
+        if (state.isOf(newState.getBlock())) {
+            super.onStateReplaced(state, world, pos, newState, moved);
+            return;
+        }
         MediaCondenserEntity condenser = (MediaCondenserEntity)world.getBlockEntity(pos);
         ItemStack stack = new ItemStack(ModItems.MEDIA_CONDENSER);
         NBTHelper.putLong(stack, "media", condenser.media);
@@ -79,6 +83,7 @@ public class MediaCondenser extends BlockWithEntity {
             pos,
             DefaultedList.copyOf(ItemStack.EMPTY, stack)
         );
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override

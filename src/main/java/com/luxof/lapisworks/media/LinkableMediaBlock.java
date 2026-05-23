@@ -12,7 +12,10 @@ import net.minecraft.world.World;
 
 import org.jetbrains.annotations.Nullable;
 
-/** implement in a block entity. */
+/** implement this in a block entity.
+ * <p>don't worry about removing dead links!
+ * as long as your block's onStateReplaced calls super.onStateReplaced,
+ * removing the current position from any blocks it's linked to should be handled automatically. */
 public interface LinkableMediaBlock extends MediaTransferInterface {
     public World getWorld();
 
@@ -20,27 +23,14 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
     public void removeLink(BlockPos pos);
     public boolean isLinkedTo(BlockPos pos);
     public Set<BlockPos> getLinks();
-    /** may return links to blocks which are no longer <code>LinkableMediaBlock</code>s.
-     * used internally. */
-    public Set<BlockPos> getLinksNoRefresh();
     public int getNumberOfLinks();
 
-    /** removes links to blocks which are no longer <code>LinkableMediaBlock</code>s.
-     * you should use this in every links-related method except <code>getLinksNoRefresh</code> and
-     * <code>removeLink</code> (to prevent infinite recursion). */
-    default void removeDeadLinks() {
-        World world = getWorld();
-        for (BlockPos block : getLinksNoRefresh()) {
-            if (!(world.getBlockEntity(block) instanceof LinkableMediaBlock))
-                removeLink(block);
-        }
-    }
     default public int getMaxNumberOfLinks() { return 5; }
     @Nullable default Vec3d getPosIfPossible() { return getThisPos().toCenterPos(); }
     public BlockPos getThisPos();
 
-    public long getMediaHereSingular();
-    default long getMediaHere() {
+    public long getMediaHere();
+    default long getMediaHereWithLinks() {
         long total = 0L;
         Stack<BlockPos> todo = new Stack<>();
         HashSet<BlockPos> seen = new HashSet<>();
@@ -51,15 +41,15 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
         while (!todo.isEmpty()) {
             BlockPos currPos = todo.pop();
             LinkableMediaBlock curr = (LinkableMediaBlock)getWorld().getBlockEntity(currPos);
-            total += curr.getMediaHereSingular();
+            total += curr.getMediaHere();
             curr.getLinks().forEach(pos -> { if (seen.add(pos)) todo.add(pos); });
         }
 
         return total;
     }
 
-    public long getMaxMediaSingular();
-    default long getMaxMedia() {
+    public long getMaxMedia();
+    default long getMaxMediaWithLinks() {
         long total = 0L;
         Stack<BlockPos> todo = new Stack<>();
         HashSet<BlockPos> seen = new HashSet<>();
@@ -70,17 +60,17 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
         while (!todo.isEmpty()) {
             BlockPos currPos = todo.pop();
             LinkableMediaBlock curr = (LinkableMediaBlock)getWorld().getBlockEntity(currPos);
-            total += curr.getMaxMediaSingular();
+            total += curr.getMaxMedia();
             curr.getLinks().forEach(pos -> { if (seen.add(pos)) todo.add(pos); });
         }
 
         return total;
     }
 
-    default public long depositMediaSingular(long amount, boolean simulate) {
+    default public long depositMedia(long amount, boolean simulate) {
         return MediaTransferInterface.super.depositMedia(amount, simulate);
     }
-    default long depositMedia(long amount, boolean simulate) {
+    default long depositMediaWithLinks(long amount, boolean simulate) {
         return interactWithLinkableMediaBlocks(
             getWorld(),
             Set.of(getThisPos()),
@@ -90,10 +80,10 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
         ).getLeft();
     }
 
-    default public long withdrawMediaSingular(long amount, boolean simulate) {
+    default public long withdrawMedia(long amount, boolean simulate) {
         return MediaTransferInterface.super.withdrawMedia(amount, simulate);
     }
-    default long withdrawMedia(long amount, boolean simulate) {
+    default long withdrawMediaWithLinks(long amount, boolean simulate) {
         return interactWithLinkableMediaBlocks(
             getWorld(),
             Set.of(getThisPos()),

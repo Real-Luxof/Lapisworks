@@ -10,6 +10,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import com.luxof.lapisworks.blocks.stuff.IChalkBE;
+import com.luxof.lapisworks.media.LinkableMediaBlock;
 import com.luxof.lapisworks.media.MediaTransferInterface;
 import com.luxof.lapisworks.mixin.PlayerBasedCastEnvAccessor;
 import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
@@ -59,7 +60,9 @@ public class Deposit extends SpellActionNCT {
 
         long realAmount = Math.min(
             amount,
-            MTI.getMaxMedia() - MTI.getMediaHere()
+            MTI instanceof LinkableMediaBlock LMB
+                ? LMB.getMaxMediaWithLinks() - LMB.getMediaHereWithLinks()
+                : MTI.getMaxMedia() - MTI.getMediaHere()
         );
 
         long cost = (long)(1.1*realAmount);
@@ -92,7 +95,10 @@ public class Deposit extends SpellActionNCT {
 
         @Override
         public void cast(CastingEnvironment ctx) {
-            MTI.depositMedia(amount, false);
+            if (MTI instanceof LinkableMediaBlock LMB)
+                LMB.depositMediaWithLinks(amount, false);
+            else
+                MTI.depositMedia(amount, false);
         }
     }
 
