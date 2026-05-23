@@ -11,6 +11,8 @@ import com.luxof.lapisworks.init.ModPOIs;
 
 import com.mojang.datafixers.util.Pair;
 
+import static com.luxof.lapisworks.Lapisworks.log;
+
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -73,20 +75,31 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
         BlockPos herePos,
         ServerWorld world
     ) {
-        //long start = System.currentTimeMillis();
+        log("We were called! here position: %s and direction: %s", herePos.toString(), enterDir.asString());
         BlockPos currPos = new BlockPos(herePos);
         Pair<Direction, BlockPos> exit = null;
-        //LOGGER.info("Our POI: " + ModPOIs.SLATES_KEY.toString());
         for (int i = 0; i < this.SEARCH_LIMIT; i++) {
-            currPos = currPos.add(enterDir.getVector());
-            RegistryEntry<PointOfInterestType> poiType = world.getChunkManager()
-                .getPointOfInterestStorage().getType(currPos).orElseGet(() -> null);
-            if (poiType == null || !poiType.matchesKey(ModPOIs.SLATES_KEY)) continue;
-            //LOGGER.info("Found a " + world.getBlockState(currPos).getBlock().getName() + " after " + i + " iterations.");
-            exit = new Pair<Direction, BlockPos>(enterDir, currPos);
+
+            currPos = currPos.offset(enterDir);
+
+            if (
+                !world.getChunkManager()
+                    .getPointOfInterestStorage()
+                    .getType(currPos)
+                    .map(poi -> poi.matchesKey(ModPOIs.SLATES_KEY))
+                    .orElse(false)
+            )
+                continue;
+
+            BlockState currState = world.getBlockState(currPos);
+            if (!((BlockCircleComponent)currState.getBlock()).canEnterFromDirection(
+                enterDir, currPos, currState, world
+            ))
+                continue;
+
+            exit = new Pair<>(enterDir, currPos);
             break;
         }
-        //LOGGER.info("time taken searching for next slate: " + (System.currentTimeMillis() - start));
         return exit;
     }
 

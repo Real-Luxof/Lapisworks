@@ -4,10 +4,11 @@ import at.petrak.hexcasting.common.lib.HexBlocks;
 
 import static com.luxof.lapisworks.Lapisworks.id;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
-
+import net.minecraft.block.BlockState;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.poi.PointOfInterestType;
@@ -17,12 +18,8 @@ public class ModPOIs {
         RegistryKeys.POINT_OF_INTEREST_TYPE,
         id("slates_poi")
     );
-    public static final PointOfInterestType SLATES_POI_TYPE = PointOfInterestHelper.register(
-        id("slates_poi"),
-        1,
-        1,
-        Set.copyOf(HexBlocks.SLATE.getStateManager().getStates())
-    );
+    public static final PointOfInterestType SLATES_POI_TYPE;
+
     public static final RegistryKey<PointOfInterestType> SIMP_IMPETUS_KEY = RegistryKey.of(
         RegistryKeys.POINT_OF_INTEREST_TYPE,
         id("simple_impetus_poi")
@@ -33,5 +30,20 @@ public class ModPOIs {
         1,
         Set.copyOf(ModBlocks.SIMPLE_IMPETUS.getStateManager().getStates())
     );
+
+    static {
+        HashSet<BlockState> slates = new HashSet<>(HexBlocks.SLATE.getStateManager().getStates());
+        slates.addAll(ModBlocks.JUMP_SLATE_AM1.getStateManager().getStates());
+        slates.addAll(ModBlocks.JUMP_SLATE_AM2.getStateManager().getStates());
+        slates.addAll(ModBlocks.JUMP_SLATE_LAPIS.getStateManager().getStates());
+        slates.addAll(ModBlocks.JUMP_SLATE_AMETH.getStateManager().getStates());
+        SLATES_POI_TYPE = PointOfInterestHelper.register(
+            id("slates_poi"),
+            1,
+            1,
+            Set.copyOf(HexBlocks.SLATE.getStateManager().getStates())
+        );
+    }
+
     public static void crawlOutOfHell() {}
 }
