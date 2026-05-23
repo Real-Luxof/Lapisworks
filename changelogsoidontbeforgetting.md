@@ -366,7 +366,7 @@ Only the devs who can keep up with me...
     - erase the floating patterns around you
     - disable invis particles
     - make the collar invisible while you're invisible
-  - i'd let animals wear them but i have a major rendering skill issue
+  - i'd let animals wear them but i have a major rendering skill issue (so it's next update)
 - Dispel Conjureable and Cleaner's Purification
 - Locator's Reflection (locate your enchanted sentinel)
 - Patterns to exert more control over a Thoth's Gambit from within it
@@ -398,6 +398,7 @@ Only the devs who can keep up with me...
 - Potential Crash with Inner Media Prfn.
 - Pull was free if you triggered it for 0 ticks
 - Jumpslates and Rebound Slates weren't breakable and didn't drop their item
+- Jumpslates didn't register anything but slates as a valid endpoint for Spell Circle ambit getting!
 - Necklaces appear closer to your character
 - "Oopsy woopsy" logspam BEGONE!
 - Sieve Thoughts not detecting certain great spell pattern shapes
@@ -410,6 +411,8 @@ Only the devs who can keep up with me...
   It's easier to fix issues with Sinytra than it is to port the mod to both platforms
   - Apotheosis no longer prevents you from casting patterns when Lapisworks is in the pack
   - Fixed un-flaying villagers not un-flaying them
+
+**NOTE FOR MIGRATORS:** While Jumpslates do register all spell circle components, you may have to replace them for this to work (because optimization). However, spell circle components placed after this update will never need to be replaced.
 # 1.5.8.4
 ### Additions
 - added stuff to collars
@@ -501,7 +504,7 @@ Only the devs who can keep up with me...
   - make a vessel
   - flay entities into it to get their AI
   - customize it's body and mind
-- If not already done, EVERY PLAUSIBLY LAPISWORKS-Y THING from "hm"
+- If not already done, every plausibly Lapisworks-y thing from "hm"
 
 # 1.7.0
 LAPISWORKS IS ON BOTH FORGE AND FABRIC NOW. (is this even required?) (i mean Dryym should be able to play the mod right)
@@ -749,3 +752,5 @@ with gloves, port the HexKinetics Swap Momentum spell and add a Swap Places and 
 Witch broom to sit on as you fly.  
 
 use "Apollo's Purification" somehow.  
+Alder's Gambit (runs the provided pattern list, until it finds a specific pattern which you decide.)  
+Glyph of Warding!  

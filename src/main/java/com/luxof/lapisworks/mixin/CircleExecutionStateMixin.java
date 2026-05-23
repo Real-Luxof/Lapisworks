@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.misc.Result;
 import com.llamalad7.mixinextras.sugar.Local;
 
 import com.luxof.lapisworks.blocks.JumpSlate;
+import com.luxof.lapisworks.blocks.ReboundSlate;
 
 import com.mojang.datafixers.util.Pair;
 
@@ -50,9 +51,8 @@ public abstract class CircleExecutionStateMixin {
     ) {
         // jump slate needs to hijack here and add it's own exit destination, lest the spell circle fail
         // because the exit is not directly adjacent.
-        if (!(cmp instanceof JumpSlate jmpSlate)) return;
-        Pair<Direction, BlockPos> exit = jmpSlate.getProbableExitPlace(enterDir, herePos, level);
-        if (exit == null) return;
-        todo.add(exit);
+        if (!(cmp instanceof JumpSlate jmpSlate) || cmp instanceof ReboundSlate) return;
+        jmpSlate.getProbableExitPlaces(enterDir, herePos, level)
+            .forEach(pos -> todo.add(new Pair<>(enterDir, pos)));
     }
 }

@@ -33,6 +33,7 @@
 		"ClientCastingStackMixin",
 		"StatusEffectInstanceMixin",
 		"AbstractBlockMixin",
+		"ServerWorldMixin",
 
 		"FabricXplatImplMixin"
 	],

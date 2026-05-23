@@ -15,7 +15,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.world.PersistentState;
-import net.minecraft.world.PersistentStateManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
@@ -166,14 +165,10 @@ public class PersistentStateRituals extends PersistentState {
     }
 
     public static PersistentStateRituals getState(ServerWorld world) {
-        PersistentStateManager psm = world.getPersistentStateManager();
-
-        PersistentStateRituals state = psm.getOrCreate(
+        return world.getPersistentStateManager().getOrCreate(
             nbt -> PersistentStateRituals.readNbt(nbt, world),
             PersistentStateRituals::new,
             "lapisworks_rituals"
         );
-
-        return state;
     }
 }

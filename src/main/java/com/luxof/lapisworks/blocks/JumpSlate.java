@@ -8,14 +8,14 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 
 import com.luxof.lapisworks.init.ModPOIs;
-
+import com.luxof.lapisworks.init.PersistentStateCircleBlockCache;
 import com.mojang.datafixers.util.Pair;
-
-import static com.luxof.lapisworks.Lapisworks.log;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -26,7 +26,6 @@ import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -37,13 +36,15 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.poi.PointOfInterestType;
+import net.minecraft.world.poi.PointOfInterestStorage.OccupationStatus;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -70,37 +71,52 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
     public int SEARCH_LIMIT = 100;
     // used in CircleExecutionStateMixin.
     @Nullable
-    public Pair<Direction, BlockPos> getProbableExitPlace(
+    public Set<BlockPos> getProbableExitPlaces(
         Direction enterDir,
-        BlockPos herePos,
+        BlockPos startPos,
         ServerWorld world
     ) {
-        log("We were called! here position: %s and direction: %s", herePos.toString(), enterDir.asString());
-        BlockPos currPos = new BlockPos(herePos);
-        Pair<Direction, BlockPos> exit = null;
-        for (int i = 0; i < this.SEARCH_LIMIT; i++) {
-
-            currPos = currPos.offset(enterDir);
-
-            if (
-                !world.getChunkManager()
-                    .getPointOfInterestStorage()
-                    .getType(currPos)
-                    .map(poi -> poi.matchesKey(ModPOIs.SLATES_KEY))
-                    .orElse(false)
+        Vec3d enterDirVec = Vec3d.of(enterDir.getVector());
+        HashSet<BlockPos> exits = new HashSet<>(world.getChunkManager()
+            .getPointOfInterestStorage()
+            .getInSquare(
+                poiType -> poiType.matchesKey(ModPOIs.SLATES_KEY), startPos, 100, OccupationStatus.ANY
             )
-                continue;
+            .map(poi -> poi.getPos())
+            .toList()
+        );
 
-            BlockState currState = world.getBlockState(currPos);
-            if (!((BlockCircleComponent)currState.getBlock()).canEnterFromDirection(
-                enterDir, currPos, currState, world
-            ))
-                continue;
 
-            exit = new Pair<>(enterDir, currPos);
-            break;
+        ChunkPos startCP = new ChunkPos(startPos);
+        ChunkPos endCP = new ChunkPos(startPos.offset(enterDir, 100));
+        var persistentState = PersistentStateCircleBlockCache.getState(world);
+        if (startCP.x != endCP.x) {
+            for (int x = startCP.x; x <= endCP.x; x++) {
+                ChunkPos currCP = new ChunkPos(x, startCP.z);
+                exits.addAll(persistentState.getCachedBlocksInChunk(currCP));
+            }
+        } else if (startCP.z != endCP.z) {
+            for (int x = startCP.x; x <= endCP.x; x++) {
+                ChunkPos currCP = new ChunkPos(x, startCP.z);
+                exits.addAll(persistentState.getCachedBlocksInChunk(currCP));
+            }
+        } else {
+            exits.addAll(persistentState.getCachedBlocksInChunk(startCP));
         }
-        return exit;
+
+        return Set.copyOf(
+            exits.stream()
+                .filter(pos -> {
+                    BlockState state = world.getBlockState(pos);
+
+                    return !pos.equals(startPos) &&
+                        pos.getSquaredDistance(startPos) <= 100 &&
+                        Vec3d.of(pos.subtract(startPos)).normalize().equals(enterDirVec) &&
+                        state.getBlock() instanceof BlockCircleComponent BCC &&
+                        BCC.canEnterFromDirection(enterDir, pos, state, world);
+                })
+            .toList()
+        );
     }
 
     @Override
