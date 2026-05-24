@@ -53,7 +53,7 @@ public class TuneableAmethystEntity extends BlockEntity implements MediaTransfer
         if (tunedFrequency != null) {
             if (frequency != null && Iota.tolerates(tunedFrequency, frequency)) return;
 
-            state.getTuneables(tunedFrequency).remove(pos);
+            state.removeTuneable(tunedFrequency, pos);
         }
 
         tunedFrequency = frequency instanceof NullIota ? null : frequency;

@@ -39,6 +39,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -68,6 +69,16 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
                 .with(WATERLOGGED, false));
     }
 
+    private static boolean vecIsInDirection(
+        Vec3i vec,
+        Direction direction
+    ) {
+        int nonZeros = vec.getX() != 0 ? 1 : 0 +
+            vec.getY() != 0 ? 1 : 0 +
+            vec.getZ() != 0 ? 1 : 0;
+        return nonZeros == 1 && Direction.fromVector(vec.getX(), vec.getY(), vec.getZ()) == direction;
+    }
+
     public int SEARCH_LIMIT = 100;
     // used in CircleExecutionStateMixin.
     @Nullable
@@ -76,11 +87,13 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
         BlockPos startPos,
         ServerWorld world
     ) {
-        Vec3d enterDirVec = Vec3d.of(enterDir.getVector());
         HashSet<BlockPos> exits = new HashSet<>(world.getChunkManager()
             .getPointOfInterestStorage()
             .getInSquare(
-                poiType -> poiType.matchesKey(ModPOIs.SLATES_KEY), startPos, 100, OccupationStatus.ANY
+                poiType -> poiType.matchesKey(ModPOIs.SLATES_KEY),
+                startPos,
+                SEARCH_LIMIT,
+                OccupationStatus.ANY
             )
             .map(poi -> poi.getPos())
             .toList()
@@ -88,16 +101,26 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
 
 
         ChunkPos startCP = new ChunkPos(startPos);
-        ChunkPos endCP = new ChunkPos(startPos.offset(enterDir, 100));
+        ChunkPos endCP = new ChunkPos(startPos.offset(enterDir, SEARCH_LIMIT));
         var persistentState = PersistentStateCircleBlockCache.getState(world);
         if (startCP.x != endCP.x) {
-            for (int x = startCP.x; x <= endCP.x; x++) {
+
+            boolean normalStart = startCP.x < endCP.x;
+            int start = normalStart ? startCP.x : endCP.x;
+            int end = normalStart ? endCP.x : startCP.x;
+
+            for (int x = start; x <= end; x++) {
                 ChunkPos currCP = new ChunkPos(x, startCP.z);
                 exits.addAll(persistentState.getCachedBlocksInChunk(currCP));
             }
         } else if (startCP.z != endCP.z) {
-            for (int x = startCP.x; x <= endCP.x; x++) {
-                ChunkPos currCP = new ChunkPos(x, startCP.z);
+
+            boolean normalStart = startCP.z < endCP.z;
+            int start = normalStart ? startCP.z : endCP.z;
+            int end = normalStart ? endCP.z : startCP.z;
+
+            for (int z = start; z <= end; z++) {
+                ChunkPos currCP = new ChunkPos(startCP.x, z);
                 exits.addAll(persistentState.getCachedBlocksInChunk(currCP));
             }
         } else {
@@ -110,8 +133,8 @@ public class JumpSlate extends BlockCircleComponent implements Waterloggable {
                     BlockState state = world.getBlockState(pos);
 
                     return !pos.equals(startPos) &&
+                        vecIsInDirection(pos.subtract(startPos), enterDir) &&
                         pos.getSquaredDistance(startPos) <= 100 &&
-                        Vec3d.of(pos.subtract(startPos)).normalize().equals(enterDirVec) &&
                         state.getBlock() instanceof BlockCircleComponent BCC &&
                         BCC.canEnterFromDirection(enterDir, pos, state, world);
                 })

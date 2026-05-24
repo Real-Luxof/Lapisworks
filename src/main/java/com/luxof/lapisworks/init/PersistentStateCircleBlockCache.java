@@ -1,5 +1,9 @@
 package com.luxof.lapisworks.init;
 
+import com.luxof.lapisworks.Lapisworks;
+
+import static com.luxof.lapisworks.Lapisworks.nbtListOf;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +12,7 @@ import java.util.function.Predicate;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -24,22 +29,10 @@ public class PersistentStateCircleBlockCache extends PersistentState {
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        for (var entry : cache.entrySet()) {
-            if (entry.getValue().isEmpty()) continue;
-
-            ChunkPos cp = entry.getKey();
-            byte[] array = new byte[entry.getValue().size() * 4];
-            int idx = 0;
-            for (BlockPos pos : entry.getValue()) {
-                array[idx] = (byte)(pos.getX() - cp.getStartX());
-                array[idx + 1] = (byte)(pos.getY() << 24 >> 24);
-                array[idx + 2] = (byte)(pos.getY() >> 8);
-                array[idx + 3] = (byte)(pos.getZ() - cp.getStartZ());
-                idx += 4;
-            }
-
-            nbt.putByteArray(String.valueOf(cp.toLong()), array);
-        }
+        cache.entrySet().forEach(entry -> nbt.put(
+            String.valueOf(entry.getKey().toLong()),
+            nbtListOf(entry.getValue().stream().map(Lapisworks::serializeBlockPos).toList())
+        ));
 
         return nbt;
     }
@@ -47,22 +40,14 @@ public class PersistentStateCircleBlockCache extends PersistentState {
     public static PersistentStateCircleBlockCache readNbt(NbtCompound nbt) {
         PersistentStateCircleBlockCache state = new PersistentStateCircleBlockCache();
 
-        for (String key : nbt.getKeys()) {
-            ChunkPos cp = new ChunkPos(Long.valueOf(key));
-
-            HashSet<BlockPos> posSet = new HashSet<>();
-            byte[] array = nbt.getByteArray(key);
-            for (int idx = 0; idx < array.length; idx += 4) {
-                posSet.add(cp.getBlockPos(
-                    array[idx], array[idx + 1] + array[idx + 2] << 8, array[idx + 3]
-                ));
-            }
-
-            state.cache.put(
-                cp,
-                posSet
-            );
-        }
+        nbt.getKeys().forEach(key -> state.cache.put(
+            new ChunkPos(Long.valueOf(key)),
+            new HashSet<>(
+                nbt.getList(key, NbtElement.COMPOUND_TYPE).stream()
+                    .map(Lapisworks::deserializeBlockPos)
+                    .toList()
+            )
+        ));
 
         return state;
     }

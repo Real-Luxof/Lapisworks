@@ -106,9 +106,6 @@ public class ScryingOverlaysClient {
                 HexPattern tunedPattern = bE.getTunedPattern();
 
                 lines.add(
-                    displayMedia(bE.getMedia())
-                );
-                lines.add(
                     new Pair<ItemStack, Text>(
                         new ItemStack(ModItems.SIMPLE_IMPETUS),
                         tunedPattern != null ? Text.translatable(

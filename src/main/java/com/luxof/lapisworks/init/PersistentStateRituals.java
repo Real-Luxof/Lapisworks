@@ -72,7 +72,7 @@ public class PersistentStateRituals extends PersistentState {
         ArrayList<BlockPos> positions = tuneables.get(iotaKey);
         positions.remove(pos);
 
-        if (positions.size() == 0)
+        if (positions.isEmpty())
             tuneables.remove(iotaKey);
     }
 
