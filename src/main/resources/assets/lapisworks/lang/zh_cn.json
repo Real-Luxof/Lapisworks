@@ -794,7 +794,7 @@
     "pages.lapisworks.interop.lapisal.intro.text": "古代的$(#00c)青金工程师$()也泛泛提及过这些“$(thing)质道$()”，但因为过去的某些结社禁止外人接近质道，他们多会评论道“这不是我们能干涉的”。这么说来，我似乎会成为首位在此领域作出创新的$(#00c)青金工程师$()了。",
     "pages.lapisworks.interop.lapisal.wispscanholditmesnow.title": "",
     "pages.lapisworks.interop.lapisal.wispfeatures.title": "咒灵持物",
-    "pages.lapisworks.interop.lapisal.wispfeatures.itemsyay.text": "咒灵无法持有物品，我已对此不满很久。好在我发现了这条$(l:lapisworks.misc)附魔法术$()，可以让它们处理物品。",
+    "pages.lapisworks.interop.lapisal.wispfeatures.itemsyay.text": "咒灵无法持有物品，我已对此不满很久。好在我发现了这条$(thing)附魔法术$()，可以让它们处理物品。",
     "pages.lapisworks.interop.lapisal.wispfeatures.gib_wisp_item.summary": "令给定咒灵（所有者需是我）将其所持物品与给定物品交换。消耗 5/2 个紫水晶粉。",
     "pages.lapisworks.interop.lapisal.wispfeatures.take_away_poor_baby_wisp_candy_like_evil_monster.summary": "取下给定咒灵（所有者需是我）的副手物品，并令其掉落在咒灵身处的位置。消耗 5/2 个紫水晶粉。",
     "pages.lapisworks.interop.lapisal.wispfeatures.oohmdiapatterns.text": "在我研究如何扩展咒灵的功能之时，我发现$(l:mdia_manip)$(thing)媒质操作$()法术也可作用于咒灵，效果不变。尤为奇怪的是，$(l:mdia_manip#lapisworks:deposit)$(thing)存入媒质$()会将咒灵视作有效目标；$(l:mdia_manip#lapisworks:withdraw)$(thing)取回媒质$()则会作用于咒灵本身，而不是它持有的媒质存储物品。以及，若选择咒灵作为目标，那么施法者必须是它的所有者，否则便会招致事故。",
