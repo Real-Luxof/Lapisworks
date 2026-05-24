@@ -7,11 +7,7 @@
     "pages": [
         {
             "type": "patchouli:text",
-            "text": "pages.lapisworks.lapisworks.misc.rwpattersheadsup"
-        },
-        {
-            "type": "patchouli:text",
-            "text": "pages.lapisworks.lapisworks.misc.rw.text2"
+            "text": "pages.lapisworks.lapisworks.misc.rw.rwpatternsheadsup"
         },
         {
             "type": "hexcasting:pattern",
