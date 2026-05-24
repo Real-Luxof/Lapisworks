@@ -62,9 +62,7 @@ public interface LapisCollarAddition {
     ) {}
     default void trinketTick(
         ItemStack stack, SlotReference slot, LivingEntity entity
-    ) {
-        generalTick(stack, entity);
-    }
+    ) {}
     default void generalTick(ItemStack stack, LivingEntity entity) {}
 
     
