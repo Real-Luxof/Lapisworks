@@ -33,6 +33,7 @@ import net.minecraft.world.poi.PointOfInterestStorage.OccupationStatus;
 
 import org.jetbrains.annotations.NotNull;
 
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -55,9 +56,8 @@ public abstract class PatternIotaMixin {
             doNothing = Patterns.ARCHON_OF_MEANINGLESSNESS;
         }
         ServerWorld sw = ctx.getWorld();
-        // maffs
-        try {
-            return sw.getPointOfInterestStorage().getInCircle(
+
+        return sw.getPointOfInterestStorage().getInCircle(
                 any -> any.matchesKey(ModPOIs.SIMP_IMPETUS_KEY),
                 BlockPos.ofFloored(ctx.mishapSprayPos()),
                 32,
@@ -67,16 +67,14 @@ public abstract class PatternIotaMixin {
                 if (!(sw.getBlockEntity(pos) instanceof SimpleImpetusEntity simpleImpetus))
                     return false;
 
-            return simpleImpetus.tryTrigger(
+                return simpleImpetus.tryTrigger(
                     pat.anglesSignature(),
                     isValid,
                     // so it doesn't explode in my face one day
                     ctx.getCastingEntity() instanceof ServerPlayerEntity sp ? sp : null
                 );
-            }).count() > 0;
-        } catch (Exception e) { // HexDebug
-            return false;
-        }
+            })
+            .count() > 0;
     }
 
     @Shadow
@@ -91,7 +89,7 @@ public abstract class PatternIotaMixin {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public @NotNull void execute(
+    public void execute(
         CastingVM vm,
         ServerWorld world,
         SpellContinuation continuation,
@@ -102,7 +100,7 @@ public abstract class PatternIotaMixin {
                 getPattern(),
                 !(lookupRef.get() instanceof PatternShapeMatch.Nothing),
                 vm.getEnv()
-            )) {
+        )) {
             lookupRef.set(new PatternShapeMatch.Normal(doNothing));
         }
         NbtCompound userData = vm.getImage().getUserData();

@@ -3,6 +3,7 @@ package com.luxof.lapisworks.blocks.entities;
 import at.petrak.hexcasting.api.casting.circles.BlockEntityAbstractImpetus;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
+import at.petrak.hexcasting.api.casting.iota.NullIota;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 
 import com.luxof.lapisworks.init.ModBlocks;
@@ -45,7 +46,7 @@ public class SimpleImpetusEntity extends BlockEntityAbstractImpetus {
         ((ControlCircleTickSpeed)this.executionState).setForcedTPT(4);
         CastingImage img = this.executionState.currentImage;
         this.executionState.currentImage.copy(
-            List.of(new EntityIota(sp)),
+            List.of(sp != null ? new EntityIota(sp) : new NullIota()),
             img.getParenCount(),
             img.getParenthesized(),
             img.getEscapeNext(),
@@ -87,9 +88,11 @@ public class SimpleImpetusEntity extends BlockEntityAbstractImpetus {
      * <p><code>isValidPat</code> makes sure an untuned Simple Impetus doesn't go off on an invalid
      * pattern. */
     public boolean tryTrigger(String pat, boolean isValidPat, @Nullable ServerPlayerEntity sp) {
-        boolean signatureMatches = pattern.anglesSignature().equals(pat);
+        boolean signatureMatches = pattern != null
+            ? pattern.anglesSignature().equals(pat)
+            : false;
 
-        if ((!tuned && isValidPat) || signatureMatches) startExecution(sp);
+        if ((!tuned && isValidPat) || (tuned && signatureMatches)) startExecution(sp);
         return tuned && signatureMatches;
     }
 

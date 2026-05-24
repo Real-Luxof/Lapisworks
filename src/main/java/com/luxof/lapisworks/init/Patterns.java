@@ -43,7 +43,7 @@ public class Patterns {
         );
         ARCHON_OF_MEANINGLESSNESS = RegistryKey.of(
             HexRegistries.ACTION,
-            id("archon_of_meanginglessness")
+            id("archon_of_meaninglessness")
         );
 
         MoarAttr MoarHealthAction = new MoarAttr(

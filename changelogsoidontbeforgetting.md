@@ -404,6 +404,7 @@ Only the devs who can keep up with me...
 - Sieve Thoughts not detecting certain great spell pattern shapes
 - Solid Color was not cheap to break via Break Block
 - Cubic Exaltation was tweaking about the (0, 0, 0) coordinate
+- Simple Impeti jank
 - Stopped Imbue Amel from taking a fuckton of Amel
 - Weird poky bits from the sphere in Spherical Exaltation were only for the north and west sides
 ### Interop
