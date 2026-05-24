@@ -35,6 +35,14 @@ mod_name = "Lapisworks"
 author = "Real-Luxof"
 show_landing_text = false
 
+[textures]
+missing = [
+    "lapisworks:collar",
+    "lapisworks:collar_bell",
+    "lapisworks:collar_with_model",
+    "lapisworks:totem_necklace_worn",
+]
+
 [textures.override]
 "lapisworks:amel_constructs/diamond_sword" = { texture = "lapisworks:textures/item/amel_dsword_noanim.png" }
 "lapisworks:amel_constructs/iron_sword" = { texture = "lapisworks:textures/item/amel_isword_noanim.png" }

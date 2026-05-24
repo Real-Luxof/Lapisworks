@@ -11,7 +11,7 @@
             "anchor": "lapisworks:hadamard",
             "input": "vec, vec",
             "output": "vec",
-            "text": "pages.lapisworks.lapisworks_misc.hadamard.summary"
+            "text": "pages.lapisworks.lapisworks.misc.misc.hadamard.summary"
         },
         {
             "type": "hexcasting:pattern",
@@ -19,7 +19,7 @@
             "anchor": "lapisworks:robbie_exalt",
             "input": "[any], int, any",
             "output": "[any]",
-            "text": "pages.lapisworks.lapisworks_misc.robbie_exalt.summary"
+            "text": "pages.lapisworks.lapisworks.misc.misc.robbie_exalt.summary"
         },
         {
             "type": "hexcasting:pattern",
@@ -27,7 +27,7 @@
             "anchor": "lapisworks:thewhattropy",
             "input": "[any]",
             "output": "any",
-            "text": "pages.lapisworks.lapisworks_misc.thewhattropy.summary"
+            "text": "pages.lapisworks.lapisworks.misc.misc.thewhattropy.summary"
         },
         {
             "type": "hexcasting:pattern",
@@ -35,7 +35,7 @@
             "anchor": "lapisworks:min",
             "input": "num, num",
             "output": "num",
-            "text": "pages.lapisworks.lapisworks_misc.min.summary"
+            "text": "pages.lapisworks.lapisworks.misc.misc.min.summary"
         },
         {
             "type": "hexcasting:pattern",
@@ -43,7 +43,7 @@
             "anchor": "lapisworks:max",
             "input": "num, num",
             "output": "num",
-            "text": "pages.lapisworks.lapisworks_misc.max.summary"
+            "text": "pages.lapisworks.lapisworks.misc.misc.max.summary"
         }
     ]
 }
