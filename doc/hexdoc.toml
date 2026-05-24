@@ -76,10 +76,6 @@ regex = "{^_pattern_regex}"
 path = "{$_project.src}/main/java/com/luxof/lapisworks/interop/hierophantics/ChariotPatterns.java"
 regex = "{^_pattern_regex}"
 
-[[extra.hexcasting.pattern_stubs]]
-path = "{$_project.src}/main/java/com/luxof/lapisworks/interop/complexhex/ComplexLapisPatterns.java"
-regex = "{^_pattern_regex}"
-
 
 # source paths
 
