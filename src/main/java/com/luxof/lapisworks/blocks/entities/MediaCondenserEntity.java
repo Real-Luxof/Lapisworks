@@ -19,6 +19,7 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -101,6 +102,7 @@ public class MediaCondenserEntity extends BlockEntity implements LinkableMediaBl
 
 
 
+    @Override public World getWorldThisIsIn() { return getWorld(); }
     @Override public void addLink(BlockPos pos) { linkedCondensers.add(pos); save(); }
     @Override public void removeLink(BlockPos pos) { linkedCondensers.remove(pos); save(); }
     @Override public boolean isLinkedTo(BlockPos pos) { return linkedCondensers.contains(pos); }

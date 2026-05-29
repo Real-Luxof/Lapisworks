@@ -101,7 +101,6 @@ dependencies {
 	modImplementation ("at.petra-k.hexcasting:hexcasting-fabric-${project.minecraft_version}:${project.hexcasting_version}") {
 		exclude module: "phosphor"
 		exclude module: "lithium"
-		exclude module: "emi"
 	}
 	modImplementation("net.fabricmc:fabric-language-kotlin:${fabric_kotlin_version}")
 	modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")

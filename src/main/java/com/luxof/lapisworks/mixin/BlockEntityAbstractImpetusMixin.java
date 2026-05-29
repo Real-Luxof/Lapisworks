@@ -15,6 +15,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,17 +37,18 @@ public abstract class BlockEntityAbstractImpetusMixin extends HexBlockEntity imp
     @Final
     private static long MAX_CAPACITY;
 
-    @Unique @Override public void addLink(BlockPos pos) { linked.add(pos); }
-    @Unique @Override public void removeLink(BlockPos pos) { linked.remove(pos); }
-    @Unique @Override public boolean isLinkedTo(BlockPos pos) { return linked.contains(pos); }
-    @Unique @Override public Set<BlockPos> getLinks() { return linked; }
-    @Unique @Override public int getNumberOfLinks() { return linked.size(); }
-    @Unique @Override public int getMaxNumberOfLinks() { return 1; }
-    @Unique @Override public BlockPos getThisPos() { return getPos(); }
+    @Override public World getWorldThisIsIn() { return getWorld(); }
+    @Override public void addLink(BlockPos pos) { linked.add(pos); }
+    @Override public void removeLink(BlockPos pos) { linked.remove(pos); }
+    @Override public boolean isLinkedTo(BlockPos pos) { return linked.contains(pos); }
+    @Override public Set<BlockPos> getLinks() { return linked; }
+    @Override public int getNumberOfLinks() { return linked.size(); }
+    @Override public int getMaxNumberOfLinks() { return 1; }
+    @Override public BlockPos getThisPos() { return getPos(); }
 
-    @Unique @Override public long getMediaHere() { return media; }
-    @Unique @Override public long getMaxMedia() { return Math.max(getMediaHere(), 10000_0000L); }
-    @Unique @Override public void setMediaHere(long to) { media = to; sync(); }
+    @Override public long getMediaHere() { return media; }
+    @Override public long getMaxMedia() { return Math.max(getMediaHere(), 10000_0000L); }
+    @Override public void setMediaHere(long to) { media = to; sync(); }
 
 
     @Unique

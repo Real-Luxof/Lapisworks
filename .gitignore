@@ -6,6 +6,7 @@ _site/
 _checkout/
 __gradle_version__.py
 .hexdoc*/
+.env
 
 # eclipse
 bin

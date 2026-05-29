@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
  * as long as your block's onStateReplaced calls super.onStateReplaced,
  * removing the current position from any blocks it's linked to should be handled automatically. */
 public interface LinkableMediaBlock extends MediaTransferInterface {
-    public World getWorld();
+    public World getWorldThisIsIn();
 
     public void addLink(BlockPos pos);
     public void removeLink(BlockPos pos);
@@ -40,7 +40,7 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
 
         while (!todo.isEmpty()) {
             BlockPos currPos = todo.pop();
-            LinkableMediaBlock curr = (LinkableMediaBlock)getWorld().getBlockEntity(currPos);
+            LinkableMediaBlock curr = (LinkableMediaBlock)getWorldThisIsIn().getBlockEntity(currPos);
             total += curr.getMediaHere();
             curr.getLinks().forEach(pos -> { if (seen.add(pos)) todo.add(pos); });
         }
@@ -59,7 +59,7 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
 
         while (!todo.isEmpty()) {
             BlockPos currPos = todo.pop();
-            LinkableMediaBlock curr = (LinkableMediaBlock)getWorld().getBlockEntity(currPos);
+            LinkableMediaBlock curr = (LinkableMediaBlock)getWorldThisIsIn().getBlockEntity(currPos);
             total += curr.getMaxMedia();
             curr.getLinks().forEach(pos -> { if (seen.add(pos)) todo.add(pos); });
         }
@@ -72,7 +72,7 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
     }
     default long depositMediaWithLinks(long amount, boolean simulate) {
         return interactWithLinkableMediaBlocks(
-            getWorld(),
+            getWorldThisIsIn(),
             Set.of(getThisPos()),
             amount,
             true,
@@ -85,7 +85,7 @@ public interface LinkableMediaBlock extends MediaTransferInterface {
     }
     default long withdrawMediaWithLinks(long amount, boolean simulate) {
         return interactWithLinkableMediaBlocks(
-            getWorld(),
+            getWorldThisIsIn(),
             Set.of(getThisPos()),
             amount,
             false,

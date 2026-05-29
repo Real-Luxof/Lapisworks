@@ -208,6 +208,7 @@ Was I fucking LAZY before and after??? (Note from future me: yes.)
 # 1.5.8
 huge thanks to the folks over at [Hexwoven](https://modrinth.com/server/hexwoven-server) for somehow putting with my BS and testing this mod :sob: (@oceanicdisturbance @teal_wolf_25 @meepoffaith @moss134 @rose.sylvanis)  
 
+(hey you. if you get this reference, i will be one cookie in debt to you.)  
 I'm delaying this update to the next level.  
 Only the devs who can keep up with me...   
 ...Will get to see their 2000 emerald paycheck.  
@@ -440,6 +441,9 @@ Only the devs who can keep up with me...
   - Totem Necklaces DO in fact save your pets from death
 ### Changes
 - Amalgamation Containers no longer look genuinely horrible
+### Fixes
+- Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)
+- Spell Circles were doing some bull
 ### Interop
 - hexic
   - craft a collar and a nametag to make a collartag
@@ -447,6 +451,10 @@ Only the devs who can keep up with me...
     - basically all entity iotas that point to your previous UUID 
   - craft a collar and a mediaweave to weave the cloth around it
     - nothing special, just acts as a mediaweave on top of being a collar
+- HexStruction (man addon devs have the most creative names)
+  - Blueprint iotas
+    - like structure iotas but you can create them without consuming the structure, and place them and  
+	  they will attempt to take the blocks from your inventory.
 - HexConnect (meaning Forge)
   - Fixed chalk not connecting properly
 # 1.5.9
@@ -454,8 +462,6 @@ Only the devs who can keep up with me...
 - [This](https://discord.com/channels/936370934292549712/950847275549229086/1479043488183095317)
   - what if custom gui (kindly kys me)
 - Overenchanting?
-- ~~Hexical interop~~ Taken by HexKeys with a cooler mechanism
-  ~~- every key is telepathy-able~~
 - Amethyst Piano
 - Enchant item stack size (+64 every upgrade)
 - Heal your mind after breaking it. (Jacked O' Lantern finale)
@@ -471,9 +477,8 @@ Only the devs who can keep up with me...
     - or maybe just a Hexical Gasp spell daemon?
   - note to self: might have to fuck with world build height limit for this, as some creatures are
     simply gargantuan!
-    - hey past Luxof, what the FUCK do you mean "FUCK WITH WORLD BUILD HEIGHT LIMIT"
-    - THERE IS NO WAY IN HELL THE CREATURES NEED TO BE THAT BIG
-    - CHRIST
+    - hey past Luxof, what the *fuck* do you mean "fuck with world build height limit"
+    - there is no way in hell that the creatures need to be that big
   - think this should be a progression of the enchanted slipway
 - Valkyrien Skies interop
   air pocket in fully closed ship protects you from congested deep noosphere effects too
@@ -755,3 +760,5 @@ Witch broom to sit on as you fly.
 use "Apollo's Purification" somehow.  
 Alder's Gambit (runs the provided pattern list, until it finds a specific pattern which you decide.)  
 Glyph of Warding!  
+YAHA! x Lapisworks interop where the motto is "LEGALIZE NUCLEAR BOMBS" and "SWAG MESSIAH"
+- on that note, Swag Distillation  
