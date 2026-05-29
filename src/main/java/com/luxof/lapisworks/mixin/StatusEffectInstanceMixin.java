@@ -20,7 +20,8 @@ public abstract class StatusEffectInstanceMixin implements StatusEffectParticleC
 
     @Inject(
         at = @At("HEAD"),
-        method = "shouldShowParticles"
+        method = "shouldShowParticles",
+        cancellable = true
     )
     public void shouldShowParticles(CallbackInfoReturnable<Boolean> cir) {
         if (showParticlesOverride != null)

@@ -3,9 +3,13 @@ package com.luxof.lapisworks.client.collar.additions;
 import com.luxof.lapisworks.client.collar.LapisCollarAddition;
 import com.luxof.lapisworks.init.LapisSounds;
 
+import at.petrak.hexcasting.api.utils.NBTHelper;
+
 import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 import static com.luxof.lapisworks.init.ModItems.COLLAR_BELL;
+
+import dev.emi.trinkets.api.SlotReference;
 
 import java.util.List;
 
@@ -65,6 +69,13 @@ public class BellCollarAddition implements LapisCollarAddition {
             0
         );
     }
+
+	@Override
+	public void trinketTick(
+        ItemStack stack, SlotReference slot, LivingEntity entity
+    ) {
+		generalTick(stack, entity);
+	}
 
     @Override
     public void generalTick(ItemStack stack, LivingEntity entity) {

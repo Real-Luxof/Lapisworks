@@ -12,6 +12,8 @@ import com.luxof.lapisworks.mixinsupport.StatusEffectParticleControl;
 import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 
+import dev.emi.trinkets.api.SlotReference;
+
 import java.util.List;
 
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -84,6 +86,13 @@ public class StealthCollarAddition implements LapisCollarAddition {
         if (!entity.getWorld().isClient || !(entity instanceof PlayerEntity player)) return;
         ((SpiralPatternsClearable)(player)).setSpiralPatternsClearing(false);
     }
+
+	@Override
+	public void trinketTick(
+        ItemStack stack, SlotReference slot, LivingEntity entity
+    ) {
+		generalTick(stack, entity);
+	}
 
     @Override
     public void generalTick(ItemStack stack, LivingEntity entity) {
