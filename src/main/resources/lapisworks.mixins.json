@@ -32,7 +32,6 @@
 		"MobEntityRendererMixin",
 		"ClientCastingStackMixin",
 		"StatusEffectInstanceMixin",
-		"AbstractBlockMixin",
 		"ServerWorldMixin",
 
 		"FabricXplatImplMixin"
