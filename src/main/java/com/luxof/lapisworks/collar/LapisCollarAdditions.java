@@ -1,6 +1,6 @@
-package com.luxof.lapisworks.client.collar;
+package com.luxof.lapisworks.collar;
 
-import com.luxof.lapisworks.client.collar.additions.*;
+import com.luxof.lapisworks.collar.additions.*;
 
 import static com.luxof.lapisworks.Lapisworks.err;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
@@ -74,11 +74,10 @@ public class LapisCollarAdditions {
         }
     }
 
-    public static void meowForMe() {
+    public static void prettierInPink() {
         // shhh my urge...
         // i will add a bell with full physics and ringing NEXT UPDATE!
         // i need to get this one out quickly.
-        register(DyeCollarAddition.ID, new DyeCollarAddition());
         register(BellCollarAddition.ID, new BellCollarAddition());
         register(FocusCollarAddition.ID, new FocusCollarAddition());
         register(StealthCollarAddition.ID, new StealthCollarAddition());

@@ -4,9 +4,8 @@ import com.luxof.lapisworks.Lapisworks;
 import com.luxof.lapisworks.blocks.bers.*;
 import com.luxof.lapisworks.blocks.bigchalk.BigChalkCenterRenderer;
 import com.luxof.lapisworks.blocks.bigchalk.BigChalkPart;
-import com.luxof.lapisworks.client.collar.CollarItemRenderer;
-import com.luxof.lapisworks.client.collar.LapisCollarAdditions;
 import com.luxof.lapisworks.client.trinkets.*;
+import com.luxof.lapisworks.collar.CollarItemRenderer;
 import com.luxof.lapisworks.init.*;
 import com.luxof.lapisworks.interop.hexcessible.LapiscessibleInterface;
 import com.luxof.lapisworks.interop.hextended.items.AmelOrb;
@@ -131,7 +130,6 @@ public class LapisworksClient implements ClientModInitializer {
         log("Does NONE of that sound fun? Well, that's because it isn't. So let's get started, shall we?");
 
         LapisParticles.clientTicklesPaw();
-        LapisCollarAdditions.meowForMe();
         ModScreens.registerOnClient();
         Dowser.registerMyCuteness();
 

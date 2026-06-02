@@ -1,6 +1,6 @@
 package com.luxof.lapisworks.mixin;
 
-import com.luxof.lapisworks.client.collar.LapisCollarAdditions;
+import com.luxof.lapisworks.collar.LapisCollarAdditions;
 import com.luxof.lapisworks.mixinsupport.CollarControllable;
 
 import net.minecraft.entity.EntityType;

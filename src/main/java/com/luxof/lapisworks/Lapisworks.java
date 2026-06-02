@@ -21,6 +21,7 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import com.google.gson.JsonPrimitive;
 
+import com.luxof.lapisworks.collar.LapisCollarAdditions;
 import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.init.LapisParticles;
 import com.luxof.lapisworks.init.LapisResourceCons;
@@ -44,6 +45,7 @@ import com.luxof.lapisworks.interop.hextended.Lapixtended;
 import com.luxof.lapisworks.interop.hierophantics.Chariot;
 import com.luxof.lapisworks.media.LinkableMediaBlock;
 import com.luxof.lapisworks.mixinsupport.GetStacks;
+
 import com.mojang.datafixers.util.Either;
 
 import static com.luxof.lapisworks.LapisworksIDs.CANNOT_MODIFY_COST_TAG;
@@ -77,12 +79,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
-import org.joml.Random;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.Version;
@@ -106,6 +102,14 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+
+import org.jetbrains.annotations.Nullable;
+
+import org.joml.Quaternionf;
+import org.joml.Random;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -223,6 +227,7 @@ public class Lapisworks implements ModInitializer {
 		LapisParticles.pawtickle();
 		ModEvents.finallyBeUsed();
 		LapisTrinkets.startFeelingCute();
+		LapisCollarAdditions.prettierInPink();
 
         TheSillySayer.sayNormal();
 		if (anyInterop) {

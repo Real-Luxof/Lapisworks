@@ -1,7 +1,6 @@
-package com.luxof.lapisworks.client.collar;
+package com.luxof.lapisworks.collar;
 
-import com.luxof.lapisworks.client.collar.additions.DyeCollarAddition;
-
+import static com.luxof.lapisworks.init.ModItems.COLLAR;
 import static com.luxof.lapisworks.init.ModItems.COLLAR_WITH_MODEL;
 
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
@@ -46,9 +45,22 @@ public class CollarItemRenderer implements BuiltinItemRendererRegistry.DynamicIt
 
         matrices.push();
         matrices.translate(.5, .5, .5);
-        DyeCollarAddition.renderStatic(
-            stack, DyeCollarAddition.ID, entity, mode, matrices, vertexConsumers, light, overlay
+
+        // render the collar with the model so it can take our dye color
+        COLLAR.setColor(collarWithModelStack, COLLAR.getColor(stack));
+        MinecraftClient.getInstance().getItemRenderer().renderItem(
+            entity,
+            collarWithModelStack,
+            mode,
+            false,
+            matrices,
+            vertexConsumers,
+            entity != null ? entity.getWorld() : null,
+            light,
+            overlay,
+            0
         );
+
         collarModel.getTransformation().getTransformation(mode).apply(false, matrices);
         LapisCollarAdditions.renderAll(stack, entity, mode, matrices, vertexConsumers, light, overlay);
         matrices.pop();

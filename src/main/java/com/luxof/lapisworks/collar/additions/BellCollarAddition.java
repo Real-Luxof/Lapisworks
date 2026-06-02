@@ -1,6 +1,6 @@
-package com.luxof.lapisworks.client.collar.additions;
+package com.luxof.lapisworks.collar.additions;
 
-import com.luxof.lapisworks.client.collar.LapisCollarAddition;
+import com.luxof.lapisworks.collar.LapisCollarAddition;
 import com.luxof.lapisworks.init.LapisSounds;
 
 import at.petrak.hexcasting.api.utils.NBTHelper;
@@ -12,6 +12,9 @@ import static com.luxof.lapisworks.init.ModItems.COLLAR_BELL;
 import dev.emi.trinkets.api.SlotReference;
 
 import java.util.List;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -48,11 +51,15 @@ public class BellCollarAddition implements LapisCollarAddition {
             Identifier yourId) {
         ItemStack newCollar = collarStack.copy();
         COLLAR.addAddition(newCollar, yourId);
+        NBTHelper.putFloat(newCollar, "x", 0F);
+        NBTHelper.putFloat(newCollar, "y", -1F);
+        NBTHelper.putFloat(newCollar, "z", 0F);
         return newCollar;
     }
 
     private final ItemStack BELL_STACK = new ItemStack(COLLAR_BELL);
     @Override
+    @Environment(EnvType.CLIENT)
     public void render(ItemStack collarStack, Identifier yourId, @Nullable LivingEntity entity,
             ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light,
             int overlay) {

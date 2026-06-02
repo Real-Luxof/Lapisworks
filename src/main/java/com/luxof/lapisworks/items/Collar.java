@@ -11,9 +11,9 @@ import dev.emi.trinkets.api.Trinket;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.luxof.lapisworks.client.collar.LapisCollarAddition;
-import com.luxof.lapisworks.client.collar.LapisCollarAdditions;
-import com.luxof.lapisworks.client.collar.additions.FocusCollarAddition;
+import com.luxof.lapisworks.collar.LapisCollarAddition;
+import com.luxof.lapisworks.collar.LapisCollarAdditions;
+import com.luxof.lapisworks.collar.additions.FocusCollarAddition;
 
 import static com.luxof.lapisworks.Lapisworks.trinketEquipped;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
@@ -268,6 +268,7 @@ public class Collar extends Item implements DyeableItem, IotaHolderItem, Trinket
     }
 
 
+    @SuppressWarnings("null")
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(
         ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid

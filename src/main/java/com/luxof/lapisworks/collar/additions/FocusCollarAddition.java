@@ -1,16 +1,19 @@
-package com.luxof.lapisworks.client.collar.additions;
+package com.luxof.lapisworks.collar.additions;
 
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.NullIota;
 import at.petrak.hexcasting.api.utils.NBTHelper;
 import at.petrak.hexcasting.common.lib.HexItems;
 
-import com.luxof.lapisworks.client.collar.LapisCollarAddition;
+import com.luxof.lapisworks.collar.LapisCollarAddition;
 
 import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 
 import java.util.List;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
@@ -63,6 +66,7 @@ public class FocusCollarAddition implements LapisCollarAddition {
     }
 
     @Override
+    @Environment(EnvType.CLIENT)
     public void render(ItemStack collarStack, Identifier yourId, @Nullable LivingEntity entity,
             ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light,
             int overlay) {

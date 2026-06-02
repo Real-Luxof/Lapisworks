@@ -1,4 +1,4 @@
-package com.luxof.lapisworks.client.collar;
+package com.luxof.lapisworks.collar;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -7,6 +7,9 @@ import dev.emi.trinkets.api.SlotReference;
 
 import java.util.List;
 import java.util.UUID;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
@@ -40,6 +43,11 @@ public interface LapisCollarAddition {
         ItemStack yourStack,
         Identifier yourId
     );
+
+    /** Make sure to annotate this method with <code>@Environment(EnvType.CLIENT)</code>.
+     * <p>The reason you should do this is so that you can register this method in common code
+     * without it erroring when registered on a dedicated server. */
+    @Environment(EnvType.CLIENT)
     public void render(
         ItemStack collarStack,
         Identifier yourId,

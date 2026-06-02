@@ -1,8 +1,8 @@
 package com.luxof.lapisworks.client.trinkets;
 
-import com.luxof.lapisworks.client.collar.additions.StealthCollarAddition;
-
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
+
+import com.luxof.lapisworks.collar.additions.StealthCollarAddition;
 
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.client.TrinketRenderer;

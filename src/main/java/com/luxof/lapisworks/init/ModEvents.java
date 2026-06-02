@@ -5,7 +5,7 @@ import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
 
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 
-import com.luxof.lapisworks.client.collar.LapisCollarAdditions;
+import com.luxof.lapisworks.collar.LapisCollarAdditions;
 
 import dev.onyxstudios.cca.api.v3.entity.PlayerCopyCallback;
 
