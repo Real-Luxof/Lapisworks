@@ -129,21 +129,22 @@ public class ChalkItem extends BlockItem {
             if (player == null || !player.getAbilities().creativeMode) {
                 context.getStack().damage(1, player, dontCare -> {});
             }
+
+            // Sinytra, is that what you're doing, you rat bastard?
+            ChalkEntity chalk = (ChalkEntity)world.getBlockEntity(pos);
+
+            chalk.attachedTo = context.getSide().getOpposite();
+            context.getWorld().updateListeners(
+                context.getBlockPos(),
+                state,
+                state,
+                Block.NOTIFY_ALL
+            );
+            ModBlocks.CHALK.updateAttachments(world, pos);
+            doChalkUpdatesDude(context.getWorld(), pos);
+            playPlaceSound(world, pos);
+            return ActionResult.success(world.isClient);
         }
-
-        ChalkEntity chalk = (ChalkEntity)world.getBlockEntity(pos);
-
-        chalk.attachedTo = context.getSide().getOpposite();
-        ModBlocks.CHALK.updateAttachments(world, pos);
-        context.getWorld().updateListeners(
-            context.getBlockPos(),
-            state,
-            state,
-            Block.NOTIFY_ALL
-        );
-        doChalkUpdatesDude(context.getWorld(), pos);
-        playPlaceSound(world, pos);
-        return ActionResult.success(world.isClient);
     }
 
     @Override
