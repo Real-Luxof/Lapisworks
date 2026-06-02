@@ -28,7 +28,7 @@ public class Deposit extends SpellActionNCT {
     public int argc = 2;
 
     private void assertNoFunnyMedia(long mediaCost) {
-        long availableMedia = ctx.extractMedia(-1, true);
+        long availableMedia = -ctx.extractMedia(-1, true);
         if (!(ctx instanceof PlayerBasedCastEnv pbcenv)) return;
 
         ServerPlayerEntity player = pbcenv.getCaster();
