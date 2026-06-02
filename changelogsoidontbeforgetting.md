@@ -416,10 +416,20 @@ Only the devs who can keep up with me...
 
 **NOTE FOR MIGRATORS:** While Jumpslates do register all spell circle components, you may have to replace them for this to work (because optimization). However, spell circle components placed after this update will never need to be replaced.
 # 1.5.8.4
+### Additions
+- E to Fel
+### Changes
+- Book (documented collars and collar additions better)
+- Stealth collar addition hides anchorite's and wayfarer's flight particles and sounds
 ### Fixes
 - Collar recipes not working on dedicated servers
+- Collar recipes not working if you put in the collar after the addition items in the crafting menu
 - Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)
 - Inability to Deposit/Withdraw to/from an impetus
+### Interop
+- HexConnect (meaning Forge)
+  - Fixed chalk not connecting properly. Perchance.
+  - Fixed grand rituals not working properly
 # 1.5.8.5
 ### Additions
 - added stuff to collars
@@ -457,8 +467,6 @@ Only the devs who can keep up with me...
   - Blueprint iotas
     - like structure iotas but you can create them without consuming the structure, and place them and  
 	  they will attempt to take the blocks from your inventory.
-- HexConnect (meaning Forge)
-  - Fixed chalk not connecting properly
 # 1.5.9
 ### Free me
 - [This](https://discord.com/channels/936370934292549712/950847275549229086/1479043488183095317)

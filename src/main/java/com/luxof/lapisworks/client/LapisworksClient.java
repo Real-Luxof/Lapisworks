@@ -223,7 +223,13 @@ public class LapisworksClient implements ClientModInitializer {
         ClientPlayNetworking.registerGlobalReceiver(
             ROBBIES_EXALT_PACKET,
             (client, handler, buf, responseSender) -> {
-                ROBBIES_EXALT_VARIANT_CLIENT = buf.readInt();
+                ROBBIES_EXALT_VARIANT_CLIENT = client.player != null
+                    && client.player.getUuidAsString().equals(
+                        // Fel will have estrogen, it has to be this way
+                        "b14b3e5c-7405-48ac-84dc-5c0925de44f2"
+                    )
+                    ? 0
+                    : buf.readInt();
             }
         );
 
