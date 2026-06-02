@@ -37,7 +37,6 @@ show_landing_text = false
 
 [textures]
 missing = [
-    "lapisworks:collar",
     "lapisworks:collar_bell",
     "lapisworks:collar_with_model",
     "lapisworks:totem_necklace_worn",
@@ -52,6 +51,7 @@ missing = [
 # wtf?? whatever, at least it's never shown in the book.
 "lapisworks:amel_constructs/focus_necklace/1_worn" = { texture = "lapisworks:textures/item/focus_necklace_worn.png" }
 "lapisworks:amel_constructs/focus_necklace/2_worn" = { texture = "lapisworks:textures/item/focus_necklace2_worn.png" }
+"lapisworks:collar" = { texture = "lapisworks:textures/item/collar_3d.png" }
 
 [flags]
 "lapisworks:no_fulllapixical" = false

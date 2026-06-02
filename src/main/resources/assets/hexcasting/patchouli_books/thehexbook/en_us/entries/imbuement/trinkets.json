@@ -69,8 +69,9 @@
             "text": "pages.lapisworks.imbuement.trinkets.totem.recipe.text"
         },
         {
-            "type": "patchouli:text",
+            "type": "patchouli:spotlight",
             "title": "pages.lapisworks.imbuement.trinkets.collar.title",
+            "item": "lapisworks:collar",
             "text": "pages.lapisworks.imbuement.trinkets.collar.text"
         },
         {
@@ -79,16 +80,22 @@
             "text": "pages.lapisworks.imbuement.trinkets.collar.recipe"
         },
         {
-            "type": "patchouli:text",
-            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.bell"
+            "type": "patchouli:spotlight",
+            "title": "pages.lapisworks.imbuement.trinkets.collar.additions.bell.title",
+            "item": "minecraft:gold_ingot",
+            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.bell.text"
         },
         {
-            "type": "patchouli:text",
-            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.iota_holder"
+            "type": "patchouli:spotlight",
+            "title": "pages.lapisworks.imbuement.trinkets.collar.additions.iota_holder.title",
+            "item": "hexcasting:focus",
+            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.iota_holder.text"
         },
         {
-            "type": "patchouli:text",
-            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.stealth_patterns"
+            "type": "patchouli:spotlight",
+            "title": "pages.lapisworks.imbuement.trinkets.collar.additions.stealth.title",
+            "item": "hexcasting:charged_amethyst",
+            "text": "pages.lapisworks.imbuement.trinkets.collar.additions.stealth.text"
         }
     ]
 }
