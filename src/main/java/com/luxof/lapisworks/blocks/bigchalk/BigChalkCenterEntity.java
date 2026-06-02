@@ -5,8 +5,7 @@ import at.petrak.hexcasting.api.casting.iota.PatternIota;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.lib.HexSounds;
 import at.petrak.hexcasting.common.particles.ConjureParticleOptions;
-import at.petrak.hexcasting.fabric.cc.CCStaffcastImage;
-import at.petrak.hexcasting.fabric.cc.HexCardinalComponents;
+import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import com.luxof.lapisworks.blocks.stuff.StampableBE;
 import com.luxof.lapisworks.init.LapisConfig;
@@ -120,8 +119,7 @@ public class BigChalkCenterEntity extends BlockEntity implements StampableBE {
         );
         if (player == null) return;
 
-        CCStaffcastImage ccStaffcastImg = HexCardinalComponents.STAFFCAST_IMAGE.get(player);
-        CastingVM vm = ccStaffcastImg.getVM(handThatTouchedMe);
+        CastingVM vm = IXplatAbstractions.INSTANCE.getStaffcastVM(player, handThatTouchedMe);
         vm.getImage().getUserData().putBoolean("lapisworks:big_chalk", true);
 
         vm.queueExecuteAndWrapIota(
@@ -130,8 +128,7 @@ public class BigChalkCenterEntity extends BlockEntity implements StampableBE {
             (ServerWorld)world
         );
 
-        ccStaffcastImg.setImage(vm.getImage());
-        HexCardinalComponents.STAFFCAST_IMAGE.sync(player);
+        IXplatAbstractions.INSTANCE.setStaffcastImage(player, vm.getImage());
     }
     public void serverTick(BlockState state) {
         if (!powered) {
