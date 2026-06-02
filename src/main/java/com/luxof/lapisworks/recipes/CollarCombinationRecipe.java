@@ -1,11 +1,11 @@
 package com.luxof.lapisworks.recipes;
 
-import com.luxof.lapisworks.client.collar.LapisCollarAddition;
-import com.luxof.lapisworks.client.collar.LapisCollarAdditions;
-
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 
 import java.util.List;
+
+import com.luxof.lapisworks.collar.LapisCollarAddition;
+import com.luxof.lapisworks.collar.LapisCollarAdditions;
 
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
@@ -34,17 +34,19 @@ public class CollarCombinationRecipe extends SpecialCraftingRecipe {
 
         for (ItemStack stack : inventory.getInputStacks()) {
             if (!stack.isOf(COLLAR)) continue;
-            base = stack;
-            break;
+            if (base == null)
+                base = stack;
+            else
+                return ItemStack.EMPTY;
         }
 
-        if (base == null)
-            return ItemStack.EMPTY;
+        if (base == null) return ItemStack.EMPTY;
 
         List<Identifier> existingAdditions = COLLAR.getAdditions(base);
 
         for (ItemStack stack : inventory.getInputStacks()) {
-            if (stack.isEmpty() || stack == base) continue;
+
+            if (stack.isEmpty() || stack.isOf(COLLAR)) continue;
             Identifier additionId = null;
             LapisCollarAddition addition = null;
 
@@ -74,30 +76,32 @@ public class CollarCombinationRecipe extends SpecialCraftingRecipe {
     public boolean matches(RecipeInputInventory inventory, World world) {
         ItemStack base = null;
         List<Identifier> existingAdditions = null;
-        boolean combiningWith = false;
 
         for (ItemStack stack : inventory.getInputStacks()) {
             if (!stack.isOf(COLLAR)) continue;
-            base = stack;
-            existingAdditions = COLLAR.getAdditions(stack);
-            break;
+            if (base == null) {
+                base = stack;
+                existingAdditions = COLLAR.getAdditions(stack);
+            } else
+                return false;
         }
         if (base == null) return false;
 
+        boolean additionFound = true;
         for (ItemStack stack : inventory.getInputStacks()) {
             for (var entry : LapisCollarAdditions.getAll().entrySet()) {
                 Identifier id = entry.getKey();
                 LapisCollarAddition addition = entry.getValue();
 
-                combiningWith = addition.testItem(stack.getItem())
+                additionFound = additionFound
+                    && addition.testItem(stack.getItem())
                     && addition.canAdd(base, existingAdditions, id);
 
-                if (combiningWith) break;
+                if (additionFound) break;
             }
-            if (combiningWith) break;
         }
 
-        return combiningWith;
+        return additionFound;
     }
 
     @Override
