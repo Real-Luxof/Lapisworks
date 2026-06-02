@@ -33,6 +33,7 @@
 		"ClientCastingStackMixin",
 		"StatusEffectInstanceMixin",
 		"ServerWorldMixin",
+		"OpFlight$CompanionMixin",
 
 		"FabricXplatImplMixin"
 	],

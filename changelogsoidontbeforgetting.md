@@ -416,6 +416,11 @@ Only the devs who can keep up with me...
 
 **NOTE FOR MIGRATORS:** While Jumpslates do register all spell circle components, you may have to replace them for this to work (because optimization). However, spell circle components placed after this update will never need to be replaced.
 # 1.5.8.4
+### Fixes
+- Collar recipes not working on dedicated servers
+- Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)
+- Inability to Deposit/Withdraw to/from an impetus
+# 1.5.8.5
 ### Additions
 - added stuff to collars
   - the bell now supports full physics
@@ -441,9 +446,6 @@ Only the devs who can keep up with me...
   - Totem Necklaces DO in fact save your pets from death
 ### Changes
 - Amalgamation Containers no longer look genuinely horrible
-### Fixes
-- Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)
-- Spell Circles were doing some bull
 ### Interop
 - hexic
   - craft a collar and a nametag to make a collartag
@@ -558,10 +560,11 @@ possible interop:
   - instant adult-ification spell, i guess?
   - like the counterpart to Hastenature, i mean
   - but Nurture exists tho...
-- scryglass
-  - add the ability to unfocus your mouse
-  - add buttons
-  - add text inputs?
+~~- scryglass~~  
+  ~~- add the ability to unfocus your mouse~~  
+  ~~- add buttons~~  
+  ~~- add text inputs?~~  
+- that scryglass idea is all of HexIntent
 - hexxyskies interop
   - ship variant of the jumpslate that jumps to the nearest ship in the specified radius
   - wisp-ify a ship by imbuing a simple mind into it
@@ -573,12 +576,14 @@ much bigger phials
   nvm hexthings threw it right back to me (infeasible for it)  
   0.01 dust per iota per pattern (meaning it stays that extended for that many patterns)  
   nvm oneironaut has it
-computers lmao
-- slab that you can use Craft Artifact on
-- you can send iotas to computers with a spell (which costs more the longer the distance)
-- sending iotas chunkloads
-- has ambit over itself and the adjacent blocks
-- casts on block update and iota sent
+~~computers lmao~~  
+~~- slab that you can use Craft Artifact on~~  
+~~- you can send iotas to computers with a spell (which costs more the longer the distance)~~  
+~~- sending iotas chunkloads~~  
+~~- has ambit over itself and the adjacent blocks~~  
+~~- casts on block update and iota sent~~  
+hexboxes (complexhex(?)) and casting engines (hexic) do it better,  
+no need to add wisp communication to it  
 
 KING CRIMSON (so what part, exactly, of this is Lapisworks-y?)  
 (P.S. even Miyu didn't want to do this. Are we deaduzz, chat?)
@@ -590,7 +595,7 @@ KING CRIMSON (so what part, exactly, of this is Lapisworks-y?)
 - caster is not locked in to that movement  
 
 port twokai's ideal condition  
-~~port hexxy dimensions~~ ~~pool and~~ scepticake took it  
+~~port hexxy dimensions~~ pool and scepticake took it  
 Ra's Gambit
 - think up something motherfucker
 - this name is way too fucking cool not to use!  
@@ -599,23 +604,25 @@ Gene Editing (as an extension of the 4-arm-getting system) and Entity Creation
 - making yourself a vampire is possible  
 
 
-enchanted amethyst
-- not the first time i've thought about it, maybe see where it goes  
+~~enchanted amethyst~~  
+~~- not the first time i've thought about it, maybe see where it goes~~  
+that's called Amel you buffoon  
 
 COOL WIZARD DRIP  
 
-backdrawn patterns
-- free exquisite idea no one's done before, like per world pattern shapes  
-  probably equally painful  
-  this time the pain isn't in hexdoc, but in inline etc.!  
-  fun for the whole family
-- fix inline
-- modify pattern drawing?
-- there's an UncheckedHexPattern(? not sure if that's the name) now, use it
-- might need a diff pattern iota to match it to stuff in a separate registry?
-  - actually maybe mixin to PatternRegistryManifest (bro getting flooded)
-- inverted color in book and grid + end of drawing to represent backstroke visually
-- to represent it, the letter is "s"  
+~~backdrawn patterns~~
+~~- free exquisite idea no one's done before, like per world pattern shapes~~  
+~~  probably equally painful~~  
+~~  this time the pain isn't in hexdoc, but in inline etc.!  ~~  
+~~  fun for the whole family~~  
+~~- fix inline~~  
+~~- modify pattern drawing?~~  
+~~- there's an UncheckedHexPattern(? not sure if that's the name) now, use it~~  
+~~- might need a diff pattern iota to match it to stuff in a separate registry?~~  
+~~  - actually maybe mixin to PatternRegistryManifest (bro getting flooded)~~  
+~~- inverted color in book and grid + end of drawing to represent backstroke visually~~  
+~~- to represent it, the letter is "s"~~  
+Miyu's april fools addon took it  
 
 zone dstl projectile  
 
@@ -762,3 +769,6 @@ Alder's Gambit (runs the provided pattern list, until it finds a specific patter
 Glyph of Warding!  
 YAHA! x Lapisworks interop where the motto is "LEGALIZE NUCLEAR BOMBS" and "SWAG MESSIAH"
 - on that note, Swag Distillation  
+
+Hex Casting hunt/boss quest?  
+

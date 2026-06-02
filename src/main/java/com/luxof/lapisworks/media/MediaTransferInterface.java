@@ -4,8 +4,6 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 
 import net.minecraft.util.math.Vec3d;
 
-import static com.luxof.lapisworks.Lapisworks.log;
-
 import org.jetbrains.annotations.Nullable;
 
 /** classes that extend this support Deposit Media, Withdraw Media, and Inner Media Prfn. */
@@ -29,7 +27,6 @@ public interface MediaTransferInterface {
         long mediaHere = getMediaHere();
         long spaceLeft = getMaxMedia() - mediaHere;
         long toDeposit = Math.min(spaceLeft, amount);
-        log("we were just ordered to deposit %d media. we had %d space left so we deposited %d.", amount, spaceLeft, toDeposit);
         if (!simulate) {
             setMediaHere(mediaHere + toDeposit);
         }
