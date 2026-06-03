@@ -422,11 +422,13 @@ Only the devs who can keep up with me...
 - Book (documented collars and collar additions better)
 - Stealth collar addition hides anchorite's and wayfarer's flight particles and sounds
 ### Fixes
-- Ancient Tomes weren't working on servers (again??)
+- Ancient Tomes weren't working on servers apparently?
 - Collar recipes not working on dedicated servers
 - Collar recipes not working if you put in the collar after the addition items in the crafting menu
-- Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)
+- Cubic Exaltation not resolving -X-Y-Z and +X+Y+Z positions automatically
+- Dealer's Purification threw a bug in the mod mishap (i have no clue how this happened)
 - Inability to Deposit/Withdraw to/from an impetus
+- Made circle component caching more memory-efficient
 ### Interop
 - HexConnect (meaning Forge)
   - Fixed chalk not connecting properly. Perchance.
@@ -464,7 +466,7 @@ Only the devs who can keep up with me...
     - basically all entity iotas that point to your previous UUID 
   - craft a collar and a mediaweave to weave the cloth around it
     - nothing special, just acts as a mediaweave on top of being a collar
-- HexStruction (man addon devs have the most creative names)
+- HexStruction
   - Blueprint iotas
     - like structure iotas but you can create them without consuming the structure, and place them and  
 	  they will attempt to take the blocks from your inventory.
@@ -501,8 +503,8 @@ Only the devs who can keep up with me...
   - It's literally a Hex Casting IDE.  
 - Enchanted Rifts' push effect now lessened by Knockback Resistance status effect
 - Enchantweave? (formerly part of Hexic interop)
-- Reroll enchantment selection in the table!
-  - costs 1 charged am + 1 per previous cast
+- Reroll enchantment selection in the enchantment table!
+  - costs 1 charged am base + 1 per previous cast
   - reset the additional cost by manually enchanting with an enchantment table
 # 1.6.0
 ### And Alexander wept, for there were no more worlds to conquer.

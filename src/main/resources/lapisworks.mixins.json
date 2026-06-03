@@ -34,6 +34,7 @@
 		"StatusEffectInstanceMixin",
 		"ServerWorldMixin",
 		"OpFlight$CompanionMixin",
+		"ChunkSerializerMixin",
 
 		"FabricXplatImplMixin"
 	],

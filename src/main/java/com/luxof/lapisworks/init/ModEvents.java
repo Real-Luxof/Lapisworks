@@ -8,7 +8,7 @@ import static com.luxof.lapisworks.init.ModItems.COLLAR;
 import com.luxof.lapisworks.collar.LapisCollarAdditions;
 
 import dev.onyxstudios.cca.api.v3.entity.PlayerCopyCallback;
-
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -21,6 +21,11 @@ public class ModEvents {
         PlayerCopyCallback.EVENT.register((op, np, alive) -> {
             if (!alive) ((LapisworksInterface)np).copyCrossDeath(op);
             else ((LapisworksInterface)np).copyCrossDimensional(op);
+        });
+        
+        ServerChunkEvents.CHUNK_UNLOAD.register((world, chunk) -> {
+            var state = PersistentStateCircleBlockCache.getState(world);
+            state.stopCachingChunk(chunk.getPos());
         });
 
         /*UseEntityCallback.EVENT.register((plr, world, hand, entity, hitRes) -> {

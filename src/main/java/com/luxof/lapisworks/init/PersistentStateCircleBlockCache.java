@@ -83,4 +83,12 @@ public class PersistentStateCircleBlockCache extends PersistentState {
         if (!cache.containsKey(key)) return false;
         return cache.get(key).remove(pos);
     }
+
+    public boolean stopCachingChunk(ChunkPos cp) {
+        return cache.remove(cp) != null;
+    }
+
+    public boolean cacheBlockPosInBulk(ChunkPos cp, List<BlockPos> poses) {
+        return cache.computeIfAbsent(cp, any -> new HashSet<>()).addAll(poses);
+    }
 }

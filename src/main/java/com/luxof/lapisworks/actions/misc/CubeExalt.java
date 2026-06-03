@@ -70,17 +70,32 @@ public class CubeExalt implements Action {
     
     public static SpellList generatePointsInFilledCube(Vec3d pointA, Vec3d pointB) {
         List<Iota> points = new ArrayList<>();
+        boolean[] lessers = new boolean[] {
+            pointA.x < pointB.x,
+            pointA.y < pointB.y,
+            pointA.z < pointB.z
+        };
+        Vec3d least = new Vec3d(
+            lessers[0] ? pointA.x : pointB.x,
+            lessers[1] ? pointA.y : pointB.y,
+            lessers[2] ? pointA.z : pointB.z
+        );
+        Vec3d most = new Vec3d(
+            lessers[0] ? pointB.x : pointA.x,
+            lessers[1] ? pointB.y : pointA.y,
+            lessers[2] ? pointB.z : pointA.z
+        );
         Vec3d difference = new Vec3d(
-            ceil(Math.abs(pointB.x - pointA.x)),
-            ceil(Math.abs(pointB.y - pointA.y)),
-            ceil(Math.abs(pointB.z - pointA.z))
+            ceil(most.x - least.x),
+            ceil(most.y - least.y),
+            ceil(most.z - least.z)
         );
 
         for (double z = 0; z <= difference.z; z++) {
             for (double y = 0; y <= difference.y; y++) {
                 for (double x = 0; x <= difference.x; x++) {
                     points.add(new Vec3Iota(new Vec3d(
-                        x + pointA.x, y + pointA.y, z + pointA.z
+                        x + least.x, y + least.y, z + least.z
                     )));
                 }
             }
