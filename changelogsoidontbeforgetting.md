@@ -422,6 +422,7 @@ Only the devs who can keep up with me...
 - Book (documented collars and collar additions better)
 - Stealth collar addition hides anchorite's and wayfarer's flight particles and sounds
 ### Fixes
+- Ancient Tomes weren't working on servers (again??)
 - Collar recipes not working on dedicated servers
 - Collar recipes not working if you put in the collar after the addition items in the crafting menu
 - Dealer's Purification threw a bug in the mod mishap (????????? how do i even fuck that up)

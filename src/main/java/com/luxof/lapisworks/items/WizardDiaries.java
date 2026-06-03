@@ -18,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
@@ -25,7 +27,6 @@ import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -46,10 +47,8 @@ public class WizardDiaries extends Item {
     public WizardDiaries(Settings settings) { super(settings); }
 
 
-    public Predicate<Identifier> getIsAdvDonePred(PlayerEntity player) {
-        if (player.getWorld().isClient)
-            return id -> ClientAdvancements.hasDone(id.toString());
-        
+    @Environment(EnvType.CLIENT)
+    private Predicate<Identifier> getIsAdvDonePredClient(PlayerEntity player) {
         ServerPlayerEntity suser = (ServerPlayerEntity)player;
         ServerAdvancementLoader advLoader = suser.getServer().getAdvancementLoader();
         PlayerAdvancementTracker advTracker = suser.getAdvancementTracker();
@@ -60,27 +59,24 @@ public class WizardDiaries extends Item {
         };
     }
 
+    @Environment(EnvType.SERVER)
+    private Predicate<Identifier> getIsAdvDonePredServer(PlayerEntity player) {
+        return id -> ClientAdvancements.hasDone(id.toString());
+    }
 
-    @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        user.playSound(HexSounds.READ_LORE_FRAGMENT, 1.0F, 1.0F);
-        ItemStack handStack = user.getStackInHand(hand);
-
-        Predicate<Identifier> advDonePred = getIsAdvDonePred(user);
-
-        if (!advDonePred.test(id("got_lapis"))) {
+    public TypedActionResult<ItemStack> useClient(
+        World world, PlayerEntity user, Hand hand, ItemStack stack, List<Identifier> shuffled
+    ) {
+        if (!ClientAdvancements.hasDone("lapisworks:got_lapis")) {
             user.sendMessage(DIARY_UNREADABLE);
-            return TypedActionResult.fail(handStack);
+            return TypedActionResult.fail(stack);
         }
 
-        List<Identifier> shuffled = new ArrayList<>(Mutables.wizardDiariesGainableAdvancements.keySet());
         Identifier chosenAdvancement = null;
-        Collections.shuffle(shuffled);
-
         for (int i = 0; i < shuffled.size(); i++) {
             Identifier advId = shuffled.get(i);
 
-            if (!advDonePred.test(advId)) {
+            if (!ClientAdvancements.hasDone(advId.toString())) {
                 chosenAdvancement = advId;
                 break;
             }
@@ -91,24 +87,66 @@ public class WizardDiaries extends Item {
             user.addExperience(100);
         }
 
-        if (user instanceof ClientPlayerEntity)
-            return TypedActionResult.success(handStack);
+        return TypedActionResult.success(stack);
+    }
 
+    public TypedActionResult<ItemStack> useServer(
+        World world, PlayerEntity user, Hand hand, ItemStack stack, List<Identifier> shuffled
+    ) {
         ServerPlayerEntity suser = (ServerPlayerEntity)user;
         ServerAdvancementLoader advLoader = suser.getServer().getAdvancementLoader();
+        PlayerAdvancementTracker advTracker = suser.getAdvancementTracker();
 
-        if (chosenAdvancement != null)
-            suser.getAdvancementTracker().grantCriterion(advLoader.get(chosenAdvancement), "grant");
-        Criteria.CONSUME_ITEM.trigger(suser, handStack);
+        Advancement gotLapisAdvancement = advLoader.get(id("got_lapis"));
+        if (gotLapisAdvancement != null && advTracker.getProgress(gotLapisAdvancement).isDone()) {
+            user.sendMessage(DIARY_UNREADABLE);
+            return TypedActionResult.fail(stack);
+        }
+
+        Identifier chosenAdvancement = null;
+        for (int i = 0; i < shuffled.size(); i++) {
+            Identifier advId = shuffled.get(i);
+
+            Advancement adv = advLoader.get(advId);
+            if (adv != null && advTracker.getProgress(adv).isDone()) {
+                chosenAdvancement = advId;
+                break;
+            }
+        }
+
+        if (chosenAdvancement == null) {
+            user.sendMessage(GOT_ALL_DIARIES, true);
+            user.addExperience(100);
+            return TypedActionResult.success(stack);
+        }
+
+        suser.getAdvancementTracker().grantCriterion(advLoader.get(chosenAdvancement), "grant");
+
+        Criteria.CONSUME_ITEM.trigger(suser, stack);
         suser.getStatHandler().increaseStat(suser, Stats.USED.getOrCreateStat(this), 1);
         if (!suser.isCreative())
-            handStack.decrement(1);
+            stack.decrement(1);
 
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeIdentifier(chosenAdvancement);
         ServerPlayNetworking.send(suser, UNLOCK_SHIT_FOR_HEXCESSIBLE, buf);
 
-        return TypedActionResult.success(handStack);
+        return TypedActionResult.success(stack);
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        user.playSound(HexSounds.READ_LORE_FRAGMENT, 1.0F, 1.0F);
+        ItemStack stack = user.getStackInHand(hand);
+
+        List<Identifier> shuffled = new ArrayList<>(
+            Mutables.wizardDiariesGainableAdvancements.keySet()
+        );
+        Collections.shuffle(shuffled);
+
+        return user.getWorld().isClient
+            ? useClient(world, user, hand, stack, shuffled)
+            : useServer(world, user, hand, stack, shuffled);
     }
 
 
