@@ -40,6 +40,7 @@ public class OpFlight$CompanionMixin {
         at = @At(
             value = "INVOKE",
             target = "at/petrak/hexcasting/xplat/IXplatAbstractions.setFlight(Lnet/minecraft/server/network/ServerPlayerEntity;Lat/petrak/hexcasting/api/player/FlightAbility;)V",
+            ordinal = 1,
             shift = At.Shift.AFTER
         ),
         cancellable = true
