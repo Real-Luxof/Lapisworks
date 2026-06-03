@@ -3,8 +3,6 @@ package com.luxof.lapisworks.collar.additions;
 import com.luxof.lapisworks.collar.LapisCollarAddition;
 import com.luxof.lapisworks.init.LapisSounds;
 
-import at.petrak.hexcasting.api.utils.NBTHelper;
-
 import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.init.ModItems.COLLAR;
 import static com.luxof.lapisworks.init.ModItems.COLLAR_BELL;
@@ -51,9 +49,6 @@ public class BellCollarAddition implements LapisCollarAddition {
             Identifier yourId) {
         ItemStack newCollar = collarStack.copy();
         COLLAR.addAddition(newCollar, yourId);
-        NBTHelper.putFloat(newCollar, "x", 0F);
-        NBTHelper.putFloat(newCollar, "y", -1F);
-        NBTHelper.putFloat(newCollar, "z", 0F);
         return newCollar;
     }
 

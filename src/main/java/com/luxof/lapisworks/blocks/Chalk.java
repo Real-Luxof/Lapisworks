@@ -8,17 +8,13 @@ import com.luxof.lapisworks.blocks.stuff.AttachedBE;
 import static com.luxof.lapisworks.LapisworksIDs.CANT_PLACE_CHALK_ON_TAG;
 import static com.luxof.lapisworks.LapisworksIDs.CHALK_CONNECTABLE_TAG;
 
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
