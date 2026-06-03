@@ -195,28 +195,6 @@ tasks.withType(Jar).configureEach {
     }
 }
 
-task preprocessJava(type: Sync) {
-    from 'src/main/java'
-    into 'build/.processed-java'
-	def pattern = Pattern.compile("${rootProject.raw_string_regex}")
-	filter {
-		def matcher = pattern.matcher(it)
-		while (matcher.find()) {
-			String group = matcher.group()
-			if (!group.startsWith("r")) continue
-			it = it.replace(group, group.replace("\\", "\\\\").substring(1))
-		}
-		return it
-	}
-    //filter { pattern.matcher(it).replaceAll({ '"' + it.group(1).replace($/\/$, $/\\/$) + '"' }) }
-}
-
-tasks.named('compileJava', JavaCompile) {
-    dependsOn preprocessJava
-	setSource file('build/.processed-java')
-    //JavaCompile.getMethod('setSource', Object).invoke(it, file('src/main/.processed-java'))
-}
-
 processResources {
 	duplicatesStrategy 'exclude' // arcane magic i dont understand
 	inputs.property "version", project.version

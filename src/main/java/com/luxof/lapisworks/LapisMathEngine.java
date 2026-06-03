@@ -1,28 +1,21 @@
 package com.luxof.lapisworks;
 
-import static com.luxof.lapisworks.Lapisworks.err;
 import static com.luxof.lapisworks.Lapisworks.fmt;
 import static com.luxof.lapisworks.Lapisworks.last;
-import static com.luxof.lapisworks.Lapisworks.log;
 import static com.luxof.lapisworks.Lapisworks.pop;
-import static com.luxof.lapisworks.Lapisworks.prettifyTuple;
+
+import com.mojang.datafixers.util.Either;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-
-import com.mojang.datafixers.util.Either;
 
 import static java.util.Map.entry;
 
@@ -35,10 +28,10 @@ public class LapisMathEngine {
 
     // :)
     // ...AND FOR MY NEXT TRICK I'LL PUT A PREPROCESSOR ON MY VS CODE EXTENSION--
-    private static final Pattern EQUATION_REGEX = Pattern.compile(r"((?<!\d)-)?\d+(\.\d+)?|[+\-*\/^%(),]|([A-Za-z]+)(?=\(.+\))|.(_[^+\-*\/^(),]*)?|\s+");
-    private static final Pattern NUMBER_REGEX = Pattern.compile(r"-?\d+(\.\d+)?");
-    private static final Pattern OPERATOR_REGEX = Pattern.compile(r"[+\-*\/^%]");
-    private static final Pattern VARIABLE_REGEX = Pattern.compile(r".(_[^+\-*\/^(),]*)?");
+    private static final Pattern EQUATION_REGEX = Pattern.compile("((?<!\\d)-)?\\d+(\\.\\d+)?|[+\\-*\\/^%(),]|([A-Za-z]+)(?=\\(.+\\))|.(_[^+\\-*\\/^(),]*)?|\\s+");
+    private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+(\\.\\d+)?");
+    private static final Pattern OPERATOR_REGEX = Pattern.compile("[+\\-*\\/^%]");
+    private static final Pattern VARIABLE_REGEX = Pattern.compile(".(_[^+\\-*\\/^(),]*)?");
 
     private static HashMap<String, List<String>> mathEquationCache = new HashMap<>();
     private static HashMap<String, Double> defaultConstants = new HashMap<>(Map.of(
