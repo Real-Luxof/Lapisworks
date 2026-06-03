@@ -653,7 +653,7 @@
     "pages.lapisworks.imbuement.trinkets.totem.recipe.text": "$(o)To repair a single use costs 64 $(item)Amel$()$(o) and 20 $(item)Charged Amethyst$()$(o).$()",
     "pages.lapisworks.imbuement.trinkets.collar.title": "Collars",
     "pages.lapisworks.imbuement.trinkets.collar.text": "$(item)Collars$() are a special kind of trinket. The $(item)Collar$() itself is a dyeable base that I may put additions on to give interesting properties. Tales, diaries, and journals show that the $(#00c)Lapisworkers$() of the past put it on their pets or, at times, $(o)themselves or other people.$()",
-    "pages.lapisworks.imbuement.trinkets.collar.recipe": "$(o)I believe the $(item)Charged Amethyst$()$(o) and $(item)Amel$()$(o) is what allows additions to stick so easily.$()$(br2)Following are some additions I have found. To remove any, I may hold the item used to craft them in my other hand and hold $(thing)$(k:use)$() on the collar.",
+    "pages.lapisworks.imbuement.trinkets.collar.recipe": "$(o)I believe the $(item)Charged Amethyst$()$(o) and $(item)Amel$()$(o) are what allow additions to stick so easily.$()$(br2)Following are some additions I have found. To remove any, I may hold the item used to craft them in my other hand and hold $(thing)$(k:use)$() on the collar.",
     "pages.lapisworks.imbuement.trinkets.collar.additions.bell.title": "Bell",
     "pages.lapisworks.imbuement.trinkets.collar.additions.bell.text": "I can craft a $(item)Collar$() with a $(item)Gold Ingot$() to add a bell to it. This bell rings when the wearer moves, and the pitch changes based on their speed. It's quite cute, really.",
     "pages.lapisworks.imbuement.trinkets.collar.additions.iota_holder.title": "Iota Holder",
