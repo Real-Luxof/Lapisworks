@@ -16,10 +16,7 @@ import static com.luxof.lapisworks.LapisworksIDs.UNLOCK_SHIT_FOR_HEXCESSIBLE;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
@@ -46,48 +43,12 @@ import vazkii.patchouli.client.base.ClientAdvancements;
 public class WizardDiaries extends Item {
     public WizardDiaries(Settings settings) { super(settings); }
 
-
-    @Environment(EnvType.CLIENT)
-    private Predicate<Identifier> getIsAdvDonePredClient(PlayerEntity player) {
-        ServerPlayerEntity suser = (ServerPlayerEntity)player;
-        ServerAdvancementLoader advLoader = suser.getServer().getAdvancementLoader();
-        PlayerAdvancementTracker advTracker = suser.getAdvancementTracker();
-        
-        return id -> {
-            Advancement adv = advLoader.get(id);
-            return adv != null && advTracker.getProgress(adv).isDone();
-        };
-    }
-
-    @Environment(EnvType.SERVER)
-    private Predicate<Identifier> getIsAdvDonePredServer(PlayerEntity player) {
-        return id -> ClientAdvancements.hasDone(id.toString());
-    }
-
     public TypedActionResult<ItemStack> useClient(
         World world, PlayerEntity user, Hand hand, ItemStack stack, List<Identifier> shuffled
     ) {
-        if (!ClientAdvancements.hasDone("lapisworks:got_lapis")) {
-            user.sendMessage(DIARY_UNREADABLE);
-            return TypedActionResult.fail(stack);
-        }
-
-        Identifier chosenAdvancement = null;
-        for (int i = 0; i < shuffled.size(); i++) {
-            Identifier advId = shuffled.get(i);
-
-            if (!ClientAdvancements.hasDone(advId.toString())) {
-                chosenAdvancement = advId;
-                break;
-            }
-        }
-
-        if (chosenAdvancement == null) {
-            user.sendMessage(GOT_ALL_DIARIES, true);
-            user.addExperience(100);
-        }
-
-        return TypedActionResult.success(stack);
+        return ClientAdvancements.hasDone("lapisworks:got_lapis")
+            ? TypedActionResult.success(stack)
+            : TypedActionResult.fail(stack);
     }
 
     public TypedActionResult<ItemStack> useServer(
@@ -98,7 +59,7 @@ public class WizardDiaries extends Item {
         PlayerAdvancementTracker advTracker = suser.getAdvancementTracker();
 
         Advancement gotLapisAdvancement = advLoader.get(id("got_lapis"));
-        if (gotLapisAdvancement != null && advTracker.getProgress(gotLapisAdvancement).isDone()) {
+        if (gotLapisAdvancement == null || !advTracker.getProgress(gotLapisAdvancement).isDone()) {
             user.sendMessage(DIARY_UNREADABLE);
             return TypedActionResult.fail(stack);
         }
