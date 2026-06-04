@@ -459,6 +459,9 @@ Only the devs who can keep up with me...
   - Totem Necklaces DO in fact save your pets from death
 ### Changes
 - Amalgamation Containers no longer look genuinely horrible
+### Fixes
+- Walking by people with stealth collars no longer makes you crash
+  - how many layers of testing do i need???
 ### Interop
 - hexic
   - craft a collar and a nametag to make a collartag
