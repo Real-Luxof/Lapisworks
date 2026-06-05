@@ -15,12 +15,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(GuiSpellcasting.class)
+@Mixin(value = GuiSpellcasting.class, remap = false)
 public class GuiSpellcastingMixin {
-    @Inject(at = @At("HEAD"), method = "tick", cancellable = true)
-    public void tick(CallbackInfo ci) {
+    @Inject(
+        method = "tick",
+        at = @At(
+            value = "INVOKE",
+            target = "at/petrak/hexcasting/client/gui/GuiSpellcasting.closeForReal()V",
+            shift = At.Shift.BEFORE
+        ),
+        cancellable = true
+    )
+    private void lapisworks$heyWait(CallbackInfo ci) {
         PlayerEntity player = MinecraftClient.getInstance().player;
-        if (player == null) ci.cancel();
 
         if (Lapisworks.trinketEquipped(player, AMEL_RING) ||
             Lapisworks.trinketEquipped(player, AMEL_RING2)) {

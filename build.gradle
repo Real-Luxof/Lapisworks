@@ -1,5 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.nio.file.Files
 import java.util.regex.Pattern
+import java.util.HashSet
 
 plugins {
 	id 'fabric-loom' version "${loom_version}"
@@ -214,6 +216,86 @@ tasks.withType(KotlinCompile).configureEach {
 		jvmTarget = 17
 		//jvmTarget = 21
 	}
+}
+
+tasks.register("deleteOldBuildsFromForgeFolder", Delete) {
+	delete fileTree('forge-test/mods').matching { include 'lapisworks-*.jar' }
+}
+
+tasks.register("copyNewestBuildToForgeFolder", Copy) {
+	dependsOn(tasks.named("build"))
+	from 'build/libs'
+	include "lapisworks-${mod_version}.jar"
+	into 'forge-test/mods'
+}
+
+tasks.register("runSinytra", JavaExec) {
+	dependsOn(tasks.named("deleteOldBuildsFromForgeFolder"))
+	dependsOn(tasks.named("build"))
+	dependsOn(tasks.named("copyNewestBuildToForgeFolder"))
+
+	String forgetest = file("forge-test").getAbsolutePath()
+	String library_directory = forgetest + "/libraries"
+	int library_directory_length = library_directory.length() + 1
+	String classpath_separator = System.getProperty("path.separator")
+
+	def pattern = Pattern.compile("${dependency_regex}")
+	def possibleImports = new HashSet<String>()
+
+	pattern.matcher(Files.readString(file("${forgetest}/versions/${minecraft_version}/${minecraft_version}.json").toPath())).results().forEach {
+		possibleImports.add(it.group(1))
+	}
+	pattern.matcher(Files.readString(file("${forgetest}/versions/${minecraft_version}-forge-${forge_version}/${minecraft_version}-forge-${forge_version}.json").toPath())).results().forEach {
+		possibleImports.add(it.group(1))
+	}
+
+	def classes = new HashSet<String>()
+
+	fileTree(dir: "forge-test/libraries", include: "**/*.jar").getFiles().stream().forEach {
+		if (possibleImports.contains(it.getPath().substring(library_directory_length).replace("\\", "/")))
+			classes.add(it)
+	}
+	classpath = files(
+		file("forge-test/versions/${minecraft_version}-forge-${forge_version}/${minecraft_version}-forge-${forge_version}.jar"),
+		classes
+	)
+	workingDir = file("forge-test")
+	//mainClass = 'net.minecraft.client.main.Main'
+	mainClass = 'cpw.mods.bootstraplauncher.BootstrapLauncher'
+	//mainClass = 'cpw.mods.modlauncher.Launcher'
+
+	executable = "${java17path}"
+
+	jvmArgs(
+		"-Dbsl.debug=true",
+		"-Xmx4G",
+		"-Xms2G",
+		"-Djava.net.preferIPv6Addresses=system",
+		//"--add-opens=java.base/java.lang.invoke=ALL-UNNAMED"
+		"-DignoreList=bootstraplauncher,securejarhandler,asm-commons,asm-util,asm-analysis,asm-tree,asm,JarJarFileSystems,client-extra,fmlcore,javafmllanguage,lowcodelanguage,mclanguage,forge-,${minecraft_version}.jar",
+		"-DmergeModules=jna-5.10.0.jar,jna-platform-5.10.0.jar",
+		"-DlibraryDirectory=${library_directory}",
+		"-p", "${library_directory}/cpw/mods/bootstraplauncher/1.1.2/bootstraplauncher-1.1.2.jar${classpath_separator}${library_directory}/cpw/mods/securejarhandler/2.1.10/securejarhandler-2.1.10.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-commons/9.9.1/asm-commons-9.9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-util/9.9.1/asm-util-9.9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-analysis/9.9.1/asm-analysis-9.9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm-tree/9.9.1/asm-tree-9.9.1.jar${classpath_separator}${library_directory}/org/ow2/asm/asm/9.9.1/asm-9.9.1.jar${classpath_separator}${library_directory}/net/minecraftforge/JarJarFileSystems/0.3.19/JarJarFileSystems-0.3.19.jar",
+		"--add-modules", "ALL-MODULE-PATH",
+		"--add-opens", "java.base/java.util.jar=cpw.mods.securejarhandler",
+		"--add-opens", "java.base/java.lang.invoke=cpw.mods.securejarhandler",
+		"--add-exports", "java.base/sun.security.util=cpw.mods.securejarhandler",
+		"--add-exports", "jdk.naming.dns/com.sun.jndi.dns=java.naming"
+	)
+
+	args = [
+		"--launchTarget", "forgeclient",
+		"--fml.forgeVersion", "${forge_version}",
+		"--fml.mcVersion", "${minecraft_version}",
+		"--fml.forgeGroup", "net.minecraftforge",
+		"--fml.mcpVersion", "20230612.114412",
+
+		"--version", "${minecraft_version}",
+		"--gameDir", "${forgetest}",
+		"--assetsDir", "${forgetest}\\assets",
+		"--accessToken", "0",
+		"--assetIndex", "5"
+	]
 }
 
 java {
