@@ -256,9 +256,10 @@ tasks.register("runSinytra", JavaExec) {
 			classes.add(it)
 	}
 	classpath = files(
-		file("forge-test/versions/${minecraft_version}-forge-${forge_version}/${minecraft_version}-forge-${forge_version}.jar"),
+		//file("forge-test/versions/${minecraft_version}-forge-${forge_version}/${minecraft_version}-forge-${forge_version}.jar"),
 		classes
 	)
+	println classpath
 	workingDir = file("forge-test")
 	//mainClass = 'net.minecraft.client.main.Main'
 	mainClass = 'cpw.mods.bootstraplauncher.BootstrapLauncher'
@@ -267,7 +268,7 @@ tasks.register("runSinytra", JavaExec) {
 	executable = "${java17path}"
 
 	jvmArgs(
-		"-Dbsl.debug=true",
+		//"-Dbsl.debug=true",
 		"-Xmx4G",
 		"-Xms2G",
 		"-Djava.net.preferIPv6Addresses=system",
