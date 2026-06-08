@@ -3,13 +3,11 @@ package com.luxof.lapisworks.interop.oneironaut;
 import at.petrak.hexcasting.api.addldata.ADHexHolder;
 import at.petrak.hexcasting.api.casting.eval.env.PackagedItemCastEnv;
 import at.petrak.hexcasting.api.casting.eval.env.PlayerBasedCastEnv;
+import at.petrak.hexcasting.api.item.MediaHolderItem;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.beholderface.oneironaut.item.BottomlessMediaItem;
-import net.beholderface.oneironaut.registry.OneironautItemRegistry;
 
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -31,7 +29,7 @@ public class FuckingInexhaustiblePhials {
             ItemStack trinket = player.getStackInHand(ctx.getCastingHand());
             ADHexHolder hexHolder = IXplatAbstractions.INSTANCE.findHexHolder(trinket);
             if (!hexHolder.canDrawMediaFromInventory())
-                return trinket.isOf(OneironautItemRegistry.BOTTOMLESS_CASTING_ITEM.get())
+                return trinket.isOf(BOTTOMLESS_MEDIA_ITEM)
                     ? IXplatAbstractions.INSTANCE.findMediaHolder(trinket).getMedia() : 0L;
         }
         PlayerInventory inv = player.getInventory();
@@ -41,7 +39,7 @@ public class FuckingInexhaustiblePhials {
         items.addAll(inv.armor);
         long total = 0L;
         for (ItemStack item : items) {
-            total += item.isOf(BOTTOMLESS_MEDIA_ITEM) ? ((BottomlessMediaItem)item.getItem()).getMedia(item) : 0;
+            total += item.isOf(BOTTOMLESS_MEDIA_ITEM) ? ((MediaHolderItem)item.getItem()).getMedia(item) : 0;
         }
         return total;
     }
