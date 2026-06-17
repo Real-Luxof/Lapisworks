@@ -24,7 +24,7 @@ public class BanishMySent extends SpellActionNCT {
     public int argc = 0;
 
     public Result execute(HexIotaStack stack, CastingEnvironment ctx) {
-        if (ctx.getCastingEntity() instanceof ServerPlayerEntity)
+        if !(ctx.getCastingEntity() instanceof ServerPlayerEntity)
             throw new MishapBadCaster();
         
         return new Result(
