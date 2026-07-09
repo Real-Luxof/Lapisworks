@@ -223,16 +223,16 @@ tasks.register("deleteOldBuildsFromForgeFolder", Delete) {
 }
 
 tasks.register("copyNewestBuildToForgeFolder", Copy) {
-	dependsOn(tasks.named("build"))
+	dependsOn tasks.named("deleteOldBuildsFromForgeFolder")
+	dependsOn tasks.named("build")
 	from 'build/libs'
 	include "lapisworks-${mod_version}.jar"
 	into 'forge-test/mods'
 }
 
 tasks.register("runSinytra", JavaExec) {
-	dependsOn(tasks.named("deleteOldBuildsFromForgeFolder"))
-	dependsOn(tasks.named("build"))
-	dependsOn(tasks.named("copyNewestBuildToForgeFolder"))
+	dependsOn tasks.named("deleteOldBuildsFromForgeFolder")
+	dependsOn tasks.named("copyNewestBuildToForgeFolder")
 
 	String forgetest = file("forge-test").getAbsolutePath()
 	String library_directory = forgetest + "/libraries"

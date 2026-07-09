@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 /** I am simple man. I see original interesting thing, I write cursed ass shit to get it. */
-@Mixin(value = CircleExecutionState.class) //There is a net/minecraft/util/math/BlockPos class in the full annotation, so it had to be remap=true so mixin could find it.
+@Mixin(value = CircleExecutionState.class) // There is a net/minecraft/util/math/BlockPos class in the full annotation, so it had to be remap=true so mixin could find it.
 public abstract class CircleExecutionStateMixin {
     /** mixinextras is neat */
     @Inject(
