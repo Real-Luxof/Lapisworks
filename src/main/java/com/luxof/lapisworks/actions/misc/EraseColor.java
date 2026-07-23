@@ -9,6 +9,7 @@ import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import java.util.List;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
@@ -18,8 +19,12 @@ public class EraseColor extends SpellActionNCT {
 
     public Result execute(HexIotaStack stack, CastingEnvironment ctx) {
         BlockPos pos = stack.getBlockPosInRange(0);
+        BlockState state = world.getBlockState(pos);
 
-        if (!world.getBlockState(pos).isIn(HexTags.Blocks.CHEAP_TO_BREAK_BLOCK))
+        if (
+            !state.isIn(HexTags.Blocks.CHEAP_TO_BREAK_BLOCK) &&
+            !state.isOf(Blocks.LIGHT)
+        )
             throw new MishapBadBlock(
                 pos,
                 Text.translatable("mishaps.lapisworks.descs.cheap_to_break_block")
