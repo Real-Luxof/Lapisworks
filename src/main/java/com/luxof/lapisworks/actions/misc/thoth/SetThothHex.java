@@ -6,17 +6,17 @@ import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.OperationResult;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.FrameForEach;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 
+import com.luxof.lapisworks.frames.IThothsLikeFrame;
 import com.luxof.lapisworks.mishaps.MishapInvalidContinuation;
 
 import static com.luxof.lapisworks.Lapisworks.CastingImgWithStack;
-import static com.luxof.lapisworks.Lapisworks.pullFrameOfType;
-import static com.luxof.lapisworks.Lapisworks.setHighestFrameOfTypeTo;
+import static com.luxof.lapisworks.Lapisworks.pullThothsLikeFrame;
+import static com.luxof.lapisworks.Lapisworks.setHighestThothsLikeFrameTo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +34,14 @@ public class SetThothHex implements Action {
         SpellList newCode = OperatorUtils.getList(stack, lastIdx, 1);
         stack.remove(lastIdx);
 
-        FrameForEach thothFrame = pullFrameOfType(cont, FrameForEach.class);
+        IThothsLikeFrame thothFrame = pullThothsLikeFrame(cont);
         if (thothFrame == null)
             throw new MishapInvalidContinuation("mishaps.lapisworks.descs.thothframe");
 
-        SpellContinuation newCont = setHighestFrameOfTypeTo(
+        SpellContinuation newCont = setHighestThothsLikeFrameTo(
             cont,
-            FrameForEach.class,
-            thothFrame.copy(
-                thothFrame.getData(), newCode, thothFrame.getBaseStack(), thothFrame.getAcc()
-            )
+            thothFrame.withHex(newCode)
         );
-
 
         return new OperationResult(
             CastingImgWithStack(img.withUsedOp(), stack),

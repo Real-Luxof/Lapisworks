@@ -13,8 +13,7 @@ import net.minecraft.util.Identifier;
  * <p>Fetches, drains, gives items.
  * <p>Dynamic. Does not need to save into NBT data or anything.
  * <p>Adding your own type support if you want (why would you?) is easy.
- * <p>Right now, only god and I know how this code works.
- * Soon, only god will know.
+ * <p>Hexxy banished knowledge of this code's functioning long ago.
  */
 public abstract class VAULT {
 

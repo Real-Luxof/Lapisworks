@@ -22,6 +22,7 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import com.google.gson.JsonPrimitive;
 
 import com.luxof.lapisworks.collar.LapisCollarAdditions;
+import com.luxof.lapisworks.frames.IThothsLikeFrame;
 import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.init.LapisParticles;
 import com.luxof.lapisworks.init.LapisResourceCons;
@@ -1059,27 +1060,26 @@ public class Lapisworks implements ModInitializer {
 	}
 
 	@Nullable
-	public static <DesiredFrame extends ContinuationFrame> DesiredFrame pullFrameOfType(
-		SpellContinuation continuation,
-		Class<DesiredFrame> type
+	public static IThothsLikeFrame pullThothsLikeFrame(
+		SpellContinuation continuation
 	) {
 		SpellContinuation cont = continuation;
 		while (cont instanceof NotDone notDone) {
 
-			if (!type.isInstance(notDone.getFrame())) {
+			if (!(notDone.getFrame() instanceof IThothsLikeFrame thothsLike)) {
 				cont = notDone.getNext();
 				continue;
 			}
 
-			return type.cast(notDone.getFrame());
+			return thothsLike;
+
 		}
 		return null;
 	}
 
 	@Nullable
-	public static <DesiredFrame extends ContinuationFrame> SpellContinuation setHighestFrameOfTypeTo(
+	public static SpellContinuation setHighestThothsLikeFrameTo(
 		SpellContinuation continuation,
-		Class<DesiredFrame> setThis,
 		ContinuationFrame to
 	) {
 		Stack<ContinuationFrame> buffer = new Stack<>();
@@ -1087,7 +1087,7 @@ public class Lapisworks implements ModInitializer {
 		while (cont instanceof NotDone notDone) {
 			cont = notDone.getNext();
 
-			if (!setThis.isInstance(notDone.getFrame())) {
+			if (!(notDone.getFrame() instanceof IThothsLikeFrame)) {
 				buffer.push(notDone.getFrame());
 				continue;
 			}

@@ -435,19 +435,19 @@ Only the devs who can keep up with me...
   - Fixed grand rituals not working properly
 # 1.5.8.5
 ### Additions
-- added stuff to collars
+- pattern to push the depth (like for Erebus)
+- Collar stuff
+  - amethyst shard addition
+    - makes a halo not unlike the Halo Sword that rotates about Y according to the player's lookdir
+    - provides a little bit of light
   - the bell now supports full physics
     - which has full physics with itself and movement
-    - even rings on the internal bell's collisions
-  - phianglement and media-containing functionality, maybe?
+    - rings when bell vel is opposite to player vel
   - about the foci
     - these have special interactions when an animal wears them while they hold iotas
     - put a vector in it = animal wanna go there
     - put entity in it = animal attack
     - item entity = fox or allay pick up
-  - add a name tag to:
-    - allow writing MoreIotas String or Hexpose Text iotas to the collar via two new patterns
-    - make the name that appears above you not be your own name but the String or Text written to the name tag.
 - Enchanted Anvil? (Amvil?)
   - Lets you enchant beyond the maximum.
     - lets you combine beyond the usual maximum too.
@@ -460,32 +460,36 @@ Only the devs who can keep up with me...
 ### Changes
 - Amalgamation Containers no longer look genuinely horrible
 ### Fixes
+- Kitkat's Gambit serialization issue
+- Cubic Exaltation and Spherical Exaltation should no longer screw things in serialization
+  - basically you can (probably) use them in Iris' Gambit without a stack err
 - Walking by people with stealth collars no longer makes you crash
   - how many layers of testing do i need???
 ### Interop
 - hexic
-  - craft a collar and a nametag to make a collartag
-    - changes your UUID
-    - basically all entity iotas that point to your previous UUID 
   - craft a collar and a mediaweave to weave the cloth around it
     - nothing special, just acts as a mediaweave on top of being a collar
 - HexStruction
-  - Blueprint iotas
-    - like structure iotas but you can create them without consuming the structure, and place them and  
-	  they will attempt to take the blocks from your inventory.
+  - Paste Structure (spell)
+    - takes a structure iota and tries to place it in the world without consuming the structure
+    - only copies directional blockstates
+  - Paste Structure II (spell)
+    - like Paste Structure but it tries to fill out blocks with invs (i.e. chests) after everything
 # 1.5.9
 ### Free me
 - [This](https://discord.com/channels/936370934292549712/950847275549229086/1479043488183095317)
   - what if custom gui (kindly kys me)
-- Overenchanting?
+  - i think HexIntent got this covered
 - Amethyst Piano
 - Enchant item stack size (+64 every upgrade)
 - Heal your mind after breaking it. (Jacked O' Lantern finale)
 - Alchemy/potion-brewing overhaul (I'm deadass)  
-  herb stuff that leads to discovering Alchemy?  
-  cauldron brewing! (definitely probably a part of herb stuff!)
-  "imbue amel into flowers to get seeds for special lapis herbs or something?" -Ragna
+  - herb stuff that leads to discovering Alchemy?  
+  - cauldron brewing! (definitely probably a part of herb stuff!)
+  - "imbue amel into flowers to get seeds for special lapis herbs or something?" -Ragna
+    - oh shit i forgot Ragna is a goat
 - Destroy Mind spell, reverts a simple mind infusion
+  - on that note, Imbue Mind can also be used to put the mind *back*!
 - Oneironaut interop (you will shit your pants playing Lapisworks and you will like it)  
   so you like Subnautica?  
   - added the Congested Deep Noosphere
@@ -497,7 +501,7 @@ Only the devs who can keep up with me...
     - there is no way in hell that the creatures need to be that big
   - think this should be a progression of the enchanted slipway
 - Valkyrien Skies interop
-  air pocket in fully closed ship protects you from congested deep noosphere effects too
+  - air pocket in fully closed ship protects you from congested deep noosphere effects too
 - better simple mind infusion datapacking
   - entity mind infusions!
   - predicates! like how vanilla advancement predicates work
