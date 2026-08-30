@@ -354,7 +354,7 @@ function stupidver_rcompare(v1, v2) {
     } else if (s1.length < s2.length) {
         return 1;
     } else if (s1[3] > s2[3]) {
-        reutrn -1;
+        return -1;
     } else if (s1[3] < s2[3]) {
         return 1;
     }
