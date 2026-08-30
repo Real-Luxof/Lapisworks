@@ -7,12 +7,12 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.OperationResult;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.FrameFinishEval;
-import at.petrak.hexcasting.api.casting.eval.vm.FrameForEach;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
+
+import com.luxof.lapisworks.frames.FrameExecuteOnSphere;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +57,13 @@ public class SphereDst implements Action {
             img.getOpsConsumed(),
             img.getUserData()
         );
-        SpellList datum = filledSphere
-            ? generatePointsInFilledSphere(pos, radius)
-            : generatePointsOnHollowSphere(pos, radius);
-        FrameForEach frame = new FrameForEach(datum, instrs, null, new ArrayList<Iota>());
+        FrameExecuteOnSphere frame = new FrameExecuteOnSphere(
+            instrs,
+            stack,
+            pos,
+            radius,
+            filledSphere
+        );
 
         SpellContinuation newCont = cont instanceof SpellContinuation.NotDone notDone &&
             notDone.getFrame() instanceof FrameFinishEval
@@ -68,51 +71,5 @@ public class SphereDst implements Action {
             : cont.pushFrame(FrameFinishEval.INSTANCE);
 
         return new OperationResult(img2, List.of(), newCont.pushFrame(frame), HexEvalSounds.THOTH);
-    }
-
-    public static SpellList generatePointsOnHollowSphere(Vec3d center, int radius) {
-        List<Iota> sphere = new ArrayList<>();
-        double innerRad = (radius - 1);
-
-        Vec3d offsetCenter = new Vec3d(radius, radius, radius);
-        Vec3d offset = center.subtract(offsetCenter);
-        double circumference = radius * 2;
-        double checkRad = radius * radius;
-        double checkInnerRad = innerRad * innerRad;
-
-        for (int x = 0; x <= circumference; x++) {
-            for (int y = 0; y <= circumference; y++) {
-                for (int z = 0; z <= circumference; z++) {
-                    double distance = offsetCenter.squaredDistanceTo(x, y, z);
-                    if (distance <= checkRad && distance >= checkInnerRad) {
-                        sphere.add(new Vec3Iota(new Vec3d(x, y, z).add(offset)));
-                    }
-                }
-            }
-        }
-
-        return new SpellList.LList(sphere);
-    }
-
-    public static SpellList generatePointsInFilledSphere(Vec3d center, int radius) {
-        List<Iota> sphere = new ArrayList<>();
-
-        Vec3d offsetCenter = new Vec3d(radius, radius, radius);
-        Vec3d offset = center.subtract(offsetCenter);
-        double circumference = radius * 2;
-        double checkRad = radius * radius;
-
-        for (int x = 0; x <= circumference; x++) {
-            for (int y = 0; y <= circumference; y++) {
-                for (int z = 0; z <= circumference; z++) {
-                    double distance = offsetCenter.squaredDistanceTo(x, y, z);
-                    if (distance <= checkRad) {
-                        sphere.add(new Vec3Iota(new Vec3d(x, y, z).add(offset)));
-                    }
-                }
-            }
-        }
-
-        return new SpellList.LList(sphere);
     }
 }
