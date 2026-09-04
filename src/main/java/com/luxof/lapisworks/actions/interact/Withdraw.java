@@ -43,6 +43,8 @@ public class Withdraw extends SpellActionNCT {
                     && mhi.canRecharge(itemStack)
             );
             if (heldInfo == null)
+                //throw MishapBadOffhandItem.of(ItemStack.EMPTY.copy(), "rechargeable");
+                // i will forever call this the incorrect way of spelling "rechargeable"
                 throw MishapBadOffhandItem.of(ItemStack.EMPTY.copy(), "rechargeable");
 
             ItemStack intoStack = heldInfo.component1();
