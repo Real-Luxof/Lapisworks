@@ -148,6 +148,7 @@ dependencies {
 	}
 
 	// Valkyrien Screaming into the Void
+	// ^^ awesome name techtastic
 	modCompileOnly("org.valkyrienskies:valkyrienskies-120-fabric:${project.vs2_version}") {
 		exclude group: "maven.modrinth", module: ""
 		exclude group: "teamreborn", module: ""

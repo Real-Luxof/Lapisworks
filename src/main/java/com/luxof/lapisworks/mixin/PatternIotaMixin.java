@@ -80,7 +80,7 @@ public abstract class PatternIotaMixin {
     public abstract HexPattern getPattern();
 
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At(
             value = "INVOKE_ASSIGN",
             // woah, being able to browse bytecode to just copy-paste is so fucking neat
@@ -108,10 +108,6 @@ public abstract class PatternIotaMixin {
             userData.remove("lapisworks:big_chalk");
     }
 
-    @Unique
-    public double getCostMultiplier() {
-        return LapisConfig.getCurrentConfig().getGrandRitualSettings().cost_multiplier();
-    }
     @Inject(
         method = "execute",
         at = @At(
@@ -134,7 +130,7 @@ public abstract class PatternIotaMixin {
             OperatorSideEffect sideEffect = copy.get(i);
 
             if (sideEffect instanceof ConsumeMedia fx) {
-                sideEffects.set(i, new ConsumeMedia((long)(fx.getAmount() * getCostMultiplier())));
+                sideEffects.set(i, new ConsumeMedia((long)(fx.getAmount() * LapisConfig.grand_ritual.cost_multiplier)));
             }
         }
     }

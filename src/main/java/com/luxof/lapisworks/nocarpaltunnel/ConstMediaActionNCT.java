@@ -2,9 +2,6 @@ package com.luxof.lapisworks.nocarpaltunnel;
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
@@ -21,7 +18,7 @@ public abstract class ConstMediaActionNCT extends PatternNCTBase implements Cons
     }
 
     public CostMediaActionResult executeWithOpCount(HexIotaStack stack, CastingEnvironment ctx) {
-        return ConstMediaAction.DefaultImpls.executeWithOpCount(this, stack.stack, ctx);
+        return ConstMediaAction.super.executeWithOpCount(stack.stack, ctx);
     }
 
     protected <AnyIota extends Iota> List<AnyIota> asActionResult(AnyIota iota) {
@@ -48,11 +45,6 @@ public abstract class ConstMediaActionNCT extends PatternNCTBase implements Cons
     }
 
 
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return ConstMediaAction.DefaultImpls.operate(this, arg0, arg1, arg2);
-    }
 
     // boo!
     @Override
