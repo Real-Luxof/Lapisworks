@@ -19,15 +19,14 @@ import java.util.regex.Pattern;
 
 import static java.util.Map.entry;
 
-/** <p>"Brain, can I has programming?"
- * <p>"To do amazing stuff that's not half-assing reimplementing desmos in Java, riiiiight?"
- * <p>"Riiiight."
- * <p>*half-asses reimplementing desmos in Java like a BOSS*
+/** "Brain, can I has programming?"
+ * <br>"To do amazing stuff that's not half-assing reimplementing desmos in Java, riiiiight?"
+ * <br>"Riiiight."
+ * <br>*half-asses reimplementing desmos in Java like a BOSS*
+ * <p>not even close
  */
 public class LapisMathEngine {
 
-    // :)
-    // ...AND FOR MY NEXT TRICK I'LL PUT A PREPROCESSOR ON MY VS CODE EXTENSION--
     private static final Pattern EQUATION_REGEX = Pattern.compile("((?<!\\d)-)?\\d+(\\.\\d+)?|[+\\-*\\/^%(),]|([A-Za-z]+)(?=\\(.+\\))|.(_[^+\\-*\\/^(),]*)?|\\s+");
     private static final Pattern NUMBER_REGEX = Pattern.compile("-?\\d+(\\.\\d+)?");
     private static final Pattern OPERATOR_REGEX = Pattern.compile("[+\\-*\\/^%]");
@@ -354,6 +353,7 @@ public class LapisMathEngine {
     ) {
         ArrayList<String> rpn = new ArrayList<>(postfix);
         rpn.replaceAll(str -> variables.containsKey(str) ? String.valueOf(variables.get(str)) : str);
+        rpn.replaceAll(str -> defaultConstants.containsKey(str) ? String.valueOf(defaultConstants.get(str)) : str);
 
         int idx = -1;
         while (true) {
@@ -525,25 +525,6 @@ public class LapisMathEngine {
         }
 
         return ret;
-    }
-
-    @SuppressWarnings("unchecked")
-    private static Map<Integer, Function<Double[], Double>> makeMap(
-        Object... stuff
-    ) {
-        Map<Integer, Function<Double[], Double>> map = new HashMap<>();
-        Integer first = 999;
-        boolean second = false;
-        for (Object obj : stuff) {
-            if (!second) {
-                first = (Integer)obj;
-                second = true;
-            } else {
-                map.put(first, (Function<Double[], Double>)obj);
-                second = false;
-            }
-        }
-        return map;
     }
 
     private static Entry<Integer, Function<Double[], Double>> makeEntry(
