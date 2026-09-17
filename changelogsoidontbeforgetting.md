@@ -434,20 +434,34 @@ Only the devs who can keep up with me...
   - Fixed chalk not connecting properly. Perchance.
   - Fixed grand rituals not working properly
 # 1.5.8.5
+### Fixes
+- Kitkat's Gambit serialization issue
+- Cubic Exaltation and Spherical Exaltation should no longer screw things in serialization
+  - basically you can (probably) use them in Iris' Gambit without a stack err
+- Deposit Media crashed on Forge when you had Oneironaut Reforged installed (thanks @alexyzer)
+- Focus Necklaces and Collars couldn't be read with the necklace reading patterns
+- Totem Necklaces were enchantable
+- Walking by people with stealth collars no longer makes you crash
+  - i have since made an actual whole testing process that covers everything (that i remember)
+- Withdraw Media's error message said "hexcasting.mishap.bad_item.rechargeable"
+# 1.5.8.6
 ### Additions
-- pattern to push the depth (like for Erebus)
 - Collar stuff
   - amethyst shard addition
     - makes a halo not unlike the Halo Sword that rotates about Y according to the player's lookdir
     - provides a little bit of light
-  - the bell now supports full physics
-    - which has full physics with itself and movement
-    - rings when bell vel is opposite to player vel
+  - the bell now moves while you do
+    - rings when the bell experiences acceleration
+      (and very faintly when the player is moving in general)
+    - also shortened one or two of the sounds so they're not too long
   - about the foci
     - these have special interactions when an animal wears them while they hold iotas
     - put a vector in it = animal wanna go there
     - put entity in it = animal attack
     - item entity = fox or allay pick up
+- config options to have Deposit Media and Withdraw Media work on players
+- Disenchant Enchantment pattern
+- Dolphin's Grace for all liquids enchantment
 - Enchanted Anvil? (Amvil?)
   - Lets you enchant beyond the maximum.
     - lets you combine beyond the usual maximum too.
@@ -460,11 +474,6 @@ Only the devs who can keep up with me...
 ### Changes
 - Amalgamation Containers no longer look genuinely horrible
 ### Fixes
-- Kitkat's Gambit serialization issue
-- Cubic Exaltation and Spherical Exaltation should no longer screw things in serialization
-  - basically you can (probably) use them in Iris' Gambit without a stack err
-- Walking by people with stealth collars no longer makes you crash
-  - how many layers of testing do i need???
 ### Interop
 - hexic
   - craft a collar and a mediaweave to weave the cloth around it
@@ -480,6 +489,7 @@ Only the devs who can keep up with me...
 - [This](https://discord.com/channels/936370934292549712/950847275549229086/1479043488183095317)
   - what if custom gui (kindly kys me)
   - i think HexIntent got this covered
+  - it's HexIntent interop you blabbering fool!
 - Amethyst Piano
 - Enchant item stack size (+64 every upgrade)
 - Heal your mind after breaking it. (Jacked O' Lantern finale)
