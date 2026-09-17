@@ -209,6 +209,19 @@ public class LapisConfig {
         "allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media": true
       },
 
+      "overenchant_limit_in_imbue_amel": {
+        "docs": "Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3*tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).",
+        "behaviour_when_not_present": "3*x",
+        "minecraft:channeling": 1,
+        "minecraft:mending": 1,
+        "minecraft:infinity": 1,
+        "minecraft:binding_curse": 1,
+        "minecraft:vanishing_curse": 1,
+        "minecraft:flame": 1,
+        "minecraft:multishot": 1,
+        "minecraft:piercing": 10,
+        "minecraft:silk_touch": 1
+      }
     }
     """;
     private static final JsonObject defaultConfigObject = JsonParser.parseString(defaultConfig)
@@ -226,7 +239,7 @@ public class LapisConfig {
             obj = JsonParser.parseReader(new FileReader(configFile)).getAsJsonObject();
         } catch (Exception e1) {
             if (canIYell) {
-                err("Apparently, the Lapisworks config file is such horseshit it doesn't parse as valid JSON.");
+                err("Apparently, the Lapisworks config file is such horseshit it doesn't parse as valid JSON.", e1);
                 err("Trying to fix that right now...");
             }
             obj = defaultConfigObject;
@@ -234,17 +247,12 @@ public class LapisConfig {
             try {
                 Files.writeString(configFile.toPath(), "{}", StandardOpenOption.CREATE);
             } catch (IOException e2) {
-                if (!canIYell) return;
-                err("Yeah no, I can't fix your Lapisworks config file.");
-                err("I've defaulted your config options in-game, though.");
-                err("Your first error:");
-                e1.printStackTrace();
-                err("And your second error:");
-                e2.printStackTrace();
-                err("Toodles!");
+                if (canIYell) {
+					err("Yeah no, I can't fix your Lapisworks config file.");
+					err("I've defaulted your config options in-game, though.", e2);
+					err("Toodles!");
+				}
             }
-
-            return;
         }
 
         if (canIYell) log("Loading config!");
@@ -253,13 +261,13 @@ public class LapisConfig {
             JsonObject thisObj;
             try {
                 thisObj = obj.getAsJsonObject(thisObjName);
-                if (thisObj == null && canIYell)
-                    err("%s does not exist in config as an object!", thisObjName);
             } catch (ClassCastException e) {
-                if (canIYell)
-                    err("%s does not exist in config as an object!", thisObjName);
                 thisObj = null;
             }
+
+			if (thisObj == null && canIYell) {
+                err("%s does not exist in config as an object!", thisObjName);
+			}
 
             for (ConfigOption<?> co : settings.opts) {
                 co.deserializeSelfFromAndCorrect(thisObj, canIYell, thisObjName);
@@ -269,6 +277,11 @@ public class LapisConfig {
                     LOGGER.error("WAHHHHHHHHHHH!!!!!!!", e);
                 }
             }
+        }
+        try {
+            overenchant_limit_in_imbue_amel.deserialize(obj);
+        } catch (Exception e) {
+            obj.add("overenchant_limit_in_imbue_amel", overenchant_limit_in_imbue_amel.defaultJson);
         }
 
         try {
