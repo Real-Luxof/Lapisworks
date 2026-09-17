@@ -444,7 +444,12 @@ Only the devs who can keep up with me...
 - Walking by people with stealth collars no longer makes you crash
   - i have since made an actual whole testing process that covers everything (that i remember)
 - Withdraw Media's error message said "hexcasting.mishap.bad_item.rechargeable"
-# 1.5.8.6
+# 1.5.8.7
+### Fixes
+- Config crashed the game until you deleted your config file oof
+- Math engine did not recognize the symbols π and e
+- Random ass crash with mixins specifically for Hexwoven??
+- Thoth's Manipulators weren't working specifically on Thoth's Gambit :dead:
 ### Additions
 - Collar stuff
   - amethyst shard addition

@@ -224,4 +224,19 @@ public class HexIotaStack {
             this::convertToJUSTAList
         );
     }
+
+    public Either<BlockPos, Entity> getBlockPosOrEntity(int idx) {
+        Iota iota = get(idx);
+
+        if (iota instanceof Vec3Iota vecIota)
+            return Either.left(BlockPos.ofFloored(vecIota.getVec3()));
+        else if (iota instanceof EntityIota entityIota)
+            return Either.right(entityIota.getEntity());
+
+        throw new MishapInvalidIota(
+            iota,
+            idx,
+            Text.translatable("mishaps.lapisworks.descs.entityorblockposiota")
+        );
+    }
 }

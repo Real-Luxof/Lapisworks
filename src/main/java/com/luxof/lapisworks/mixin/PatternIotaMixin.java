@@ -84,14 +84,14 @@ public abstract class PatternIotaMixin {
         at = @At(
             value = "INVOKE_ASSIGN",
             // woah, being able to browse bytecode to just copy-paste is so fucking neat
-            target = "at/petrak/hexcasting/common/casting/PatternRegistryManifest.matchPattern(Lat/petrak/hexcasting/api/casting/math/HexPattern;Lat/petrak/hexcasting/api/casting/eval/CastingEnvironment;Z)Lat/petrak/hexcasting/api/casting/PatternShapeMatch;"
+            target = "at/petrak/hexcasting/common/casting/PatternRegistryManifest.matchPattern(Lat/petrak/hexcasting/api/casting/math/HexPattern;Lat/petrak/hexcasting/api/casting/eval/CastingEnvironment;)Lat/petrak/hexcasting/api/casting/PatternShapeMatch;"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public void execute(
+    public void lapisworks$quickIsThisBigChalkable(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir,
         @Local LocalRef<PatternShapeMatch> lookupRef
     ) {
@@ -109,17 +109,17 @@ public abstract class PatternIotaMixin {
     }
 
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At(
             value = "NEW",
             target = "at/petrak/hexcasting/api/casting/eval/CastResult"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public @NotNull void execute(
+    public @NotNull void lapisworks$doBigChalkIfYea(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir,
         @Local List<OperatorSideEffect> sideEffects
     ) {

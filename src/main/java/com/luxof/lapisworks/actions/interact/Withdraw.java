@@ -23,9 +23,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 public class Withdraw extends SpellActionNCT {
-    public int getArgc() {
-        return 2;
-    }
+    public int argc = 2;
 
     @Override
     public Result execute(HexIotaStack stack, CastingEnvironment ctx) {

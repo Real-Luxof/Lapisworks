@@ -1,11 +1,6 @@
 package com.luxof.lapisworks.actions.scry;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
-import at.petrak.hexcasting.api.casting.castables.ConstMediaAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
@@ -13,6 +8,7 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
 import com.luxof.lapisworks.blocks.entities.MindEntity;
 import com.luxof.lapisworks.init.ModBlocks;
 import com.luxof.lapisworks.nocarpaltunnel.ConstMediaActionNCT;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 
 import static com.luxof.lapisworks.Lapisworks.prettifyDouble;
 import static com.luxof.lapisworks.LapisworksIDs.MIND_BLOCK;
@@ -23,9 +19,11 @@ import java.util.List;
 import net.minecraft.util.math.BlockPos;
 
 public class CognitionPrfn extends ConstMediaActionNCT {
+    public int argc = 1;
+    public long mediaCost = 0L;
     @Override
-    public List<Iota> execute(List<? extends Iota> args, CastingEnvironment ctx) {
-        BlockPos mindPos = OperatorUtils.getBlockPos(args, 0, getArgc());
+    public List<Iota> execute(HexIotaStack stack, CastingEnvironment ctx) {
+        BlockPos mindPos = stack.getBlockPos(0);
         ctx.assertPosInRange(mindPos);
 
         MindEntity blockEntity = throwIfEmpty(
@@ -34,25 +32,5 @@ public class CognitionPrfn extends ConstMediaActionNCT {
         );
 
         return List.of(new DoubleIota(prettifyDouble((double)blockEntity.mindCompletion)));
-    }
-
-    @Override
-    public int getArgc() {
-        return 1;
-    }
-
-    @Override
-    public long getMediaCost() {
-        return 0;
-    }
-
-    @Override
-    public CostMediaActionResult executeWithOpCount(List<? extends Iota> arg0, CastingEnvironment arg1) {
-        return ConstMediaAction.DefaultImpls.executeWithOpCount(this, arg0, arg1);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return ConstMediaAction.DefaultImpls.operate(this, arg0, arg1, arg2);
     }
 }

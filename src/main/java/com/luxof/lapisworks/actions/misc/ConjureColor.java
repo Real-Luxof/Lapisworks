@@ -1,25 +1,20 @@
 package com.luxof.lapisworks.actions.misc;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
-import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 import at.petrak.hexcasting.common.items.pigment.ItemDyePigment;
 
 import com.luxof.lapisworks.init.ModBlocks;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
+import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.blocks.ConjuredColorable.COLOR;
 import static com.luxof.lapisworks.blocks.ConjuredColorable.PIGMENT;
 
 import java.util.List;
-import java.util.Optional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -27,29 +22,27 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
-public class ConjureColor implements SpellAction {
+public class ConjureColor extends SpellActionNCT {
+    public int argc = 2;
 
     public int getArgc() {
         return 2;
     }
 
     @Override
-    public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
+    public SpellAction.Result execute(HexIotaStack stack, CastingEnvironment ctx) {
         List<ParticleSpray> particles;
-        Optional<LivingEntity> casterOption = Optional.of(ctx.getCastingEntity());
-        if (casterOption.isPresent()) {
-            particles = List.of(ParticleSpray.burst(casterOption.get().getPos(), 1, 10));
-        } else {
-            particles = List.of();
-        }
+        LivingEntity caster = ctx.getCastingEntity();
+        particles = caster != null
+            ? List.of(ParticleSpray.burst(caster.getPos(), 1, 10))
+            : List.of();
 
-        int color = OperatorUtils.getIntBetween(args, 1, 0, 15, getArgc());
-        BlockPos place = OperatorUtils.getBlockPos(args, 0, getArgc());
+        BlockPos place = stack.getBlockPos(0);
+        int color = stack.getIntBetween(1, 0, 15);
         ctx.assertPosInRangeForEditing(place);
 
         AutomaticItemPlacementContext AIPC = new AutomaticItemPlacementContext(
@@ -70,7 +63,7 @@ public class ConjureColor implements SpellAction {
         );
     }
 
-    public class Spell implements RenderedSpell {
+    public class Spell implements RenderedSpellNCT {
         public final int color;
         public final BlockPos place;
         public final AutomaticItemPlacementContext AIPC;
@@ -113,30 +106,5 @@ public class ConjureColor implements SpellAction {
                 Block.NOTIFY_ALL
             );
 		}
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
-        }
-    }
-
-    @Override
-    public boolean awardsCastingStat(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.awardsCastingStat(this, ctx);
-    }
-
-    @Override
-    public Result executeWithUserdata(List<? extends Iota> args, CastingEnvironment env, NbtCompound userData) {
-        return SpellAction.DefaultImpls.executeWithUserdata(this, args, env, userData);
-    }
-
-    @Override
-    public boolean hasCastingSound(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.hasCastingSound(this, ctx);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return SpellAction.DefaultImpls.operate(this, arg0, arg1, arg2);
     }
 }
