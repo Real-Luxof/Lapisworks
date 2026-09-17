@@ -420,7 +420,7 @@ public class LapisMathEngine {
         String token
     ) {
         int arity = Integer.valueOf(rpn.remove(idx - 1));
-        boolean stillADoubleDream = true;
+        boolean stillADoubleDream = true; // ?
 
         Double[] args = new Double[arity];
 

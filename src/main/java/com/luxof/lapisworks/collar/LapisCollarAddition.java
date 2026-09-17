@@ -65,12 +65,17 @@ public interface LapisCollarAddition {
 
 
 
+    /** this method is called every tick in the inventory.
+     * <br>applies to every living entity with an inventory it ticks. */
     default void inventoryTick(
         ItemStack stack, World world, LivingEntity entity, int slot, boolean selected
     ) {}
+    /** this method is called every tick when worn by an entity. */
     default void trinketTick(
         ItemStack stack, SlotReference slot, LivingEntity entity
     ) {}
+    /** this method may be called every tick when worn by an entity, but there is no SlotReference.
+     * <br>such situations may arrive when animals etc. are wearing the collar. */
     default void generalTick(ItemStack stack, LivingEntity entity) {}
 
     

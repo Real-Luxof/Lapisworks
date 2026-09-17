@@ -42,7 +42,7 @@ import org.joml.Quaternionf;
 
 public class BigChalkCenterEntity extends BlockEntity implements StampableBE {
     private static boolean shouldSkipAnimation() {
-        return !LapisConfig.getCurrentConfig().getGrandRitualSettings().do_animation();
+        return !LapisConfig.grand_ritual.do_animation;
     }
     private boolean skipAnimation = shouldSkipAnimation();
 

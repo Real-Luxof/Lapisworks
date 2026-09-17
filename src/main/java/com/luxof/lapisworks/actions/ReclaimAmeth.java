@@ -34,7 +34,7 @@ public class ReclaimAmeth implements SpellAction {
 
     @Override
     public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
-        if (!LapisConfig.getCurrentConfig().getSpellSettings().allow_reclaim_amethyst()) {
+        if (!LapisConfig.spells.allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media) {
             throw new MishapDisallowedSpell(
                 "disallowed",
                 id("reclaim_ameth")

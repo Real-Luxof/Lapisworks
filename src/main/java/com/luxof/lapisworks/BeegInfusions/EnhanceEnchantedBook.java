@@ -72,7 +72,7 @@ public class EnhanceEnchantedBook extends BeegInfusion {
                 null
             );
         else if (
-            levelOfEnchantment >= LapisConfig.getCurrentConfig().getOverenchantLimitFor(enchantment)
+            levelOfEnchantment >= LapisConfig.overenchant_limit_in_imbue_amel.getOverenchantLimitFor(enchantment)
         )
             throw new MishapBadHandItem(
                 stack,
