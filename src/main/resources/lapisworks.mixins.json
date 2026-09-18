@@ -34,6 +34,7 @@
 		"ServerWorldMixin",
 		"OpFlight$CompanionMixin",
 		"ChunkSerializerMixin",
+		"FrameForEachMixin",
 
 		"FabricXplatImplMixin"
 	],
