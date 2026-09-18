@@ -24,7 +24,8 @@ public class GuiSpellcastingMixin {
             target = "at/petrak/hexcasting/client/gui/GuiSpellcasting.closeForReal()V",
             shift = At.Shift.BEFORE
         ),
-        cancellable = true
+        cancellable = true,
+        remap = false
     )
     private void lapisworks$heyWait(CallbackInfo ci) {
         PlayerEntity player = MinecraftClient.getInstance().player;
