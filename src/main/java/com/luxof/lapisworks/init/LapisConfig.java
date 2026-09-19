@@ -121,6 +121,7 @@ public class LapisConfig {
     }
     public static class spells {
         public static boolean allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media = true;
+        public static boolean players_are_depositable_and_withdrawable = false;
     }
     static {
         registerClass(onetime_ritual.class);
@@ -178,55 +179,6 @@ public class LapisConfig {
         }
     }
 
-    private static final String defaultConfig = """
-    {
-      "onetime_ritual": {
-        "tuneable_amethyst_ambit_multiplier": 1.0,
-        "player_ambit_multiplier": 0.5,
-        "trail_of_powered_chalk_length": 1
-      },
-
-      "multiuse_ritual": {
-        "tuneable_amethyst_ambit_multiplier": 1.0,
-        "trail_of_powered_chalk_length": 5
-      },
-
-      "grand_ritual": {
-        "do_animation": true,
-        "cost_multiplier": 0.5
-      },
-
-      "hierophantics_interop": {
-        "max_fused_amalgamations": 3,
-        "max_simple_amalgam_range": 48.0,
-        "max_complex_amalgam_range": 96.0,
-        "simple_amalgam_err_multiplier": 0.125,
-        "complex_amalgam_err_multiplier": 0.25,
-        "max_err": 32.0
-      },
-
-      "spells": {
-        "allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media": true
-      },
-
-      "overenchant_limit_in_imbue_amel": {
-        "docs": "Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3*tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).",
-        "behaviour_when_not_present": "3*x",
-        "minecraft:channeling": 1,
-        "minecraft:mending": 1,
-        "minecraft:infinity": 1,
-        "minecraft:binding_curse": 1,
-        "minecraft:vanishing_curse": 1,
-        "minecraft:flame": 1,
-        "minecraft:multishot": 1,
-        "minecraft:piercing": 10,
-        "minecraft:silk_touch": 1
-      }
-    }
-    """;
-    private static final JsonObject defaultConfigObject = JsonParser.parseString(defaultConfig)
-        .getAsJsonObject();
-
     public static void renewCurrentConfig() { renewCurrentConfig(false); }
 
     // no dumbass it's january
@@ -242,7 +194,7 @@ public class LapisConfig {
                 err("Apparently, the Lapisworks config file is such horseshit it doesn't parse as valid JSON.", e1);
                 err("Trying to fix that right now...");
             }
-            obj = defaultConfigObject;
+            obj = new JsonObject();
 
             try {
                 Files.writeString(configFile.toPath(), "{}", StandardOpenOption.CREATE);

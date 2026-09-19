@@ -1,11 +1,15 @@
 package com.luxof.lapisworks.mixin;
 
+import at.petrak.hexcasting.api.addldata.ADMediaHolder;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import com.luxof.lapisworks.VAULT.ServPlayerVAULT;
 import com.luxof.lapisworks.VAULT.VAULT;
+import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.interop.hextended.items.AmelOrb;
+import com.luxof.lapisworks.media.MediaTransferInterface;
 import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 
@@ -13,9 +17,11 @@ import static com.luxof.lapisworks.Lapisworks.getAllHands;
 
 import com.mojang.authlib.GameProfile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayerEntity.class)
-public abstract class ServerPlayerEntityMixin extends PlayerEntity implements GetVAULT {
+public abstract class ServerPlayerEntityMixin extends PlayerEntity implements GetVAULT, MediaTransferInterface {
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
@@ -100,5 +106,67 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity implements Ge
     public void tick(CallbackInfo ci) {
         this.spawnEnchSentParticles();
         this.spawnOrbParticles();
+    }
+
+
+    @Override
+    public boolean isMTIAtThisTime(CastingEnvironment ctx) {
+        return LapisConfig.spells.players_are_depositable_and_withdrawable;
+    }
+
+    @Override
+    public Vec3d getPosIfPossible() {
+        return getPos();
+    }
+
+    @Override
+    public void setMediaHere(long media) {
+        List<ADMediaHolder> mediaHolders = getMediaHolders();
+        long difference = media - getMediaHere(mediaHolders);
+        long left = Math.abs(difference);
+        for (ADMediaHolder mediaHolder : mediaHolders) {
+            if (difference < 0) left -= mediaHolder.withdrawMedia(left, false);
+            else left -= mediaHolder.insertMedia(left, false);
+        }
+    }
+
+    @Override
+    public long getMaxMedia() {
+        return getMaxMedia(getMediaHolders());
+    }
+    private long getMaxMedia(List<ADMediaHolder> mediaHolders) {
+        long media = 0L;
+        for (ADMediaHolder mH : getMediaHolders()) {
+            media += mH.withdrawMedia(-1, true) + mH.insertMedia(-1, true);
+        }
+        return media;
+    }
+
+    @Override
+    public long getMediaHere() {
+        return getMediaHere(getMediaHolders());
+    }
+    private long getMediaHere(List<ADMediaHolder> mediaHolders) {
+        long media = 0L;
+        for (ADMediaHolder mH : getMediaHolders()) {
+            media += mH.withdrawMedia(-1, true);
+        }
+        return media;
+    }
+
+    private List<ADMediaHolder> getMediaHolders() {
+        List<ADMediaHolder> stacks = new ArrayList<>();
+        ADMediaHolder mainHand = IXplatAbstractions.INSTANCE.findMediaHolder(getMainHandStack());
+        ADMediaHolder offHand = IXplatAbstractions.INSTANCE.findMediaHolder(getMainHandStack());
+        if (mainHand != null) stacks.add(mainHand);
+        if (offHand != null) stacks.add(offHand);
+
+        PlayerInventory inv = getInventory();
+        for (int i = 0; i < inv.size(); i++) {
+            ItemStack stack = inv.getStack(i);
+            ADMediaHolder mediaHolder = IXplatAbstractions.INSTANCE.findMediaHolder(stack);
+            if (mediaHolder != null) stacks.add(mediaHolder);
+        }
+        return stacks;
     }
 }

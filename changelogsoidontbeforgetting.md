@@ -445,8 +445,12 @@ Only the devs who can keep up with me...
   - i have since made an actual whole testing process that covers everything (that i remember)
 - Withdraw Media's error message said "hexcasting.mishap.bad_item.rechargeable"
 # 1.5.8.7
+### Additions
+- Config options to have Deposit Media and Withdraw Media work on players
+- Disenchant pattern
+- Expanded Enchanted Book
 ### Fixes
-- Config crashed the game until i deleted my config file oof
+- Config fuckery
 - Math engine did not recognize the symbols π and e
 - Random ass crash with mixins specifically for Hexwoven??
 - Thoth's Manipulators weren't working specifically on Thoth's Gambit :dead:
@@ -464,8 +468,6 @@ Only the devs who can keep up with me...
     - put a vector in it = animal wanna go there
     - put entity in it = animal attack
     - item entity = fox or allay pick up
-- config options to have Deposit Media and Withdraw Media work on players
-- Disenchant Enchantment pattern
 - Dolphin's Grace for all liquids enchantment
 - Enchanted Anvil? (Amvil?)
   - Lets you enchant beyond the maximum.
