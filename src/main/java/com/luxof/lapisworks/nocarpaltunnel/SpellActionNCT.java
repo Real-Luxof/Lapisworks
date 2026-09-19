@@ -3,9 +3,6 @@ package com.luxof.lapisworks.nocarpaltunnel;
 import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
@@ -24,17 +21,13 @@ public class SpellActionNCT extends PatternNCTBase implements SpellAction {
     }
 
     public SpellAction.Result executeWithUserdata(HexIotaStack stack, CastingEnvironment ctx, NbtCompound userData) {
-        return SpellAction.DefaultImpls.executeWithUserdata(this, stack.stack, ctx, userData);
+        return SpellAction.super.executeWithUserdata(stack.stack, ctx, userData);
     }
 
     public interface RenderedSpellNCT extends RenderedSpell {
 
         default void cast(CastingEnvironment ctx) {
             throw new IllegalStateException("call cast(env, image) instead.");
-        }
-
-        default CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
         }
 
     }
@@ -59,21 +52,6 @@ public class SpellActionNCT extends PatternNCTBase implements SpellAction {
     }
 
 
-
-    @Override
-    public boolean awardsCastingStat(CastingEnvironment arg0) {
-        return SpellAction.DefaultImpls.awardsCastingStat(this, arg0);
-    }
-
-    @Override
-    public boolean hasCastingSound(CastingEnvironment arg0) {
-        return SpellAction.DefaultImpls.hasCastingSound(this, arg0);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return SpellAction.DefaultImpls.operate(this, arg0, arg1, arg2);
-    }
 
     // reflection jumpscare
     @Override

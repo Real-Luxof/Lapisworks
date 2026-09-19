@@ -1,14 +1,8 @@
 package com.luxof.lapisworks.actions;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
-import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadEntity;
 import at.petrak.hexcasting.api.misc.MediaConstants;
@@ -20,13 +14,14 @@ import com.luxof.lapisworks.init.Mutables.Mutables.SMindInfusions;
 import com.luxof.lapisworks.interop.hierophantics.ChariotInterface;
 import com.luxof.lapisworks.init.Mutables.SMindInfusion;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
+import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.Lapisworks.HIEROPHANTICS_INTEROP;
 import static com.luxof.lapisworks.LapisworksIDs.ENTITY_INFUSEABLE_WITH_SMIND;
 import static com.luxof.lapisworks.LapisworksIDs.FULL_SIMPLE_MIND;
 import static com.luxof.lapisworks.LapisworksIDs.INFUSEABLE_WITH_SMIND;
 import static com.luxof.lapisworks.LapisworksIDs.MIND_BLOCK;
-import static com.luxof.lapisworks.MishapThrowerJava.getBlockPosOrEntity;
 import static com.luxof.lapisworks.MishapThrowerJava.throwIfEmpty;
 
 import com.mojang.datafixers.util.Either;
@@ -35,20 +30,17 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 import org.jetbrains.annotations.Nullable;
 
-public class FlayArtMind implements SpellAction {
-    public int getArgc() {
-        return 2;
-    }
+public class FlayArtMind extends SpellActionNCT {
+    public int argc = 2;
 
     @Override
-    public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
-        Either<BlockPos, Entity> flayInto = getBlockPosOrEntity(args, 0, getArgc());
+    public SpellAction.Result execute(HexIotaStack args, CastingEnvironment ctx) {
+        Either<BlockPos, Entity> flayInto = args.getBlockPosOrEntity(0);
         BlockPos flayIntoPos = flayInto.left().orElse(null);
         Entity flayIntoEntity = flayInto.right().orElse(null);
 
@@ -64,12 +56,12 @@ public class FlayArtMind implements SpellAction {
             }
 
             infusionRecipe = SMindInfusions
-                .filterAll(flayIntoPos, ctx, args, vault)
+                .filterAll(flayIntoPos, ctx, args.stack, vault)
                 .values().stream().findFirst()
                 .orElseThrow(() -> new MishapBadBlock(flayIntoPos, INFUSEABLE_WITH_SMIND));
         }
         else if (flayIntoEntity != null) {
-            infusionRecipe = SMindInfusions.filterAll(flayIntoEntity, ctx, args, vault )
+            infusionRecipe = SMindInfusions.filterAll(flayIntoEntity, ctx, args.stack, vault)
                 .values().stream().findFirst()
                 .orElseThrow(() -> new MishapBadEntity(flayIntoEntity, ENTITY_INFUSEABLE_WITH_SMIND));
         }
@@ -77,7 +69,7 @@ public class FlayArtMind implements SpellAction {
         infusionRecipe.mishapIfNeeded();
 
         // be funny. come on. try it.
-        BlockPos mindPos = OperatorUtils.getBlockPos(args, 1, getArgc());
+        BlockPos mindPos = args.getBlockPos(1);
         MindEntity blockEntity = throwIfEmpty(
             ctx.getWorld().getBlockEntity(mindPos, ModBlocks.MIND_ENTITY_TYPE),
             new MishapBadBlock(mindPos, MIND_BLOCK)
@@ -94,7 +86,7 @@ public class FlayArtMind implements SpellAction {
         );
     }
 
-    public class Spell implements RenderedSpell {
+    public class Spell implements RenderedSpellNCT {
         public final BlockPos flayIntoPos;
         public final SMindInfusion flayer;
         public final MindEntity mind;
@@ -117,31 +109,6 @@ public class FlayArtMind implements SpellAction {
             );
             this.flayer.accept();
 		}
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
-        }
-    }
-
-    @Override
-    public boolean awardsCastingStat(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.awardsCastingStat(this, ctx);
-    }
-
-    @Override
-    public Result executeWithUserdata(List<? extends Iota> args, CastingEnvironment env, NbtCompound userData) {
-        return SpellAction.DefaultImpls.executeWithUserdata(this, args, env, userData);
-    }
-
-    @Override
-    public boolean hasCastingSound(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.hasCastingSound(this, ctx);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return SpellAction.DefaultImpls.operate(this, arg0, arg1, arg2);
     }
 
     @Nullable

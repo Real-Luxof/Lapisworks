@@ -60,24 +60,27 @@ public class MindEntity extends BlockEntity {
         List<VillagerEntity> villagersNear = new ArrayList<VillagerEntity>(world.getEntitiesByClass(
             VillagerEntity.class,
             new Box(topLeftBack, bottomRightFront),
-            (villager) -> {
-                return !HexCardinalComponents.BRAINSWEPT.get(villager).isBrainswept()
+            (villager) -> !HexCardinalComponents.BRAINSWEPT.get(villager).isBrainswept()
                     && ((ArtMindInterface)villager).getUsedMindPercentage() < 100.0f
-                    && ((ArtMindInterface)villager).getDontUseAgainTicks() <= 0;
-            }
+                    && ((ArtMindInterface)villager).getDontUseAgainTicks() <= 0
         ));
+
         int usedVillagersCount = 0;
+
         for (int i = 0; i < Math.min(villagersNear.size(), maxVillagers); i++) {
             int idx = world.random.nextInt(villagersNear.size());
             VillagerEntity villager = villagersNear.get(idx);
+
             if (villager.isSleeping() && usedVillagersCount == 0) {
                 this.mindCompletion += 15.0f;
                 this.mindCompletion = Math.min(100.0f, this.mindCompletion);
                 ((ArtMindInterface)villager).setDontUseAgainTicks(sleepingVillagerUseAgainCD);
                 break;
             }
+
             usedVillagersCount += 1;
             villagersNear.remove(idx);
+
             // note: villager mined using percentage and mindCompletion can both be >100
             // i'm aware, and this doesn't matter that much
             ((ArtMindInterface)villager).incUsedMindPercentage(villagerExhaustionRate);

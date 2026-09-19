@@ -80,18 +80,18 @@ public abstract class PatternIotaMixin {
     public abstract HexPattern getPattern();
 
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At(
             value = "INVOKE_ASSIGN",
             // woah, being able to browse bytecode to just copy-paste is so fucking neat
-            target = "at/petrak/hexcasting/common/casting/PatternRegistryManifest.matchPattern(Lat/petrak/hexcasting/api/casting/math/HexPattern;Lat/petrak/hexcasting/api/casting/eval/CastingEnvironment;Z)Lat/petrak/hexcasting/api/casting/PatternShapeMatch;"
+            target = "at/petrak/hexcasting/common/casting/PatternRegistryManifest.matchPattern(Lat/petrak/hexcasting/api/casting/math/HexPattern;Lat/petrak/hexcasting/api/casting/eval/CastingEnvironment;)Lat/petrak/hexcasting/api/casting/PatternShapeMatch;"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public void execute(
+    public void lapisworks$quickIsThisBigChalkable(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir,
         @Local LocalRef<PatternShapeMatch> lookupRef
     ) {
@@ -108,22 +108,18 @@ public abstract class PatternIotaMixin {
             userData.remove("lapisworks:big_chalk");
     }
 
-    @Unique
-    public double getCostMultiplier() {
-        return LapisConfig.getCurrentConfig().getGrandRitualSettings().cost_multiplier();
-    }
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At(
             value = "NEW",
             target = "at/petrak/hexcasting/api/casting/eval/CastResult"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public @NotNull void execute(
+    public @NotNull void lapisworks$doBigChalkIfYea(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir,
         @Local List<OperatorSideEffect> sideEffects
     ) {
@@ -134,7 +130,7 @@ public abstract class PatternIotaMixin {
             OperatorSideEffect sideEffect = copy.get(i);
 
             if (sideEffect instanceof ConsumeMedia fx) {
-                sideEffects.set(i, new ConsumeMedia((long)(fx.getAmount() * getCostMultiplier())));
+                sideEffects.set(i, new ConsumeMedia((long)(fx.getAmount() * LapisConfig.grand_ritual.cost_multiplier)));
             }
         }
     }

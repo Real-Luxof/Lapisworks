@@ -1,22 +1,27 @@
 package com.luxof.lapisworks.init;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 
 import com.luxof.lapisworks.LapisMathEngine;
 
+import static com.luxof.lapisworks.Lapisworks.LOGGER;
 import static com.luxof.lapisworks.Lapisworks.computeIfRight;
 import static com.luxof.lapisworks.Lapisworks.err;
-import static com.luxof.lapisworks.Lapisworks.pair;
-import static com.luxof.lapisworks.Lapisworks.primitive;
+import static com.luxof.lapisworks.Lapisworks.log;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.fabricmc.loader.api.FabricLoader;
@@ -24,55 +29,155 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-
-import org.jetbrains.annotations.Nullable;
 
 public class LapisConfig {
     public static File configFile = FabricLoader.getInstance()
         .getConfigDir()
         .resolve("lapisworks.json")
         .toFile();
-    @Nullable private static LapisConfig currentConfig = null;
 
-    public static LapisConfig getCurrentConfig() {
-        if (currentConfig == null) setCurrentConfig(new LapisConfig());
-        return currentConfig;
-    }
-    public static void renewCurrentConfig() {
-        setCurrentConfig(new LapisConfig());
-    }
-    protected static void renewCurrentConfigAndYell() {
-        setCurrentConfig(new LapisConfig(true));
-    }
-    protected static void setCurrentConfig(LapisConfig newConfig) {
-        currentConfig = newConfig;
+    private static record Settings(Class<?> clazz, List<ConfigOption<?>> opts) {}
+    private static class ConfigOption<T extends Object> {
+        public String name;
+        public final T defaultVal;
+        public T currentVal;
+        public ConfigOption(String name, T defaultVal, T currentVal) {
+            this.name = name;
+            this.defaultVal = defaultVal;
+            this.currentVal = currentVal;
+        }
+        private void becomeDefault(JsonObject obj) {
+            JsonPrimitive prim;
+            if (defaultVal instanceof Double v) prim = new JsonPrimitive(v);
+            else if (defaultVal instanceof Integer v) prim = new JsonPrimitive(v);
+            else if (defaultVal instanceof Boolean v) prim = new JsonPrimitive(v);
+            else if (defaultVal instanceof String v) prim = new JsonPrimitive(v);
+            else prim = new JsonPrimitive("ASS");
+            obj.add(name, prim);
+            currentVal = defaultVal;
+        }
+        @SuppressWarnings("unchecked")
+        public void deserializeSelfFromAndCorrect(JsonObject obj, boolean canIYell, String mainSettingsName) {
+            if (!obj.has(name)) {
+                if (canIYell) err("%s does not have %s!", mainSettingsName, name);
+                becomeDefault(obj);
+                return;
+            }
+            JsonElement ele = obj.get(name);
+            try {
+                if (defaultVal instanceof Double) currentVal = (T)(Object)ele.getAsDouble();
+                else if (defaultVal instanceof Integer) currentVal = (T)(Object)ele.getAsInt();
+                else if (defaultVal instanceof Boolean) currentVal = (T)(Object)ele.getAsBoolean();
+                else if (defaultVal instanceof String) currentVal = (T)(Object)ele.getAsString();
+            } catch (Exception e) {
+                if (canIYell) err("%s does not have %s of the required type!", mainSettingsName, name);
+                becomeDefault(obj);
+                currentVal = defaultVal;
+            }
+        }
     }
 
-
-    private JsonObject obj;
-    protected LapisConfig(JsonObject obj) {
-        this.obj = obj;
+    private static List<Settings> registered = new ArrayList<>();
+    private static <T extends Object> void registerClass(
+        Class<T> clazz
+    ) {
+        List<ConfigOption<?>> opts = new ArrayList<>();
+        for (Field field : clazz.getFields()) {
+            String fieldName = field.getName();
+            Object value;
+            try {
+                value = field.get(null);
+            } catch (IllegalAccessException e) {
+                LOGGER.error("WAHHHHHHHHHHHHHHHHHHHHHHHHHHH", e);
+                break;
+            }
+            if (value instanceof Double dub) opts.add(new ConfigOption<>(fieldName, dub, dub));
+            else if (value instanceof Integer in) opts.add(new ConfigOption<>(fieldName, in, in));
+            else if (value instanceof Boolean bool) opts.add(new ConfigOption<>(fieldName, bool, bool));
+            else if (value instanceof String str) opts.add(new ConfigOption<>(fieldName, str, str));
+        }
+        registered.add(new Settings(clazz, opts));
     }
-    private static final String OneTime_R = "onetime_ritual";
-    private static final String MultiUse_R = "multiuse_ritual";
-    private static final String PlayerAmbitMult = "player_ambit_multiplier";
-    private static final String TuneableAmbitMult = "tuneable_amethyst_ambit_multiplier";
-    private static final String PoweredTrailLength = "trail_of_powered_chalk_length";
-    private static final String Grand_R = "grand_ritual";
-    private static final String DoAnimation = "do_animation";
-    private static final String CostMultiplier = "cost_multiplier";
-    private static final String Chariot = "hierophantics_interop";
-    private static final String MaxFusedAmalgams = "max_fused_amalgamations";
-    // oh no
-    private static final String MaxSiARange = "max_simple_amalgam_range";
-    private static final String MaxCARange = "max_complex_amalgam_range";
-    private static final String SiAErrMult = "simple_amalgam_err_multiplier";
-    private static final String CAErrMult = "complex_amalgam_err_multiplier";
-    private static final String MaxErr = "max_err";
-    private static final String Spells = "spells";
-    private static final String AllowReclaimAmethyst = "allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media";
-    private static final String OverenchantLimit = "overenchant_limit_in_imbue_amel";
+    public static class onetime_ritual {
+        public static double tuneable_amethyst_ambit_multiplier = 1.0;
+        public static double player_ambit_multiplier = 0.5;
+        public static int powered_trail_length = 1;
+    }
+    public static class multiuse_ritual {
+        public static double tuneable_amethyst_ambit_multiplier = 1.0;
+        public static int powered_trail_length = 5;
+    }
+    public static class grand_ritual {
+        public static boolean do_animation = true;
+        public static double cost_multiplier = 0.5;
+    }
+    public static class hierophantics_interop {
+        public static int max_fused_amalgamations = 4;
+        public static double max_simple_amalgam_range = 48.0;
+        public static double max_complex_amalgam_range = 96.0;
+        public static double simple_amalgam_err_multiplier = 0.125;
+        public static double complex_amalgam_err_multiplier = 0.25;
+        public static double max_err = 32.0;
+    }
+    public static class spells {
+        public static boolean allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media = true;
+    }
+    static {
+        registerClass(onetime_ritual.class);
+        registerClass(multiuse_ritual.class);
+        registerClass(grand_ritual.class);
+        registerClass(hierophantics_interop.class);
+    }
+    public static class overenchant_limit_in_imbue_amel {
+        public static String docs = "";
+        public static String behaviour_when_not_present = "";
+        public static HashMap<String, Integer> limits = new HashMap<>();
+        public static JsonObject defaultJson = JsonParser.parseString("""
+      {
+        "docs": "Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3*tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).",
+        "behaviour_when_not_present": "3*x",
+        "minecraft:channeling": 1,
+        "minecraft:mending": 1,
+        "minecraft:infinity": 1,
+        "minecraft:binding_curse": 1,
+        "minecraft:vanishing_curse": 1,
+        "minecraft:flame": 1,
+        "minecraft:multishot": 1,
+        "minecraft:piercing": 10,
+        "minecraft:silk_touch": 1
+        }""").getAsJsonObject();
+
+        public static void deserialize(JsonObject obj) {
+            docs = obj.get("docs").getAsString();
+            behaviour_when_not_present = obj.get("behaviour_when_not_present").getAsString();
+            limits.clear();
+            for (String key : obj.keySet()) {
+                if (key.equals("docs") || key.equals("behaviour_when_not_present"))
+                    continue;
+                limits.put(key, obj.get(key).getAsInt());
+            }
+        }
+        public static int getOverenchantLimitFor(Enchantment enchantment) {
+            return getOverenchantLimitFor(Registries.ENCHANTMENT.getId(enchantment).toString());
+        }
+        public static int getOverenchantLimitFor(String enchId) {
+            int maxLevel = Registries.ENCHANTMENT.get(new Identifier(enchId)).getMaxLevel();
+
+            return limits.containsKey(enchId)
+                ? limits.get(enchId)
+                : (int)Math.round(computeIfRight(
+                    LapisMathEngine.tryMath(
+                        behaviour_when_not_present,
+                        Map.of("x", maxLevel)
+                    ),
+                    msg -> {
+                        LOGGER.error("ERROR WHILE COMPUTING behaviour_when_not_present MATH. DEFAULTING TO 3*x.", msg);
+                        return 3.0 * (double)maxLevel;
+                    }
+                ));
+        }
+    }
+
     private static final String defaultConfig = """
     {
       "onetime_ritual": {
@@ -105,7 +210,7 @@ public class LapisConfig {
       },
 
       "overenchant_limit_in_imbue_amel": {
-        "comment": "0 for anything but behaviour_when_not_present means 'set to the 32-bit integer limit'. behaviour_when_not_present rules: Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).",
+        "docs": "Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3*tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).",
         "behaviour_when_not_present": "3*x",
         "minecraft:channeling": 1,
         "minecraft:mending": 1,
@@ -122,286 +227,75 @@ public class LapisConfig {
     private static final JsonObject defaultConfigObject = JsonParser.parseString(defaultConfig)
         .getAsJsonObject();
 
-    /** returns if it was valid. */
-    private boolean defaultIfInvalid(
-        JsonObject obj,
-        String key,
-        JsonPrimitive fallBackTo
-    ) {
-        if (fallBackTo.isBoolean()) {
-            try {
-                obj.get(key).getAsBoolean();
-            } catch (Exception e) {
-                obj.add(key, fallBackTo);
-                return false;
-            }
-        } else if (fallBackTo.isString()) {
-            try {
-                obj.get(key).getAsString();
-                if (
-                    key.startsWith("comment") &&
-                    !obj.get(key).getAsString().equals(fallBackTo.getAsString())
-                ) {
-                    obj.add(key, fallBackTo);
-                    return false;
-                }
-            } catch (Exception e) {
-                obj.add(key, fallBackTo);
-                return false;
-            }
-        } else if (fallBackTo.getAsNumber() instanceof Double) {
-            try {
-                obj.get(key).getAsDouble();
-            } catch (Exception e) {
-                obj.add(key, fallBackTo);
-                return false;
-            }
-        } else {
-            try {
-                obj.get(key).getAsInt();
-            } catch (Exception e) {
-                obj.add(key, fallBackTo);
-                return false;
-            }
-        }
-        return true;
-    }
-    /** returns if it was valid. */
-    @SuppressWarnings("unchecked")
-    private boolean defaultIfInvalid(
-        JsonObject superObj,
-        String key,
-        Pair<String, JsonPrimitive>... keyAndDefaultPairs
-    ) {
-        boolean fileIsPerfect = true;
-        try {
-            JsonObject thisObj = superObj.getAsJsonObject(key);
+    public static void renewCurrentConfig() { renewCurrentConfig(false); }
 
-            for (var pair : keyAndDefaultPairs) {
-                fileIsPerfect = fileIsPerfect &&
-                    defaultIfInvalid(thisObj, pair.getLeft(), pair.getRight());
-            }
-        } catch (ClassCastException | NullPointerException e) {
-            JsonObject thisObj = new JsonObject();
-            
-            for (var pair : keyAndDefaultPairs) {
-                thisObj.add(pair.getLeft(), pair.getRight());
-            }
-
-            superObj.add(key, thisObj);
-            fileIsPerfect = false;
-        }
-        return fileIsPerfect;
-    }
-
-    protected LapisConfig() {
-        this(false);
-    }
-    @SuppressWarnings("unchecked")
     // no dumbass it's january
-    protected LapisConfig(boolean canIYell) {
+    public static void renewCurrentConfig(boolean canIYell) {
+        JsonObject obj;
         try {
             if (!configFile.exists()) {
-                Files.writeString(configFile.toPath(), defaultConfig, StandardOpenOption.CREATE);
+                Files.writeString(configFile.toPath(), "{}", StandardOpenOption.CREATE);
             }
-            this.obj = JsonParser.parseReader(new FileReader(configFile)).getAsJsonObject();
+            obj = JsonParser.parseReader(new FileReader(configFile)).getAsJsonObject();
         } catch (Exception e1) {
             if (canIYell) {
-                err("Apparently, the Lapisworks config file is such horseshit it doesn't parse as valid JSON.");
+                err("Apparently, the Lapisworks config file is such horseshit it doesn't parse as valid JSON.", e1);
                 err("Trying to fix that right now...");
             }
-            this.obj = defaultConfigObject;
+            obj = defaultConfigObject;
 
             try {
-                Files.writeString(configFile.toPath(), defaultConfig, StandardOpenOption.CREATE);
+                Files.writeString(configFile.toPath(), "{}", StandardOpenOption.CREATE);
             } catch (IOException e2) {
-                if (!canIYell) return;
-                err("Yeah no, I can't fix your Lapisworks config file.");
-                err("I've defaulted your config options in-game, though.");
-                err("Your first error:");
-                e1.printStackTrace();
-                err("And your second error:");
-                e2.printStackTrace();
-                err("Toodles!");
+                if (canIYell) {
+					err("Yeah no, I can't fix your Lapisworks config file.");
+					err("I've defaulted your config options in-game, though.", e2);
+					err("Toodles!");
+				}
             }
-
-            return;
         }
 
-        boolean fileIsPerfect = true;
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            OneTime_R,
-            pair(PlayerAmbitMult, primitive(0.5)),
-            pair(TuneableAmbitMult, primitive(1.0)),
-            pair(PoweredTrailLength, primitive(1))
-        );
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            MultiUse_R,
-            pair(TuneableAmbitMult, primitive(1.0)),
-            pair(PoweredTrailLength, primitive(5))
-        );
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            Grand_R,
-            pair(DoAnimation, primitive(true)),
-            pair(CostMultiplier, primitive(0.5))
-        );
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            Chariot,
-            pair(MaxFusedAmalgams, primitive(1)),
-            pair(MaxSiARange, primitive(48.0)),
-            pair(MaxCARange, primitive(96.0)),
-            pair(SiAErrMult, primitive(0.125)),
-            pair(CAErrMult, primitive(0.25)),
-            pair(MaxErr, primitive(32.0))
-        );
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            Spells,
-            pair(AllowReclaimAmethyst, primitive(true))
-        );
-
-        fileIsPerfect = fileIsPerfect && defaultIfInvalid(
-            obj,
-            OverenchantLimit,
-            pair("comment", primitive("0 for anything but behaviour_when_not_present means 'set to the 32-bit integer limit'. behaviour_when_not_present rules: Operators are +-*/^. No implicit multiplication. x = default maximum for the enchantment (and the only other variables are π or e). Results will be rounded if non-integer, and clamped to 0 if negative. This is a mathematical expression (so something like 3tan(max(x - 5, 5)/3.14) works). You have the trig functions and their inverse (arc-) and hyperbolic (-h) counterparts, as well as floor, round, ceil, sqrt, abs, signum, degrees, radians, random(lower bound, upper bound), root(radicand, radical) and finally log (either log(num) for the natural logarithm, or log(num, base). Also you have bit-manipulation (NOT(n), AND(a, b), OR(a, b), XOR(a, b), etcetera).")),
-            pair("behaviour_when_not_present", primitive("3*x")),
-            pair("minecraft:channeling", primitive(1)),
-            pair("minecraft:mending", primitive(1)),
-            pair("minecraft:infinity", primitive(1)),
-            pair("minecraft:binding_curse", primitive(1)),
-            pair("minecraft:vanishing_curse", primitive(1)),
-            pair("minecraft:flame", primitive(1)),
-            pair("minecraft:multishot", primitive(1)),
-            pair("minecraft:piercing", primitive(10)),
-            pair("minecraft:silk_touch", primitive(1))
-        );
-
-        if (!fileIsPerfect) {
+        if (canIYell) log("Loading config!");
+        for (Settings settings : registered) {
+            String thisObjName = settings.clazz().getName();
+            JsonObject thisObj;
             try {
-                Files.writeString(
-                    configFile.toPath(),
-                    new GsonBuilder()
-                        .setPrettyPrinting()
-                        .create()
-                        .toJson(obj),
-                    StandardOpenOption.CREATE
-                );
-            } catch (IOException e) {
-                err("Tried to correct bad Lapisworks config file, failed!");
-                e.printStackTrace();
+                thisObj = obj.getAsJsonObject(thisObjName);
+            } catch (ClassCastException e) {
+                thisObj = null;
+            }
+
+			if (thisObj == null && canIYell) {
+                err("%s does not exist in config as an object!", thisObjName);
+			}
+
+            for (ConfigOption<?> co : settings.opts) {
+                co.deserializeSelfFromAndCorrect(thisObj, canIYell, thisObjName);
+                try {
+                    settings.clazz().getField(co.name).set(null, co.currentVal);
+                } catch (Exception e) {
+                    LOGGER.error("WAHHHHHHHHHHH!!!!!!!", e);
+                }
             }
         }
-    }
+        try {
+            overenchant_limit_in_imbue_amel.deserialize(obj);
+        } catch (Exception e) {
+            obj.add("overenchant_limit_in_imbue_amel", overenchant_limit_in_imbue_amel.defaultJson);
+        }
 
-
-    public static final record OneTimeRitualSettings(
-        double tuneable_amethyst_ambit_multiplier,
-        double player_ambit_multiplier,
-        int powered_trail_length
-    ) {}
-    public OneTimeRitualSettings getOneTimeRitualSettings() {
-        JsonObject settings = obj.getAsJsonObject(OneTime_R);
-
-        return new OneTimeRitualSettings(
-            settings.get(TuneableAmbitMult).getAsDouble(),
-            settings.get(PlayerAmbitMult).getAsDouble(),
-            settings.get(PoweredTrailLength).getAsInt()
-        );
-    }
-
-
-    public static final record MultiUseRitualSettings(
-        double tuneable_amethyst_ambit_multiplier,
-        int powered_trail_length
-    ) {}
-    public MultiUseRitualSettings getMultiUseRitualSettings() {
-        JsonObject settings = obj.getAsJsonObject(MultiUse_R);
-
-        return new MultiUseRitualSettings(
-            settings.get(TuneableAmbitMult).getAsDouble(),
-            settings.get(PoweredTrailLength).getAsInt()
-        );
-    }
-
-
-    public static final record GrandRitualSettings(
-        boolean do_animation,
-        double cost_multiplier
-    ) {}
-    public GrandRitualSettings getGrandRitualSettings() {
-        JsonObject settings = obj.getAsJsonObject(Grand_R);
-
-        return new GrandRitualSettings(
-            settings.get(DoAnimation).getAsBoolean(),
-            settings.get(CostMultiplier).getAsDouble()
-        );
-    }
-
-
-    public static final record ChariotSettings(
-        int max_fused_amalgamations,
-        double max_simple_amalgam_range,
-        double max_complex_amalgam_range,
-        double simple_amalgam_err_multiplier,
-        double complex_amalgam_err_multiplier,
-        double max_err
-    ) {}
-    public ChariotSettings getChariotSettings() {
-        JsonObject settings = obj.getAsJsonObject(Chariot);
-
-        return new ChariotSettings(
-            settings.get(MaxFusedAmalgams).getAsInt(),
-            settings.get(MaxSiARange).getAsDouble(),
-            settings.get(MaxCARange).getAsDouble(),
-            settings.get(SiAErrMult).getAsDouble(),
-            settings.get(CAErrMult).getAsDouble(),
-            settings.get(MaxErr).getAsDouble()
-        );
-    }
-
-
-    public static final record SpellSettings(
-        boolean allow_reclaim_amethyst
-    ) {}
-    public SpellSettings getSpellSettings() {
-        JsonObject settings = obj.getAsJsonObject(Spells);
-
-        return new SpellSettings(
-            settings.get(AllowReclaimAmethyst).getAsBoolean()
-        );
-    }
-
-
-    public int getOverenchantLimitFor(Enchantment enchantment) {
-        return getOverenchantLimitFor(Registries.ENCHANTMENT.getId(enchantment).toString());
-    }
-    public int getOverenchantLimitFor(String enchantmentId) {
-        JsonObject limits = obj.getAsJsonObject(OverenchantLimit);
-        int maxLevel = Registries.ENCHANTMENT.get(new Identifier(enchantmentId)).getMaxLevel();
-
-        return limits.has(enchantmentId)
-            ? limits.get(enchantmentId).getAsInt() == 0
-                ? Integer.MAX_VALUE // you can't even get it this high...
-                : limits.get(enchantmentId).getAsInt()
-            : (int)Math.round(computeIfRight(
-                LapisMathEngine.tryMath(
-                    limits.get("behaviour_when_not_present").getAsString(),
-                    Map.of("x", maxLevel)
-                ),
-                msg -> {
-                    err("ERROR WHILE COMPUTING default_if_invalid MATH. DEFAULTING TO 3x.");
-                    err(msg);
-                    return 3.0 * (double)maxLevel;
-                }
-            ));
+        try {
+            Files.writeString(
+                configFile.toPath(),
+                new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create()
+                    .toJson(obj),
+                StandardOpenOption.CREATE
+            );
+        } catch (IOException e) {
+            err("Tried to correct bad Lapisworks config file, failed!");
+            e.printStackTrace();
+        }
     }
 }

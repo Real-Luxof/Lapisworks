@@ -1,15 +1,9 @@
 package com.luxof.lapisworks.actions;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
-import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment.HeldItemInfo;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadOffhandItem;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 
@@ -22,6 +16,8 @@ import com.luxof.lapisworks.inv.HandsInv;
 import com.luxof.lapisworks.mishaps.MishapNotEnoughItems;
 import com.luxof.lapisworks.mixinsupport.GetStacks;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
+import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 import com.luxof.lapisworks.recipes.ImbuementRec;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
@@ -33,7 +29,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -45,15 +40,15 @@ import net.minecraft.util.math.BlockPos;
  * "this code makes no sense"
  * "..and the code is incomprehensible anyway.."
  * I can confirm, this code is indeed incomprehensible. */
-public class ImbueAmel implements SpellAction {
+public class ImbueAmel extends SpellActionNCT {
     public int getArgc() {
         return 1;
     }
 
     @Override
-    public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
-        int wantToInfuseAmount = OperatorUtils.getPositiveInt(args, 0, getArgc());
-        if (wantToInfuseAmount <= 0) {
+    public SpellAction.Result execute(HexIotaStack stack, CastingEnvironment ctx) {
+        int wantToInfuseAmount = stack.getPositiveInt(0);
+        if (wantToInfuseAmount <= 0)
             // go fuck yourself
             return new SpellAction.Result(
                 new DoNothing.DoNothingSpell(),
@@ -61,14 +56,13 @@ public class ImbueAmel implements SpellAction {
                 List.of(),
                 1
             );
-        }
 
 
         VAULT vault = ((GetVAULT)ctx).grabVAULT();
         List<HeldItemInfo> heldInfos = ((GetStacks)ctx).getHeldStacksOtherFirst();
 
 
-        // prioritize recipes in the non-casting hand
+        // wanna prioritize recipes in the non-casting hand (so i don't accidentally imbue a staff)
         Optional<ImbuementRec> recipeOnOtherhand = getImbuementOnOneHand(
             ctx.getWorld(),
             heldInfos,
@@ -89,7 +83,7 @@ public class ImbueAmel implements SpellAction {
             Map<Identifier, BeegInfusion> beegInfusionRecipes = BeegInfusions.filter(
                 heldInfos,
                 ctx,
-                args,
+                stack.stack,
                 vault
             );
             if (beegInfusionRecipes.isEmpty())
@@ -157,7 +151,7 @@ public class ImbueAmel implements SpellAction {
         );
     }
 
-    public class Spell implements RenderedSpell {
+    public class Spell implements RenderedSpellNCT {
         public final List<ItemStack> changeToItem;
         public final Hand hand;
         public final int count;
@@ -190,45 +184,15 @@ public class ImbueAmel implements SpellAction {
                 )
             );
 		}
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
-        }
     }
 
     /** really should just call it a sophisticated infusion */
-    public class SpellBeegInfusion implements RenderedSpell {
+    public class SpellBeegInfusion implements RenderedSpellNCT {
         public final BeegInfusion recipe;
 
         public SpellBeegInfusion( BeegInfusion recipe ) { this.recipe = recipe; }
 
         @Override
         public void cast(CastingEnvironment ctx) { this.recipe.accept(); }
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
-        }
-    }
-
-    @Override
-    public boolean awardsCastingStat(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.awardsCastingStat(this, ctx);
-    }
-
-    @Override
-    public Result executeWithUserdata(List<? extends Iota> args, CastingEnvironment env, NbtCompound userData) {
-        return SpellAction.DefaultImpls.executeWithUserdata(this, args, env, userData);
-    }
-
-    @Override
-    public boolean hasCastingSound(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.hasCastingSound(this, ctx);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return SpellAction.DefaultImpls.operate(this, arg0, arg1, arg2);
     }
 }

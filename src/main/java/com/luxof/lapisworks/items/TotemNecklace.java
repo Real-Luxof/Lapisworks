@@ -46,4 +46,9 @@ public class TotemNecklace extends Item implements ITotem {
     ) {
         return new ItemStack(ModItems.TOTEM_NECKLACE_FLOATY_DISPLAY);
     }
+
+    @Override
+    public boolean isEnchantable(ItemStack stack) {
+        return false;
+    }
 }

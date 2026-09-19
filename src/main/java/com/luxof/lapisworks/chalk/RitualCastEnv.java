@@ -72,7 +72,7 @@ public class RitualCastEnv extends CastingEnvironment {
     }
 
     @Override
-    protected List<ItemStack> getUsableStacks(StackDiscoveryMode mode) {
+    public List<ItemStack> getUsableStacks(StackDiscoveryMode mode) {
         if (getCastingEntity() instanceof ServerPlayerEntity sp)
             return getUsableStacksForPlayer(mode, null, sp);
 
@@ -80,7 +80,7 @@ public class RitualCastEnv extends CastingEnvironment {
     }
 
     @Override
-    protected List<HeldItemInfo> getPrimaryStacks() {
+    public List<HeldItemInfo> getPrimaryStacks() {
         if (getCastingEntity() instanceof ServerPlayerEntity sp)
             return getPrimaryStacksForPlayer(Hand.OFF_HAND, sp);
 

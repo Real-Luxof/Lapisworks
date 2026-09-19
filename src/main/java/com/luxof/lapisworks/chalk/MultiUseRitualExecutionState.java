@@ -48,14 +48,9 @@ public class MultiUseRitualExecutionState extends RitualExecutionState {
         this.visitedPositions = new ArrayList<>(visitedPositions);
     }
 
-    private double retrieveTuneableAmbitMul() {
-        return LapisConfig.getCurrentConfig()
-            .getMultiUseRitualSettings()
-            .tuneable_amethyst_ambit_multiplier();
-    }
     @Override
     public boolean isVecInAmbit(Vec3d vec, ServerWorld world) {
-        return isVecInAmbitOfTuneableAmethyst(vec, world, retrieveTuneableAmbitMul());
+        return isVecInAmbitOfTuneableAmethyst(vec, world, LapisConfig.multiuse_ritual.tuneable_amethyst_ambit_multiplier);
     }
 
     @Override

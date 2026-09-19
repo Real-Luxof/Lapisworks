@@ -18,7 +18,6 @@
 		"PatternIotaMixin",
 		"OpMakeBattery$SpellMixin",
 		"BlockEntityAbstractImpetusMixin",
-		"MinecraftServerMixin",
 		"LoseJobOnSiteLossTaskMixin",
 		"IotaAccessor",
 		"ItemEntityMixin",
@@ -35,6 +34,7 @@
 		"ServerWorldMixin",
 		"OpFlight$CompanionMixin",
 		"ChunkSerializerMixin",
+		"FrameForEachMixin",
 
 		"FabricXplatImplMixin"
 	],

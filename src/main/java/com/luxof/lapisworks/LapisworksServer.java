@@ -8,6 +8,7 @@ import at.petrak.hexcasting.common.msgs.MsgOpenSpellGuiS2C;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 
 import com.luxof.lapisworks.blocks.entities.ChalkWithPatternEntity;
+import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.init.PersistentStateRituals;
 import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
 
@@ -121,10 +122,18 @@ public class LapisworksServer {
 
     /** public so anyone can easily fw it */
     public static Map<String, BiConsumer<ServerPlayerEntity, PacketByteBuf>> dowseResultTakers = new HashMap<>();
+    private static int configRefreshCountdown = 100;
 
     public static void lockIn() {
         dowseResultTakers.put(GEODE_DOWSER_REQUEST, GEODE_DOWSER::serverHandleDowseResult);
 
+        ServerTickEvents.START_SERVER_TICK.register((server) -> {
+            configRefreshCountdown--;
+            if (configRefreshCountdown < 0) {
+                LapisConfig.renewCurrentConfig();
+                configRefreshCountdown++;
+            }
+        });
         ServerPlayNetworking.registerGlobalReceiver(
             LapisworksIDs.OPEN_CASTING_GRID,
             (

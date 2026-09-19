@@ -36,7 +36,7 @@ public class ImbueLap extends SpellActionNCT {
 
         int count = heldStackInfo.stack().getCount();
 
-        if (LapisConfig.getCurrentConfig().getSpellSettings().allow_reclaim_amethyst()) {
+        if (LapisConfig.spells.allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media) {
 
             int got = ((GetVAULT)ctx).grabVAULT().drain(
                 ImbueLap::isLapis,
@@ -66,7 +66,7 @@ public class ImbueLap extends SpellActionNCT {
 		@Override
 		public void cast(CastingEnvironment ctx) {
 
-            if (LapisConfig.getCurrentConfig().getSpellSettings().allow_reclaim_amethyst())
+            if (LapisConfig.spells.allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media)
                 vault.drain(Items.AMETHYST_SHARD, this.count, false, Flags.PRESET_UpToHotbar);
 
             ctx.replaceItem(ImbueLap::isLapis, new ItemStack(ModItems.AMEL_ITEM, this.count), hand);

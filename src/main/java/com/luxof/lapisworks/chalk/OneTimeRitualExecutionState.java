@@ -5,7 +5,6 @@ import at.petrak.hexcasting.api.pigment.FrozenPigment;
 
 import com.luxof.lapisworks.Lapisworks;
 import com.luxof.lapisworks.init.LapisConfig;
-import com.luxof.lapisworks.init.LapisConfig.OneTimeRitualSettings;
 
 import static com.luxof.lapisworks.Lapisworks.deserializeBlockPos;
 import static com.luxof.lapisworks.Lapisworks.getPigmentFromDye;
@@ -30,15 +29,6 @@ import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 public class OneTimeRitualExecutionState extends RitualExecutionState {
-    private OneTimeRitualSettings getSettings() {
-        return LapisConfig.getCurrentConfig().getOneTimeRitualSettings();
-    }
-    private double getPlayerAmbitMult() {
-        return getSettings().player_ambit_multiplier();
-    }
-    private double getTuneableAmbitMult() {
-        return getSettings().tuneable_amethyst_ambit_multiplier();
-    }
 
     public long media;
     public UUID casterWhileCasterIsDisabled = null;
@@ -86,8 +76,8 @@ public class OneTimeRitualExecutionState extends RitualExecutionState {
 
     @Override
     public boolean isVecInAmbit(Vec3d vec, ServerWorld world) {
-        return isVecInAmbitOfPlayer(vec, world, getPlayerAmbitMult())
-            || isVecInAmbitOfTuneableAmethyst(vec, world, getTuneableAmbitMult());
+        return isVecInAmbitOfPlayer(vec, world, LapisConfig.onetime_ritual.player_ambit_multiplier)
+            || isVecInAmbitOfTuneableAmethyst(vec, world, LapisConfig.onetime_ritual.tuneable_amethyst_ambit_multiplier);
     }
 
     @Override

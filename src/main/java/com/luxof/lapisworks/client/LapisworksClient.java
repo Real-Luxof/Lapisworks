@@ -80,7 +80,7 @@ public class LapisworksClient implements ClientModInitializer {
     public static void registerMPPs() {
         ModelPredicateProviderRegistry.register(
             IRON_SWORD,
-            // first person doesn't work and i don't fuckign know why
+            // first person doesn't work and i don't fucking know why
             id("blocking"),
             (stack, world, entity, seed) -> {
                 return entity != null

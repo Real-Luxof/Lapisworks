@@ -1,14 +1,8 @@
 package com.luxof.lapisworks.actions;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
-import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 
 import com.google.common.collect.ImmutableMultimap;
@@ -19,6 +13,8 @@ import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
+import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
 
 import static com.luxof.lapisworks.LapisworksIDs.AMEL;
 import static com.luxof.lapisworks.LapisworksIDs.ATK_RANGE_ENHANCEMENT_UUID;
@@ -32,9 +28,10 @@ import net.minecraft.entity.attribute.AttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
-import net.minecraft.nbt.NbtCompound;
 
-public class MoarReachYouBitch implements SpellAction {
+public class MoarReachYouBitch extends SpellActionNCT {
+    public int argc = 2;
+
     public static final int amelCost = 16;
     public static final int amelCostMultiplier = 4;
     public static final int reachIncrease = 3;
@@ -57,14 +54,10 @@ public class MoarReachYouBitch implements SpellAction {
         ReachEntityAttributes.ATTACK_RANGE, ATTACK_REACH_MODIFIER
     );
 
-    public int getArgc() {
-        return 2;
-    }
-
     @Override
-    public SpellAction.Result execute(List<? extends Iota> args, CastingEnvironment ctx) {
-        LivingEntity entity = OperatorUtils.getPlayer(args, 0, getArgc());
-        boolean enableIt = OperatorUtils.getBool(args, 1, getArgc());
+    public SpellAction.Result execute(HexIotaStack stack, CastingEnvironment ctx) {
+        LivingEntity entity = stack.getPlayer(0);
+        boolean enableIt = stack.getBool(1);
 
         boolean expendShit = !entity.getAttributes().hasModifierForAttribute(
             ReachEntityAttributes.REACH,
@@ -91,7 +84,7 @@ public class MoarReachYouBitch implements SpellAction {
         );
     }
 
-    public class Spell implements RenderedSpell {
+    public class Spell implements RenderedSpellNCT {
         public final LivingEntity entity;
         public final boolean enableIt;
         public final VAULT vault;
@@ -122,30 +115,5 @@ public class MoarReachYouBitch implements SpellAction {
             else
                 entity.getAttributes().removeModifiers(modifiers);
 		}
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
-        }
-    }
-
-    @Override
-    public boolean awardsCastingStat(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.awardsCastingStat(this, ctx);
-    }
-
-    @Override
-    public Result executeWithUserdata(List<? extends Iota> args, CastingEnvironment env, NbtCompound userData) {
-        return SpellAction.DefaultImpls.executeWithUserdata(this, args, env, userData);
-    }
-
-    @Override
-    public boolean hasCastingSound(CastingEnvironment ctx) {
-        return SpellAction.DefaultImpls.hasCastingSound(this, ctx);
-    }
-
-    @Override
-    public OperationResult operate(CastingEnvironment arg0, CastingImage arg1, SpellContinuation arg2) {
-        return SpellAction.DefaultImpls.operate(this, arg0, arg1, arg2);
     }
 }

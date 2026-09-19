@@ -1,17 +1,15 @@
 package com.luxof.lapisworks.interop.hierophantics;
 
-import at.petrak.hexcasting.api.casting.OperatorUtils;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
-import at.petrak.hexcasting.api.casting.RenderedSpell;
 import at.petrak.hexcasting.api.casting.castables.SpellAction;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadBlock;
 import at.petrak.hexcasting.api.misc.MediaConstants;
 
 import com.luxof.lapisworks.init.ModBlocks;
 import com.luxof.lapisworks.mixinsupport.ChariotServerPlayer;
+import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
+import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT.RenderedSpellNCT;
 
 import static com.luxof.lapisworks.MishapThrowerJava.throwIfEmpty;
 
@@ -24,16 +22,14 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
 public class ChariotInterface {
-    private static int argc = 2;
-
     /** null = couldn't work. */
     @Nullable
     public static SpellAction.Result tryImbueChariotMind(
-        List<? extends Iota> args,
+        HexIotaStack args,
         CastingEnvironment ctx
     ) {
         ServerWorld world = ctx.getWorld();
-        BlockPos flayInto = OperatorUtils.getBlockPos(args, 0, argc);
+        BlockPos flayInto = args.getBlockPos(0);
         //LOGGER.info("flay into pos: " + flayInto.toString());
         //LOGGER.info("instance of flay bed? " + String.valueOf(world.getBlockEntity(flayInto) instanceof robotgiggle.hierophantics.blocks.FlayBedBlockEntity flayBed));
         if (
@@ -45,7 +41,7 @@ public class ChariotInterface {
             ? plr
             : null;
 
-        BlockPos flayFrom = OperatorUtils.getBlockPos(args, 1, argc);
+        BlockPos flayFrom = args.getBlockPos(1);
         throwIfEmpty(
             world.getBlockEntity(flayFrom, Chariot.CHARIOT_MIND_ENTITY_TYPE),
             new MishapBadBlock(flayFrom, Chariot.CHARIOT_MIND.getName())
@@ -59,7 +55,7 @@ public class ChariotInterface {
         );
     }
 
-    public static class Spell implements RenderedSpell {
+    public static class Spell implements RenderedSpellNCT {
         public final BlockPos flayFrom;
         public final ServerPlayerEntity flayInto;
 
@@ -78,11 +74,6 @@ public class ChariotInterface {
                     chariotMind.get().getAmalgamation(world)
                 );
             world.setBlockState(flayFrom, ModBlocks.MIND_BLOCK.getDefaultState());
-        }
-
-        @Override
-        public CastingImage cast(CastingEnvironment arg0, CastingImage arg1) {
-            return RenderedSpell.DefaultImpls.cast(this, arg0, arg1);
         }
     }
 }

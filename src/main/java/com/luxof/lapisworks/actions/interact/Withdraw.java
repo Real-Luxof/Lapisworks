@@ -23,9 +23,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 public class Withdraw extends SpellActionNCT {
-    public int getArgc() {
-        return 2;
-    }
+    public int argc = 2;
 
     @Override
     public Result execute(HexIotaStack stack, CastingEnvironment ctx) {
@@ -43,6 +41,8 @@ public class Withdraw extends SpellActionNCT {
                     && mhi.canRecharge(itemStack)
             );
             if (heldInfo == null)
+                //throw MishapBadOffhandItem.of(ItemStack.EMPTY.copy(), "rechargeable");
+                // i will forever call this the incorrect way of spelling "rechargeable"
                 throw MishapBadOffhandItem.of(ItemStack.EMPTY.copy(), "rechargeable");
 
             ItemStack intoStack = heldInfo.component1();

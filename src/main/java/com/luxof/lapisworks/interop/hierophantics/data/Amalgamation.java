@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
 import at.petrak.hexcasting.common.lib.HexSounds;
 
 import com.luxof.lapisworks.init.LapisConfig;
-import com.luxof.lapisworks.init.LapisConfig.ChariotSettings;
 import com.luxof.lapisworks.interop.hierophantics.blocks.ChariotMindEntity;
 
 import static com.luxof.lapisworks.Lapisworks.clamp;
@@ -95,11 +94,10 @@ public class Amalgamation {
     }
 
     public double getErr() {
-        ChariotSettings chariotSettings = LapisConfig.getCurrentConfig().getChariotSettings();
         return clamp(
             forNoobs
-                ? (range - 32) * chariotSettings.simple_amalgam_err_multiplier()
-                : range * chariotSettings.complex_amalgam_err_multiplier(),
+                ? (range - 32) * LapisConfig.hierophantics_interop.simple_amalgam_err_multiplier
+                : range * LapisConfig.hierophantics_interop.complex_amalgam_err_multiplier,
             0.0,
             32.0
         );
@@ -110,10 +108,9 @@ public class Amalgamation {
     }
 
     public double getMaxRange() {
-        ChariotSettings chariotSettings = LapisConfig.getCurrentConfig().getChariotSettings();
         return forNoobs
-            ? chariotSettings.max_simple_amalgam_range()
-            : chariotSettings.max_complex_amalgam_range();
+            ? LapisConfig.hierophantics_interop.max_simple_amalgam_range
+            : LapisConfig.hierophantics_interop.max_complex_amalgam_range;
     }
 
     public void updateOrigin(ServerWorld world) {
