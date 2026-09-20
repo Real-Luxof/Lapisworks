@@ -159,13 +159,11 @@ public class LapisConfig {
             }
         }
         public static int getOverenchantLimitFor(Enchantment enchantment) {
-            return getOverenchantLimitFor(Registries.ENCHANTMENT.getId(enchantment).toString());
-        }
-        public static int getOverenchantLimitFor(String enchId) {
-            int maxLevel = Registries.ENCHANTMENT.get(new Identifier(enchId)).getMaxLevel();
+            Identifier enchId = Registries.ENCHANTMENT.getId(enchantment);
+            int maxLevel = enchantment.getMaxLevel();
 
-            return limits.containsKey(enchId)
-                ? limits.get(enchId)
+            return limits.containsKey(enchId.toString())
+                ? limits.get(enchId.toString())
                 : (int)Math.round(computeIfRight(
                     LapisMathEngine.tryMath(
                         behaviour_when_not_present,
@@ -209,7 +207,7 @@ public class LapisConfig {
 
         if (canIYell) log("Loading config!");
         for (Settings settings : registered) {
-            String thisObjName = settings.clazz().getName();
+            String thisObjName = settings.clazz().getSimpleName();
             JsonObject thisObj;
             try {
                 thisObj = obj.getAsJsonObject(thisObjName);
@@ -217,9 +215,10 @@ public class LapisConfig {
                 thisObj = null;
             }
 
-			if (thisObj == null && canIYell) {
-                err("%s does not exist in config as an object!", thisObjName);
-			}
+			if (thisObj == null) {
+                if (canIYell) err("%s does not exist in config as an object!", thisObjName);
+                thisObj = new JsonObject();
+            }
 
             for (ConfigOption<?> co : settings.opts) {
                 co.deserializeSelfFromAndCorrect(thisObj, canIYell, thisObjName);

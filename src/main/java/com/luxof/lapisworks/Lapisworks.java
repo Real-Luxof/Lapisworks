@@ -212,7 +212,7 @@ public class Lapisworks implements ModInitializer {
 		}
 
 		LapisResourceCons.doBondagePlay();
-		LapisConfig.renewCurrentConfig();
+		LapisConfig.renewCurrentConfig(true);
 		LapisSounds.imagineArfingCouldntBeMe();
 		ThemConfigFlags.declareEm();
 		ModEntities.doSomethingFun();
