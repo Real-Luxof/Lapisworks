@@ -444,16 +444,22 @@ Only the devs who can keep up with me...
 - Walking by people with stealth collars no longer makes you crash
   - i have since made an actual whole testing process that covers everything (that i remember)
 - Withdraw Media's error message said "hexcasting.mishap.bad_item.rechargeable"
-# 1.5.8.7
+# 1.5.8.6
 ### Additions
 - Config options to have Deposit Media and Withdraw Media work on players
+- Crash with Heirophantics
 - Disenchant pattern
-- Expanded Enchanted Book
+- Enchanted Buk (and its entry)
+- Spell Circles weren't working for a second
+### Changes
+- Mold Amel no longer does not preserve item NBT (e.g. focus necklaces going through it will not have their iota destroyed)
 ### Fixes
 - Config fuckery
+- Crash with Hierophantics
 - Math engine did not recognize the symbols π and e
 - Random ass crash with mixins specifically for Hexwoven??
 - Thoth's Manipulators weren't working specifically on Thoth's Gambit :dead:
+# 1.5.8.7
 ### Additions
 - Collar stuff
   - amethyst shard addition

@@ -46,7 +46,7 @@ public abstract class CircleExecutionStateMixin {
         @Local ServerWorld level,
         @Local Stack<Pair<Direction, BlockPos>> todo,
         @Local Direction enterDir,
-        @Local BlockPos herePos,
+        @Local(name = "herePos") BlockPos herePos,
         @Local ICircleComponent cmp
     ) {
         // jump slate needs to hijack here and add it's own exit destination, lest the spell circle fail
