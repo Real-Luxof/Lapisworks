@@ -39,7 +39,7 @@ import robotgiggle.hierophantics.HieroMindCastEnv;
 public class PatternIotaMixin2 {
     private ArrayList<Iota> oldStack = new ArrayList<>();
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At("HEAD")
     )
     public @NotNull void execute(
@@ -74,7 +74,7 @@ public class PatternIotaMixin2 {
     }
 
     @Inject(
-        method = "execute",
+        method = "lookupAndOperate",
         at = @At(
             value = "NEW",
             target = "at/petrak/hexcasting/api/casting/eval/CastResult"
