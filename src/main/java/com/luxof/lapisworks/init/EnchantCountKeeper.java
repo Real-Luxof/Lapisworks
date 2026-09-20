@@ -8,4 +8,13 @@ public class EnchantCountKeeper {
         tally++;
         return tally;
     }
+    public static int getTally() {
+        return tally;
+    }
+    /** utility method */
+    public static Integer[] getTallyAsZeroes() {
+        Integer[] zeroes = new Integer[tally];
+        for (int i = 0; i < zeroes.length; i++) { zeroes[i] = 0; }
+        return zeroes;
+    }
 }
