@@ -13,6 +13,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import com.luxof.lapisworks.actions.MoarReachYouBitch;
+import com.luxof.lapisworks.init.EnchantCountKeeper;
 import com.luxof.lapisworks.items.shit.ITotem;
 import com.luxof.lapisworks.mixinsupport.DamageSupportInterface;
 import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
@@ -74,12 +75,9 @@ public abstract class LivingEntityMixin extends Entity implements LapisworksInte
 		EntityAttributes.GENERIC_MAX_HEALTH, 0.0,
 		EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.0
 	));
-	@Unique private List<Integer> enchantments = new ArrayList<Integer>(List.of(0, 0, 0, 0, 0));
-
-	@Unique
-	private void expandEnchantmentsIfNeeded(int idx) {
-		while (idx > this.enchantments.size() - 1) { this.enchantments.add(0); }
-	}
+	@Unique private List<Integer> enchantments = new ArrayList<>(
+		List.of(new Integer[EnchantCountKeeper.getTally()])
+	);
 
 	// specification details
 	@Override
@@ -165,13 +163,11 @@ public abstract class LivingEntityMixin extends Entity implements LapisworksInte
 
 	@Override
 	public int getEnchant(int whatEnchant) {
-		expandEnchantmentsIfNeeded(whatEnchant);
 		return this.enchantments.get(whatEnchant);
 	}
 
 	@Override
 	public void setEnchantmentLevel(int whatEnchant, int level) {
-		this.expandEnchantmentsIfNeeded(whatEnchant);
 		this.enchantments.set(whatEnchant, level);
 	}
 

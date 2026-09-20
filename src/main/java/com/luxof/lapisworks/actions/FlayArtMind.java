@@ -30,10 +30,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
-
-import org.jetbrains.annotations.Nullable;
 
 public class FlayArtMind extends SpellActionNCT {
     public int argc = 2;
@@ -109,10 +106,5 @@ public class FlayArtMind extends SpellActionNCT {
             );
             this.flayer.accept();
 		}
-    }
-
-    @Nullable
-    public static ServerPlayerEntity getPlayerOrNull(CastingEnvironment ctx) {
-        return ctx.getCastingEntity() != null ? (ServerPlayerEntity)ctx.getCastingEntity() : null;
     }
 }

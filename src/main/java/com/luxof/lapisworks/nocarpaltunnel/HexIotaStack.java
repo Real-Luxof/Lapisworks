@@ -30,6 +30,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -238,5 +239,19 @@ public class HexIotaStack {
             idx,
             Text.translatable("mishaps.lapisworks.descs.entityorblockposiota")
         );
+    }
+
+    public LivingEntity getLivingEntityButNotArmorStandOrPlayersExceptTheCaster(int idx) {
+        Iota iota = get(idx);
+        LivingEntity livingEntity = getLivingEntityButNotArmorStand(idx);
+
+        if (livingEntity instanceof ServerPlayerEntity && livingEntity != ctx.getCastingEntity())
+            throw new MishapInvalidIota(
+                iota,
+                idx,
+                Text.translatable("mishaps.lapisworks.descs.livingentitybutnotnonplayercasters")
+            );
+
+        return livingEntity;
     }
 }

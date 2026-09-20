@@ -96,6 +96,7 @@ public class Patterns {
         register("longbreath", "wewdwewewewewdwew", HexDir.SOUTH_EAST, longBreath);
         register("fireresist", "wwqwqwadwawdawqwaeqqaqqe", HexDir.EAST, fireResist);
         register("checkenchant", "aqawwqqwqqw", HexDir.SOUTH_EAST, new CheckEnchant());
+        register("disenchant", "wedewqawwqqwqqw", HexDir.SOUTH_EAST, null);
 
         register("imbue_amel", "wqwwawwqwwaqwewaawewa", HexDir.NORTH_EAST, new ImbueAmel());
         register("disimbue_amel", "wwaqqddqqawwewwaqqddqqaww", HexDir.SOUTH_WEST, new DisenchantImbued());
