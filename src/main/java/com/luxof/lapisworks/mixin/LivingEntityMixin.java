@@ -76,7 +76,7 @@ public abstract class LivingEntityMixin extends Entity implements LapisworksInte
 		EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.0
 	));
 	@Unique private List<Integer> enchantments = new ArrayList<>(
-		List.of(new Integer[EnchantCountKeeper.getTally()])
+		List.of(EnchantCountKeeper.getTallyAsZeroes())
 	);
 
 	// specification details
