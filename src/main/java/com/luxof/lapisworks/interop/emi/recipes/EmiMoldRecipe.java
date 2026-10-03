@@ -1,6 +1,6 @@
 package com.luxof.lapisworks.interop.emi.recipes;
 
-import com.luxof.lapisworks.recipes.MoldRec;
+import com.luxof.lapisworks.recipes.mold.MoldRec;
 
 import static com.luxof.lapisworks.Lapisworks.id;
 import static com.luxof.lapisworks.interop.emi.LapisworksEmiPlugin.MOLD_CATEGORY;

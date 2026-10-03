@@ -10,7 +10,6 @@ import java.util.List;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.registry.DynamicRegistryManager;
@@ -23,11 +22,6 @@ public class CollarCombinationRecipe extends SpecialCraftingRecipe {
         super(id, CraftingRecipeCategory.MISC);
     }
 
-    public static class Type implements RecipeType<CollarCombinationRecipe> {
-        private Type() {}
-        public static final Type INSTANCE = new Type();
-    }
-
     @Override
     public ItemStack craft(RecipeInputInventory inventory, DynamicRegistryManager registryManager) {
         ItemStack start = null;
@@ -36,7 +30,7 @@ public class CollarCombinationRecipe extends SpecialCraftingRecipe {
         for (ItemStack stack : inventory.getInputStacks()) {
             if (!stack.isOf(COLLAR)) continue;
             if (base == null) {
-                start= stack;
+                start = stack;
                 base = stack;
             } else
                 return ItemStack.EMPTY;

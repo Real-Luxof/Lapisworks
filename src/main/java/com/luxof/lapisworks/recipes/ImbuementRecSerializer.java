@@ -56,9 +56,8 @@ public class ImbuementRecSerializer implements RecipeSerializer<ImbuementRec> {
     public void write(PacketByteBuf buf, ImbuementRec recipe) {
         recipe.getNormal().write(buf);
         buf.writeBoolean(recipe.getPartAmel() != null);
-        if (recipe.getPartAmel() != null) {
+        if (recipe.getPartAmel() != null)
             buf.writeIdentifier(Registries.ITEM.getId(recipe.getPartAmel()));
-        }
         buf.writeIdentifier(Registries.ITEM.getId(recipe.getFullAmel()));
         buf.writeInt(recipe.getFullAmelsCost());
     }

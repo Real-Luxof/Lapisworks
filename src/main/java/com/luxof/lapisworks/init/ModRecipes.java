@@ -1,6 +1,7 @@
 package com.luxof.lapisworks.init;
 
 import com.luxof.lapisworks.recipes.*;
+import com.luxof.lapisworks.recipes.mold.*;
 
 import static com.luxof.lapisworks.Lapisworks.id;
 
@@ -17,6 +18,7 @@ public class ModRecipes {
     public static final Identifier BREWING_ITEM_RECIPE_ID = id("brewery_item");
     public static final Identifier SMINDINFUSION_RECIPE_ID = id("simple_mind_infusion");
     public static final Identifier COLLAR_COMBINATION_RECIPE_ID = id("collar_combination");
+    public static final Identifier SWAP_EB_RECIPE_ID = id("mold_amel_special_enchanted_book");
 
     /** warcrimes will not be told */
     public static void apologizeForWarcrimes() {
@@ -24,7 +26,7 @@ public class ModRecipes {
         registerType(IMBUEMENT_RECIPE_ID, ImbuementRec.Type.INSTANCE);
 
         registerSerializer(MOLD_AMEL_RECIPE_ID, MoldRecSerializer.INSTANCE);
-        registerType(MOLD_AMEL_RECIPE_ID, MoldRec.Type.INSTANCE);
+        registerType(MOLD_AMEL_RECIPE_ID, IMoldRec.Type.INSTANCE);
 
         registerSerializer(BREWING_RECIPE_ID, BrewingRecSerializer.INSTANCE);
         registerType(BREWING_RECIPE_ID, BreweryRecipe.Type.INSTANCE);
@@ -36,7 +38,9 @@ public class ModRecipes {
         registerType(SMINDINFUSION_RECIPE_ID, SMindInfusionRec.Type.INSTANCE);
 
         registerSerializer(COLLAR_COMBINATION_RECIPE_ID, CollarCombinationRecipeSerializer.INSTANCE);
-        registerType(COLLAR_COMBINATION_RECIPE_ID, CollarCombinationRecipe.Type.INSTANCE);
+        //registerType(COLLAR_COMBINATION_RECIPE_ID, CollarCombinationRecipe.Type.INSTANCE);
+
+        registerSerializer(SWAP_EB_RECIPE_ID, EnchantedBookSwapRecSerializer.INSTANCE);
     }
 
     public static void registerSerializer(

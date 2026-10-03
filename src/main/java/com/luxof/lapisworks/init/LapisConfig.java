@@ -229,6 +229,7 @@ public class LapisConfig {
                 }
             }
         }
+
         try {
             overenchant_limit_in_imbue_amel.deserialize(obj);
         } catch (Exception e) {

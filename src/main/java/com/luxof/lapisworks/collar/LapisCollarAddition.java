@@ -36,7 +36,8 @@ public interface LapisCollarAddition {
         List<Identifier> existingAdditions,
         Identifier yourId
     );
-    /** Add your addition to the stack via <code>COLLAR.addAddition</code>. */
+    /** Add your addition to the stack via <code>COLLAR.addAddition</code>.
+     * Do not treat the input <code>collarStack</code> as mutable. Copy it then do what you want. */
     public ItemStack craft(
         ItemStack collarStack,
         List<Identifier> existingAdditions,

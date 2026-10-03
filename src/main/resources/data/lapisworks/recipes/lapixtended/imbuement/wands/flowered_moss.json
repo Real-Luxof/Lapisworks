@@ -1,10 +1,5 @@
 {
     "type": "lapisworks:amel_imbuement",
-    "requiredmod": [
-        {
-            "id": "hextended"
-        }
-    ],
     "normal": {
         "item": "hextended:staff/long/flowered_moss"
     },

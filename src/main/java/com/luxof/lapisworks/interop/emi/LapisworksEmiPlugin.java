@@ -5,7 +5,8 @@ import com.luxof.lapisworks.interop.emi.recipes.EmiImbuementRecipe;
 import com.luxof.lapisworks.interop.emi.recipes.EmiMoldRecipe;
 import com.luxof.lapisworks.interop.emi.recipes.EmiSMindInfusionRecipe;
 import com.luxof.lapisworks.recipes.ImbuementRec;
-import com.luxof.lapisworks.recipes.MoldRec;
+import com.luxof.lapisworks.recipes.mold.IMoldRec;
+import com.luxof.lapisworks.recipes.mold.MoldRec;
 import com.luxof.lapisworks.recipes.SMindInfusionRec;
 
 import static com.luxof.lapisworks.init.ModItems.PARTAMEL_STAFF;
@@ -73,8 +74,9 @@ public class LapisworksEmiPlugin implements EmiPlugin {
         for (ImbuementRec imbuementRec : recipeManager.listAllOfType(ImbuementRec.Type.INSTANCE)) {
             registry.addRecipe(new EmiImbuementRecipe(imbuementRec));
         }
-        for (MoldRec moldRec : recipeManager.listAllOfType(MoldRec.Type.INSTANCE)) {
-            registry.addRecipe(new EmiMoldRecipe(moldRec));
+        for (IMoldRec moldRec : recipeManager.listAllOfType(IMoldRec.Type.INSTANCE)) {
+            if (!(moldRec instanceof MoldRec staticMoldRec)) continue;
+            registry.addRecipe(new EmiMoldRecipe(staticMoldRec));
         }
         for (SMindInfusionRec mindInfusionRec : recipeManager.listAllOfType(SMindInfusionRec.Type.INSTANCE)) {
             registry.addRecipe(new EmiSMindInfusionRecipe(mindInfusionRec));

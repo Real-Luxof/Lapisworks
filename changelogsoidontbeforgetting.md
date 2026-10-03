@@ -450,7 +450,7 @@ Only the devs who can keep up with me...
 - Crash with Heirophantics
 - Disenchant pattern
 - Enchanted Buk (and its entry)
-- Spell Circles weren't working for a second
+- Spell Circles weren't working
 ### Changes
 - Mold Amel no longer does not preserve item NBT (e.g. focus necklaces going through it will not have their iota destroyed)
 ### Fixes
