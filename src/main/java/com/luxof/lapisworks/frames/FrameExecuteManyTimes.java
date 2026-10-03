@@ -12,6 +12,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.api.utils.HexUtils;
+import at.petrak.hexcasting.api.utils.TreeList;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
 
@@ -121,7 +122,7 @@ public class FrameExecuteManyTimes implements ContinuationFrame, IThothsLikeFram
 
     @Override
     public ContinuationFrame withDatum(List<Iota> newDatum) {
-        return new FrameForEach(new SpellList.LList(newDatum), instrs, baseStack, List.of());
+        return new FrameForEach(new SpellList.LList(newDatum), instrs, baseStack, TreeList.empty());
     }
 
     @Override

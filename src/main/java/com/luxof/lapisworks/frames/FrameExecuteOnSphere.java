@@ -13,6 +13,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
 import at.petrak.hexcasting.api.utils.HexUtils;
+import at.petrak.hexcasting.api.utils.TreeList;
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds;
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes;
 
@@ -200,7 +201,7 @@ public class FrameExecuteOnSphere implements ContinuationFrame, IThothsLikeFrame
     }
     @Override
     public ContinuationFrame withDatum(List<Iota> newDatum) {
-        return new FrameForEach(new SpellList.LList(newDatum), instrs, baseStack, List.of());
+        return new FrameForEach(new SpellList.LList(newDatum), instrs, baseStack, TreeList.empty());
     }
     @Override
     public SpellList getHex() {
