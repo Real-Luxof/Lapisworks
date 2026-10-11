@@ -60,7 +60,13 @@ public class Dowser {
                 map.put(block, any);
                 mapHOT.put(block, null);
             });
-            Vec3d eyePos = client.player.getEyePos();
+            Vec3d eyePos;
+            try {
+                eyePos = client.player.getEyePos();
+            } catch (NullPointerException e) {
+                // multi-threading is fire
+                continue;
+            }
             Vec3d size = new Vec3d(100, 100, 100);
             Vec3d min = eyePos.subtract(size);
 
