@@ -61,7 +61,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
             int bookEnchantmentLevel = bookEnchants.get(enchantment);
             int itemEnchantmentLevel = itemEnchants.getOrDefault(bookEnchants, 0);
             int finalEnchantmentLevel = bookEnchantmentLevel == itemEnchantmentLevel
-                ? Math.max(
+                ? Math.min(
                     bookEnchantmentLevel + 1,
                     LapisConfig.overenchant_limit_in_imbue_amel.getOverenchantLimitFor(enchantment)
                 )
