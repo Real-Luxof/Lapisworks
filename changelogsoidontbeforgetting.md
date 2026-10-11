@@ -453,7 +453,7 @@ Only the devs who can keep up with me...
 - Spell Circles weren't working
 ### Changes
 - Amel Orbs (Hextended interop) work in any casting env with hands now
-- Enchanted Sentinels now decrease player ambit by half of their ambit
+- Player Ambit to Enchanted Sentinel Ambit now must be 1:2 (the evil way)
 - Mold Amel no longer does not preserve item NBT (e.g. focus necklaces going through it will not have their iota destroyed)
 - Ritus sprite update (wtf was that)
 ### Fixes
