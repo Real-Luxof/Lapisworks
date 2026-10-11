@@ -467,6 +467,10 @@ Only the devs who can keep up with me...
 ### Interop
 - Hextended
   - You may now modify how much ambit an Amel Orb gives around the stored position from the config
+- HexConnect (meaning Forge)
+  - Chalk still doesn't connect properly, and ChalkWithPattern will crash your game apparently.
+  - Sorry, these bugs are kind of anomalous.
+  - Deposit Media should work with Oneironaut without crashing now though!
 # 1.5.8.7
 ### Additions
 - Collar stuff
