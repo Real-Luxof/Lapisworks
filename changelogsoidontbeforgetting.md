@@ -452,13 +452,18 @@ Only the devs who can keep up with me...
 - Enchanted Buk (and its entry)
 - Spell Circles weren't working
 ### Changes
+- Amel Orbs (Hextended interop) work in any casting env with hands now
+- Enchanted Sentinels now decrease player ambit by half of their ambit
 - Mold Amel no longer does not preserve item NBT (e.g. focus necklaces going through it will not have their iota destroyed)
+- Ritus sprite update (wtf was that)
 ### Fixes
+- Ancient Tomes weren't working??? (one-letter fix)
 - Config fuckery
 - Crash with Hierophantics
 - Math engine did not recognize the symbols π and e
 - Random ass crash with mixins specifically for Hexwoven??
 - Thoth's Manipulators weren't working specifically on Thoth's Gambit :dead:
+- mipmaps were set to 1 instead of being allowed to live because of some textures (sorry)
 # 1.5.8.7
 ### Additions
 - Collar stuff
