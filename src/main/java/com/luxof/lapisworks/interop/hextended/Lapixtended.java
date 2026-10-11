@@ -1,13 +1,20 @@
 package com.luxof.lapisworks.interop.hextended;
 
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironmentComponent;
+
+import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.interop.hextended.items.AmelOrb;
 import com.luxof.lapisworks.interop.hextended.items.AmelWand;
 import com.luxof.lapisworks.interop.hextended.items.PartAmelWand;
 import com.luxof.lapisworks.items.PartiallyAmelStaff;
+import com.luxof.lapisworks.mixinsupport.GetStacks;
 
 import static com.luxof.lapisworks.init.ModItems.registerItem;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Vec3d;
 
 /* Lapixtended? Lapistended? Hextended Lapis?
  * maybe Lapix/Lapistended for Hextended Gear stuff added by Lapisworks
@@ -44,5 +51,31 @@ public class Lapixtended {
     public static final Item AMEL_ORB = registerItem("amel_constructs/amel_orb", new AmelOrb());
 
     public static void initHextendedInterop() {
+        CastingEnvironment.addCreateEventListener((env, userData) -> {
+            env.addExtension(new CastingEnvironmentComponent.IsVecInRange() {
+
+                @Override
+                public boolean onIsVecInRange(Vec3d vec, boolean current) {
+                    if (current) return current;
+                    for (ItemStack stack : ((GetStacks)env).getHeldItemStacks()) {
+                        if (!(stack.getItem() instanceof AmelOrb orb)) continue;
+
+                        Vec3d ambitOrigin = orb.getPlaceInAmbit(stack);
+                        if (ambitOrigin == null) continue;
+
+                        if (
+                            vec.squaredDistanceTo(ambitOrigin)
+                            <= Math.pow(LapisConfig.hextended_interop.amel_orb_ambit, 2)
+                        )
+                            return true;
+                    }
+                    return current;
+                }
+
+                public Key<?> key = new Key<CastingEnvironmentComponent>() {};
+                @Override public Key<?> getKey() { return key; }
+
+            });
+        });
     }
 }

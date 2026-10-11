@@ -123,11 +123,15 @@ public class LapisConfig {
         public static boolean allow_reclaim_amethyst_but_imbue_lapis_takes_items_instead_of_raw_media = true;
         public static boolean players_are_depositable_and_withdrawable = false;
     }
+    public static class hextended_interop {
+        public static double amel_orb_ambit = 3.0;
+    }
     static {
         registerClass(onetime_ritual.class);
         registerClass(multiuse_ritual.class);
         registerClass(grand_ritual.class);
         registerClass(hierophantics_interop.class);
+        registerClass(hextended_interop.class);
     }
     public static class overenchant_limit_in_imbue_amel {
         public static String docs = "";

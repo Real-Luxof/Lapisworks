@@ -34,7 +34,6 @@ public class AmelOrb extends Item {
     private static final String PLACE_IN_AMBIT_Y = "place_in_ambit_Y";
     private static final String PLACE_IN_AMBIT_Z = "place_in_ambit_Z";
     private static final String PLACE_IN_AMBIT_IS_NULL = "place_in_ambit_is_null";
-    public double ambitRadius = 3.0;
     
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
