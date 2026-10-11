@@ -3,12 +3,12 @@ package com.luxof.lapisworks.actions;
 import at.petrak.hexcasting.api.casting.ParticleSpray;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 
-import java.util.List;
-
 import com.luxof.lapisworks.init.EnchantCountKeeper;
 import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
 import com.luxof.lapisworks.nocarpaltunnel.HexIotaStack;
 import com.luxof.lapisworks.nocarpaltunnel.SpellActionNCT;
+
+import java.util.List;
 
 import net.minecraft.entity.LivingEntity;
 
