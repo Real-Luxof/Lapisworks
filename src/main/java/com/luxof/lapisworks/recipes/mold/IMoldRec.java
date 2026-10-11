@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.registry.DynamicRegistryManager;
+import net.minecraft.world.World;
 
 public interface IMoldRec extends Recipe<HandsInv> {
     public static class Type implements RecipeType<MoldRec> {
@@ -14,6 +15,13 @@ public interface IMoldRec extends Recipe<HandsInv> {
     }
 
     default RecipeType<?> getType() { return Type.INSTANCE; }
+    default boolean matches(HandsInv inventory, World world) {
+        return inventory.getHands().stream()
+            .filter(this::matches)
+            .findFirst()
+            .isPresent();
+    }
+    public boolean matches(ItemStack stack);
     default ItemStack craft(HandsInv inventory, DynamicRegistryManager registryManager) {
         return craft(inventory);
     }

@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -75,6 +76,7 @@ public class ModItems {
     public static final FocusNecklace FOCUS_NECKLACE2 = new FocusNecklace(unstackable);
     public static final TotemNecklace TOTEM_NECKLACE = new TotemNecklace();
     public static final Collar COLLAR = new Collar();
+    public static final EnchantedBookItem SUPER_ENCHANTED_BOOK = new EnchantedBookItem(unstackable);
 
     public static final Item COLLAR_WITH_MODEL = new Item(unstackable);
     public static final Item COLLAR_BELL = new Item(unstackable);
@@ -140,6 +142,7 @@ public class ModItems {
         "amel_constructs/jumpslate/rebound_2", REBOUND_SLATE_2,
         "amel_jar", AMEL_JAR,
         "energy_container", ENERGY_CONTAINER,
+        "super_enchbook", SUPER_ENCHANTED_BOOK,
         "amel_constructs/geode_dowser", GEODE_DOWSER,
         "amel_constructs/simple_impetus", SIMPLE_IMPETUS,
         "amel_constructs/enchbrewer", ENCH_BREWER,

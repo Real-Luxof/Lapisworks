@@ -57,11 +57,8 @@ public class MoldRec implements IMoldRec {
     }
 
     @Override
-    public boolean matches(HandsInv inventory, World world) {
-        return inventory.getHands().stream()
-            .filter(stack -> this.input.test(stack))
-            .findFirst()
-            .isPresent();
+    public boolean matches(ItemStack stack) {
+        return input.test(stack);
     }
 
     @Override public boolean fits(int width, int height) { return true; }

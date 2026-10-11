@@ -35,6 +35,8 @@
 		"OpFlight$CompanionMixin",
 		"ChunkSerializerMixin",
 		"FrameForEachMixin",
+		"AnvilScreenHandlerMixin",
+		"EnchantmentHelperMixin",
 
 		"FabricXplatImplMixin"
 	],

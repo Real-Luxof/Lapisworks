@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants;
 
 import com.luxof.lapisworks.VAULT.Flags;
 import com.luxof.lapisworks.init.LapisConfig;
+import com.luxof.lapisworks.init.ModItems;
 import com.luxof.lapisworks.init.Mutables.BeegInfusion;
 import com.luxof.lapisworks.init.Mutables.Mutables;
 import com.luxof.lapisworks.mishaps.MishapBadHandItem;
@@ -41,7 +42,7 @@ public class EnhanceEnchantedBook extends BeegInfusion {
         for (HeldItemInfo heldInfo : this.heldInfos) {
             stack = heldInfo.stack();
             hand = heldInfo.hand();
-            if (stack.isOf(Items.ENCHANTED_BOOK)) {
+            if (stack.isOf(Items.ENCHANTED_BOOK) || stack.isOf(ModItems.SUPER_ENCHANTED_BOOK)) {
                 ret = true;
                 break;
             }
@@ -106,9 +107,14 @@ public class EnhanceEnchantedBook extends BeegInfusion {
         Enchantment enchant = enchants.keySet().iterator().next();
         enchants.put(enchant, enchants.get(enchant) + 1);
         EnchantmentHelper.set(enchants, stack);
+        ItemStack newStack = stack;
+        if (enchants.get(enchant) > enchant.getMaxLevel()) {
+            newStack = new ItemStack(ModItems.SUPER_ENCHANTED_BOOK, stack.getCount());
+            newStack.setNbt(stack.getNbt());
+        }
         ctx.replaceItem(
             stack -> true,
-            stack,
+            newStack,
             hand
         );
     }
