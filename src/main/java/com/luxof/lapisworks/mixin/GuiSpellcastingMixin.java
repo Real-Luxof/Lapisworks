@@ -4,37 +4,33 @@ import at.petrak.hexcasting.client.gui.GuiSpellcasting;
 
 import com.luxof.lapisworks.Lapisworks;
 
+import static com.luxof.lapisworks.Lapisworks.LOGGER;
 import static com.luxof.lapisworks.init.ModItems.AMEL_RING;
 import static com.luxof.lapisworks.init.ModItems.AMEL_RING2;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.TagKey;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = GuiSpellcasting.class)
 public class GuiSpellcastingMixin {
-    @Inject(
-        method = "tick",
+    @Redirect(
+        method = "tick()V",
         at = @At(
             value = "INVOKE",
-            target = "at/petrak/hexcasting/client/gui/GuiSpellcasting.closeForReal()V",
-            shift = At.Shift.BEFORE
-        ),
-        cancellable = true,
-        remap = false
+            target = "Lnet/minecraft/item/ItemStack;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"
+        )
     )
-    private void lapisworks$heyWait(CallbackInfo ci) {
+    private boolean lapisworks$IsHoldingCastingRing(ItemStack heldItem, TagKey<Item> tag) {
         PlayerEntity player = MinecraftClient.getInstance().player;
-
-        if (Lapisworks.trinketEquipped(player, AMEL_RING) ||
-            Lapisworks.trinketEquipped(player, AMEL_RING2)) {
-            // PROBABLY should add a check for if the player intentionally opened the casting menu
-            // but i'll let that be until it bites me in the ass
-            ci.cancel();
-        }
+        return heldItem.isIn(tag) ||
+            Lapisworks.trinketEquipped(player, AMEL_RING) ||
+            Lapisworks.trinketEquipped(player, AMEL_RING2);
     }
 }
