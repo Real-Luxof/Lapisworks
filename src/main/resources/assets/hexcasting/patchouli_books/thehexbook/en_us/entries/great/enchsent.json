@@ -28,6 +28,10 @@
         },
         {
             "type": "patchouli:text",
+            "text": "pages.lapisworks.great.create_enchsent.wat"
+        },
+        {
+            "type": "patchouli:text",
             "text": "pages.lapisworks.great.create_enchsent.detail"
         },
         {

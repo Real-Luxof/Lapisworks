@@ -6,15 +6,16 @@ import com.luxof.lapisworks.interop.valkyrienskies.ValkyrienUtils;
 import com.luxof.lapisworks.mixinsupport.EnchSentInterface;
 import com.luxof.lapisworks.mixinsupport.LapisworksInterface;
 
+import static com.luxof.lapisworks.Lapisworks.VALKYRIEN_SKIES_INTEROP;
+
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import static com.luxof.lapisworks.Lapisworks.VALKYRIEN_SKIES_INTEROP;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -38,11 +39,21 @@ public abstract class PlayerEntityMixin extends LivingEntity implements EnchSent
     @Override
     public void setEnchantedSentinel(Vec3d pos, Double ambit) {
         this.enchSentPos = pos;
+
+        EntityAttributeInstance casterAmbit = getAttributeInstance(HexAttributes.AMBIT_RADIUS);
+        if (sentRange != null)
+            casterAmbit.setBaseValue(casterAmbit.getBaseValue() + sentRange / 2);
+
         this.sentRange = ambit;
+
+        if (sentRange != null)
+            casterAmbit.setBaseValue(casterAmbit.getBaseValue() - sentRange / 2);
     }
     @Override
     public boolean shouldBreakSent() {
-        double casterAmbit = ((LivingEntity)this).getAttributeValue(HexAttributes.AMBIT_RADIUS);
+        if (getEnchantedSentinel() == null) return false;
+        double casterAmbit = getAttributeValue(HexAttributes.AMBIT_RADIUS);
+
         return this.getEnchantedSentinel() == null
             ? false
             : (VALKYRIEN_SKIES_INTEROP

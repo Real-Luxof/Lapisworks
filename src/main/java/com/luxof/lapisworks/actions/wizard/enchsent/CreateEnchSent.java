@@ -41,16 +41,22 @@ public class CreateEnchSent extends SpellActionNCT {
             ? ValkyrienUtils.distance(ctx.getWorld(), caster.getPos(), pos)
             : caster.getPos().distanceTo(pos);
 
-        double casterAmbit = caster.getAttributeValue(HexAttributes.AMBIT_RADIUS);
-        if (distance > casterAmbit)
+        Double currEnchSentAmbit = ((EnchSentInterface)caster).getEnchantedSentinelAmbit();
+        double casterAmbitWithoutEnchSent = caster.getAttributeValue(HexAttributes.AMBIT_RADIUS)
+            + (currEnchSentAmbit != null ? currEnchSentAmbit * 2.0 : 0.0);
+
+        double requestedAmbit = stack.getPositiveDoubleUnder(
+            1,
+            casterAmbitWithoutEnchSent * 2.0
+        );
+
+        if (distance > (casterAmbitWithoutEnchSent - requestedAmbit / 2.0))
             // you will NOT fuck with this to do better sent walk!
             throw new MishapBadLocation(pos, "too_far");
 
-        double ambit = stack.getDoubleBetween(1, 1.0, 64.0);
-
 
         return new SpellAction.Result(
-            new Spell(caster, pos, ambit),
+            new Spell(caster, pos, requestedAmbit),
             MediaConstants.DUST_UNIT * 5,
             List.of(ParticleSpray.burst(caster.getPos(), 2, 15)),
             1
