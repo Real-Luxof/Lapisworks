@@ -448,7 +448,7 @@ Only the devs who can keep up with me...
 ### Additions
 - Config options to have Deposit Media and Withdraw Media work on players
 - Crash with Heirophantics
-- Disenchant pattern
+- Disenchantment of self patterns
 - Enchanted Buk (and its entry)
 - Spell Circles weren't working
 ### Changes
