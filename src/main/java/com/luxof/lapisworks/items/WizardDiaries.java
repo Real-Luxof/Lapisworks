@@ -69,7 +69,7 @@ public class WizardDiaries extends Item {
             Identifier advId = shuffled.get(i);
 
             Advancement adv = advLoader.get(advId);
-            if (adv != null && advTracker.getProgress(adv).isDone()) {
+            if (adv != null && !advTracker.getProgress(adv).isDone()) {
                 chosenAdvancement = advId;
                 break;
             }
@@ -78,6 +78,7 @@ public class WizardDiaries extends Item {
         if (chosenAdvancement == null) {
             user.sendMessage(GOT_ALL_DIARIES, true);
             user.addExperience(100);
+            stack.decrement(1);
             return TypedActionResult.success(stack);
         }
 
