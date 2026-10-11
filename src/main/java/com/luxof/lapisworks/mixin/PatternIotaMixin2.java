@@ -1,7 +1,7 @@
 package com.luxof.lapisworks.mixin;
 
 import at.petrak.hexcasting.api.casting.eval.CastResult;
-import at.petrak.hexcasting.api.casting.eval.OperationResult;
+import at.petrak.hexcasting.api.casting.eval.IOperationResult;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM;
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
@@ -44,8 +44,8 @@ public class PatternIotaMixin2 {
     )
     public @NotNull void execute(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir
     ) {
         if (
@@ -81,12 +81,12 @@ public class PatternIotaMixin2 {
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    public @NotNull void execute(
+    public @NotNull void lapisworks$runCounterspells(
         CastingVM vm,
-        ServerWorld world,
         SpellContinuation continuation,
+        boolean inParens,
         CallbackInfoReturnable<CastResult> cir,
-        @Local OperationResult result
+        @Local IOperationResult result
     ) {
         if (
             vm.getEnv() instanceof HieroMindCastEnv &&
