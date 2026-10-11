@@ -464,6 +464,9 @@ Only the devs who can keep up with me...
 - Random ass crash with mixins specifically for Hexwoven??
 - Thoth's Manipulators weren't working specifically on Thoth's Gambit :dead:
 - mipmaps were set to 1 instead of being allowed to live because of some textures (sorry)
+### Interop
+- Hextended
+  - You may now modify how much ambit an Amel Orb gives around the stored position from the config
 # 1.5.8.7
 ### Additions
 - Collar stuff

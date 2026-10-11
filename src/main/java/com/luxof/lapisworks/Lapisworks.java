@@ -23,6 +23,7 @@ import com.google.gson.JsonPrimitive;
 
 import com.luxof.lapisworks.collar.LapisCollarAdditions;
 import com.luxof.lapisworks.frames.IThothsLikeFrame;
+import com.luxof.lapisworks.init.LapisCastEnvComponents;
 import com.luxof.lapisworks.init.LapisConfig;
 import com.luxof.lapisworks.init.LapisParticles;
 import com.luxof.lapisworks.init.LapisResourceCons;
@@ -211,6 +212,7 @@ public class Lapisworks implements ModInitializer {
 			//anyInterop = true;
 		}
 
+		LapisCastEnvComponents.init();
 		LapisResourceCons.doBondagePlay();
 		LapisConfig.renewCurrentConfig(true);
 		LapisSounds.imagineArfingCouldntBeMe();

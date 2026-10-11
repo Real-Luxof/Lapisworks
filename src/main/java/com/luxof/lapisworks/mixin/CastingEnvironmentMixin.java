@@ -2,24 +2,16 @@ package com.luxof.lapisworks.mixin;
 
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment.HeldItemInfo;
-import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
-
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import com.luxof.lapisworks.VAULT.CastEnvVAULT;
 import com.luxof.lapisworks.VAULT.VAULT;
 import com.luxof.lapisworks.mixinsupport.GetStacks;
 import com.luxof.lapisworks.mixinsupport.GetVAULT;
 
-import static com.luxof.lapisworks.Lapisworks.interactWithLinkableMediaBlocks;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -58,27 +50,5 @@ public abstract class CastingEnvironmentMixin implements GetStacks, GetVAULT {
     @Unique @Override
     public List<ItemStack> getHeldItemStacksOtherFirst() {
         return this.getHeldStacksOtherFirst().stream().map((held) -> held.stack()).toList();
-    }
-
-
-
-    @WrapMethod(method = "extractMedia")
-    public long extractMedia(
-        long cost,
-        boolean simulate,
-        Operation<Long> og
-    ) {
-        cost = og.call(cost, simulate);
-        if (!((Object)this instanceof CircleCastEnv env)) return cost;
-
-        cost -= interactWithLinkableMediaBlocks(
-            (ServerWorld)env.getImpetus().getWorld(),
-            Set.of(env.circleState().impetusPos),
-            cost,
-            false,
-            simulate
-        ).getLeft();
-
-        return cost;
     }
 }
